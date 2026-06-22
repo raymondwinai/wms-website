@@ -6,11 +6,11 @@
  *   2. creates a 30-minute event on your Google Calendar (and invites the booker),
  *   3. sends you a WhatsApp message (via the WhatsApp Cloud API).
  *
- * SECRETS — never hard-code these. Set them in:
+ * SECRETS — set these two in:
  *   Project Settings (⚙️) → Script properties → Add script property
- *     WHATSAPP_TOKEN     = your permanent access token (EAAT...)
- *     WHATSAPP_PHONE_ID  = your WhatsApp "Phone number ID" (numeric, from Meta API setup)
- *     WHATSAPP_TO        = recipient number in international format, e.g. 6591234567
+ *     WHATSAPP_TOKEN  = your permanent access token (EAAT...)   <- secret
+ *     WHATSAPP_TO     = recipient number, e.g. 65XXXXXXXX       <- your personal number
+ *   (Phone number ID + template are plain config constants below.)
  *
  * SETUP / REDEPLOY
  * 1. Paste this file in, Save.
@@ -31,8 +31,14 @@ const EVENT_TITLE_PREFIX = 'Discovery Call';
 const INVITE_BOOKER = true;
 
 const WHATSAPP_API_VERSION = 'v21.0';
-const WHATSAPP_TEMPLATE = 'new_lead';   // the template you create in WhatsApp Manager
-const WHATSAPP_LANG = 'en';             // must match your template's language code
+const WHATSAPP_PHONE_ID = '1094004420472616';  // winmediastudios sender (+65 8907 9525)
+
+// Using the built-in 'hello_world' template for now (already approved → works immediately).
+// Once your custom 'new_lead' template is APPROVED, switch these two lines to:
+//   const WHATSAPP_TEMPLATE = 'new_lead';
+//   const WHATSAPP_LANG = 'en_US';   // (or 'en' — match the template's language)
+const WHATSAPP_TEMPLATE = 'hello_world';
+const WHATSAPP_LANG = 'en_US';
 
 const HEADERS = [
   'Submitted at', 'Booking date', 'Booking time', 'Name', 'Phone',
@@ -103,33 +109,28 @@ function createEvent_(data) {
 function sendWhatsApp_(data) {
   const props = PropertiesService.getScriptProperties();
   const token = props.getProperty('WHATSAPP_TOKEN');
-  const phoneId = props.getProperty('WHATSAPP_PHONE_ID');
   const to = props.getProperty('WHATSAPP_TO');
-  if (!token || !phoneId || !to) return 'WhatsApp not configured';
+  if (!token || !to) return 'WhatsApp not configured (set WHATSAPP_TOKEN and WHATSAPP_TO)';
 
-  const url = 'https://graph.facebook.com/' + WHATSAPP_API_VERSION + '/' + phoneId + '/messages';
-  const payload = {
-    messaging_product: 'whatsapp',
-    to: to,
-    type: 'template',
-    template: {
-      name: WHATSAPP_TEMPLATE,
-      language: { code: WHATSAPP_LANG },
-      components: [{
-        type: 'body',
-        parameters: [
-          { type: 'text', text: (data.name || 'New lead') },
-          { type: 'text', text: (data.date || '') },
-          { type: 'text', text: (data.time || '') }
-        ]
-      }]
-    }
-  };
+  const template = { name: WHATSAPP_TEMPLATE, language: { code: WHATSAPP_LANG } };
+  // hello_world has no variables; custom templates like 'new_lead' take 3.
+  if (WHATSAPP_TEMPLATE !== 'hello_world') {
+    template.components = [{
+      type: 'body',
+      parameters: [
+        { type: 'text', text: (data.name || 'New lead') },
+        { type: 'text', text: (data.date || '') },
+        { type: 'text', text: (data.time || '') }
+      ]
+    }];
+  }
+
+  const url = 'https://graph.facebook.com/' + WHATSAPP_API_VERSION + '/' + WHATSAPP_PHONE_ID + '/messages';
   const res = UrlFetchApp.fetch(url, {
     method: 'post',
     contentType: 'application/json',
     headers: { 'Authorization': 'Bearer ' + token },
-    payload: JSON.stringify(payload),
+    payload: JSON.stringify({ messaging_product: 'whatsapp', to: to, type: 'template', template: template }),
     muteHttpExceptions: true
   });
   return 'WA ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 200);
@@ -164,7 +165,8 @@ function doGet() {
   try { const c = CALENDAR_ID ? CalendarApp.getCalendarById(CALENDAR_ID) : CalendarApp.getDefaultCalendar(); status.calendarOk = !!c; status.calendar = c ? c.getName() : null; }
   catch (err) { status.calendarOk = false; status.calendarError = String(err); }
   const p = PropertiesService.getScriptProperties();
-  status.whatsappConfigured = !!(p.getProperty('WHATSAPP_TOKEN') && p.getProperty('WHATSAPP_PHONE_ID') && p.getProperty('WHATSAPP_TO'));
+  status.whatsappConfigured = !!(p.getProperty('WHATSAPP_TOKEN') && p.getProperty('WHATSAPP_TO'));
+  status.whatsappTemplate = WHATSAPP_TEMPLATE;
   return json(status);
 }
 
@@ -177,7 +179,7 @@ function json(obj) {
 // Quick connectivity check using Meta's built-in "hello_world" template (no approval needed).
 function testWhatsAppHello() {
   const p = PropertiesService.getScriptProperties();
-  const url = 'https://graph.facebook.com/' + WHATSAPP_API_VERSION + '/' + p.getProperty('WHATSAPP_PHONE_ID') + '/messages';
+  const url = 'https://graph.facebook.com/' + WHATSAPP_API_VERSION + '/' + WHATSAPP_PHONE_ID + '/messages';
   const payload = { messaging_product: 'whatsapp', to: p.getProperty('WHATSAPP_TO'), type: 'template', template: { name: 'hello_world', language: { code: 'en_US' } } };
   const res = UrlFetchApp.fetch(url, { method: 'post', contentType: 'application/json', headers: { Authorization: 'Bearer ' + p.getProperty('WHATSAPP_TOKEN') }, payload: JSON.stringify(payload), muteHttpExceptions: true });
   Logger.log(res.getResponseCode() + ': ' + res.getContentText());
