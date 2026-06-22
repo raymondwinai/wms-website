@@ -10,3 +10,6 @@
 Brand_assets/
 claude.md
 CLAUDE.md
+
+# Apps Script deploy copy that contains secrets (token) — never commit
+apps-script/Code.deploy.gs
