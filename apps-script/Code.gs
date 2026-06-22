@@ -115,12 +115,15 @@ function sendWhatsApp_(data) {
   const template = { name: WHATSAPP_TEMPLATE, language: { code: WHATSAPP_LANG } };
   // hello_world has no variables; custom templates like 'new_lead' take 3.
   if (WHATSAPP_TEMPLATE !== 'hello_world') {
+    const whenStr = (data.date || '') + (data.time ? ' at ' + data.time : '');
     template.components = [{
       type: 'body',
       parameters: [
-        { type: 'text', text: (data.name || 'New lead') },
-        { type: 'text', text: (data.date || '') },
-        { type: 'text', text: (data.time || '') }
+        { type: 'text', text: (data.name || 'New lead') },   // {{1}}
+        { type: 'text', text: (data.phone || '-') },          // {{2}}
+        { type: 'text', text: (data.email || '-') },          // {{3}}
+        { type: 'text', text: (whenStr || '-') },             // {{4}}
+        { type: 'text', text: (data.revenue || '-') }         // {{5}}
       ]
     }];
   }
@@ -187,7 +190,10 @@ function testWhatsAppHello() {
 
 // Test your real 'new_lead' template with sample data.
 function testWhatsApp() {
-  Logger.log(sendWhatsApp_({ name: 'Test Lead', date: 'Mon, 1 Jan 2026', time: '3:00 PM (SGT)' }));
+  Logger.log(sendWhatsApp_({
+    name: 'Test Lead', phone: '+65 9123 4567', email: 'jane@company.com',
+    date: 'Wednesday, 24 June 2026', time: '3:00 PM (SGT)', revenue: '$50k to $100k / month'
+  }));
 }
 
 // Writes a test row + calendar event (Sheets/Calendar auth check).
