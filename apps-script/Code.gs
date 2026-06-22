@@ -33,11 +33,9 @@ const INVITE_BOOKER = true;
 const WHATSAPP_API_VERSION = 'v21.0';
 const WHATSAPP_PHONE_ID = '1094004420472616';  // winmediastudios sender (+65 8907 9525)
 
-// Using the built-in 'hello_world' template for now (already approved → works immediately).
-// Once your custom 'new_lead' template is APPROVED, switch these two lines to:
-//   const WHATSAPP_TEMPLATE = 'new_lead';
-//   const WHATSAPP_LANG = 'en_US';   // (or 'en' — match the template's language)
-const WHATSAPP_TEMPLATE = 'hello_world';
+// 'new_lead' template with named variables (name, phone, email, datetime).
+// Only sends once the template is "Active" in WhatsApp Manager.
+const WHATSAPP_TEMPLATE = 'new_lead';
 const WHATSAPP_LANG = 'en_US';
 
 const HEADERS = [
@@ -119,11 +117,10 @@ function sendWhatsApp_(data) {
     template.components = [{
       type: 'body',
       parameters: [
-        { type: 'text', text: (data.name || 'New lead') },   // {{1}}
-        { type: 'text', text: (data.phone || '-') },          // {{2}}
-        { type: 'text', text: (data.email || '-') },          // {{3}}
-        { type: 'text', text: (whenStr || '-') },             // {{4}}
-        { type: 'text', text: (data.revenue || '-') }         // {{5}}
+        { type: 'text', parameter_name: 'name',     text: (data.name || 'New lead') },
+        { type: 'text', parameter_name: 'phone',    text: (data.phone || '-') },
+        { type: 'text', parameter_name: 'email',    text: (data.email || '-') },
+        { type: 'text', parameter_name: 'datetime', text: (whenStr || '-') }
       ]
     }];
   }
