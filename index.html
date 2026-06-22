@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Win Media Studios | Become the go-to expert in your industry</title>
+<meta name="description" content="Win Media Studios is a Singapore-based content production and personal branding studio. Done-for-you video content, ads and authority systems that grow your influence and drive real revenue." />
+
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink:        "#1A1A1C",
+          paper:      "#FBFAF7",
+          paper2:     "#F2EFE9",
+          dark:       "#121214",
+          dark2:      "#1E1E22",
+          accent:     "#C8862F",
+          accentSoft: "#E7C58A",
+          line:       "#DAD5CC",
+          lineDark:   "#34343A",
+          muted:      "#6B665E",
+          mutedDark:  "#9A958C",
+        },
+        fontFamily: {
+          serif: ['Fraunces', 'Georgia', 'serif'],
+          sans:  ['Inter', 'system-ui', 'sans-serif'],
+        },
+        letterSpacing: {
+          eyebrow: '0.30em',
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root{
+    --ink:#1A1A1C; --paper:#FBFAF7; --paper-2:#F2EFE9;
+    --dark:#121214; --dark-2:#1E1E22;
+    --accent:#C8862F; --accent-soft:#E7C58A;
+    --line:#DAD5CC; --line-dark:#34343A;
+    --muted:#6B665E; --muted-dark:#9A958C;
+    --spring: cubic-bezier(.16,1,.3,1);
+  }
+
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; }
+
+  ::selection{ background:var(--accent); color:#fff; }
+
+  /* ---------- TYPE HELPERS ---------- */
+  .font-display{ font-family:'Fraunces',Georgia,serif; }
+  .it{ font-style:italic; }
+  .accent-text{ color:var(--accent); }
+
+  .eyebrow{
+    font-size:10px; letter-spacing:.30em; text-transform:uppercase;
+    color:var(--accent); font-weight:600;
+    display:inline-flex; align-items:center; gap:11px;
+  }
+  .eyebrow::before{ content:""; width:26px; height:1px; background:var(--accent); display:inline-block; }
+  .eyebrow.soft{ color:var(--accent-soft); }
+  .eyebrow.soft::before{ background:var(--accent-soft); }
+  .eyebrow.center{ justify-content:center; }
+  .eyebrow.no-line::before{ display:none; }
+
+  .display-xxl{ font-family:'Fraunces',serif; font-weight:300; line-height:1.02; letter-spacing:-0.025em; }
+  .display-xl{  font-family:'Fraunces',serif; font-weight:300; line-height:1.05; letter-spacing:-0.02em; }
+  .display-lg{  font-family:'Fraunces',serif; font-weight:400; line-height:1.08; letter-spacing:-0.015em; }
+
+  .body-lead{ font-size:clamp(16px,1.4vw,18px); line-height:1.7; color:var(--muted); }
+  .body-lead.on-dark{ color:var(--muted-dark); }
+
+  .hairline{ height:1px; background:var(--line); border:0; }
+  .hairline-dark{ height:1px; background:var(--line-dark); border:0; }
+
+  /* ---------- GRAIN + GRADIENT TEXTURE (dark) ---------- */
+  .cinematic{
+    position:relative; background:var(--dark); color:var(--paper); isolation:isolate;
+  }
+  .cinematic::before{
+    content:""; position:absolute; inset:0; z-index:-2;
+    background:
+      radial-gradient(120% 120% at 50% 120%, rgba(30,30,34,.9), transparent 60%),
+      linear-gradient(180deg,#16161a,#0f0f11);
+  }
+  /* ---------- VIDEO / SHOWREEL ---------- */
+  .video-frame{
+    position:relative; width:100%; aspect-ratio:16/9;
+    border-radius:4px; overflow:hidden; background:#000;
+    border:1px solid var(--line-dark);
+    box-shadow:0 1px 1px rgba(0,0,0,.4), 0 40px 80px -32px rgba(0,0,0,.75), 0 0 0 1px rgba(231,197,138,.06);
+  }
+  .video-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+  .yt-player, .yt-player iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  /* transparent layer over the player: catches every click so no YouTube link is reachable */
+  .video-cover{
+    position:absolute; inset:0; z-index:3; width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+    border:0; cursor:pointer; -webkit-tap-highlight-color:transparent;
+    background:radial-gradient(circle at center, rgba(13,13,15,.30), rgba(13,13,15,0) 46%);
+    transition:background-color .4s ease;
+  }
+  .video-cover.playing{ background:transparent; }
+  .video-play{
+    width:76px; height:76px; border-radius:50%; padding-left:5px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(200,134,47,.94); color:#15140f; font-size:22px;
+    box-shadow:0 12px 34px -8px rgba(0,0,0,.6), 0 0 0 8px rgba(251,250,247,.06);
+    transition:transform .5s var(--spring), opacity .45s ease, background-color .3s ease;
+  }
+  .video-cover:hover .video-play{ transform:scale(1.08); background:var(--accent); }
+  .video-cover.playing .video-play{ opacity:0; transform:scale(.7); pointer-events:none; }
+
+  /* ---------- HERO WITH PHOTO BACKGROUND ---------- */
+  .hero{ position:relative; background:var(--dark); color:var(--paper); isolation:isolate; }
+  .hero-media{
+    position:absolute; inset:0; z-index:-3;
+    background:#0f0f11 url('assets/hero-bg.jpg') center 30% / cover no-repeat;
+    filter:grayscale(.12) contrast(1.03) brightness(.92);
+  }
+  .hero-scrim{
+    position:absolute; inset:0; z-index:-2;
+    background:
+      linear-gradient(90deg, rgba(13,13,15,.94) 0%, rgba(13,13,15,.78) 40%, rgba(13,13,15,.45) 72%, rgba(13,13,15,.34) 100%),
+      linear-gradient(180deg, rgba(13,13,15,.82) 0%, rgba(13,13,15,.18) 26%, rgba(13,13,15,.30) 62%, rgba(13,13,15,.78) 100%);
+  }
+
+  .grain::after{
+    content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    opacity:.5; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    position:relative; display:inline-flex; align-items:center; gap:10px;
+    font-size:13px; font-weight:500; letter-spacing:.02em;
+    padding:15px 26px; border-radius:2px; cursor:pointer;
+    transition:transform .5s var(--spring), box-shadow .5s var(--spring), background-color .35s ease, color .35s ease, border-color .35s ease;
+    will-change:transform;
+  }
+  .btn:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  .btn .arrow{ transition:transform .5s var(--spring); }
+  .btn:hover .arrow{ transform:translateX(4px); }
+
+  .btn-primary{
+    background:var(--accent); color:#15140f;
+    box-shadow:0 1px 1px rgba(0,0,0,.04), 0 10px 24px -10px rgba(200,134,47,.55);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 1px 1px rgba(0,0,0,.05), 0 18px 36px -12px rgba(200,134,47,.65); }
+  .btn-primary:active{ transform:translateY(0); }
+
+  .btn-ghost-dark{
+    background:transparent; color:var(--paper); border:1px solid rgba(255,255,255,.22);
+  }
+  .btn-ghost-dark:hover{ transform:translateY(-2px); border-color:rgba(231,197,138,.6); background:rgba(255,255,255,.04); }
+  .btn-ghost-dark:active{ transform:translateY(0); }
+
+  .btn-ghost-light{
+    background:transparent; color:var(--ink); border:1px solid var(--line);
+  }
+  .btn-ghost-light:hover{ transform:translateY(-2px); border-color:var(--accent); }
+  .btn-ghost-light:active{ transform:translateY(0); }
+
+  /* ---------- NAV ---------- */
+  .nav-wrap{ transition:background-color .4s ease, border-color .4s ease, backdrop-filter .4s ease; }
+  .nav-scrolled{
+    background:rgba(251,250,247,.82); backdrop-filter:saturate(140%) blur(12px);
+    border-color:var(--line);
+  }
+  .nav-link{ position:relative; font-size:13px; color:var(--muted); transition:color .3s ease; }
+  .nav-link:hover{ color:var(--ink); }
+  .nav-link::after{
+    content:""; position:absolute; left:0; bottom:-6px; height:1px; width:0; background:var(--accent);
+    transition:width .45s var(--spring);
+  }
+  .nav-link:hover::after{ width:100%; }
+
+  /* nav contrast: white over dark hero (top), ink once scrolled onto light bg */
+  .nav-logo-ink{ display:none; }
+  #nav.nav-scrolled .nav-logo-ink{ display:block; }
+  #nav.nav-scrolled .nav-logo-white{ display:none; }
+  #nav .nav-link{ color:rgba(251,250,247,.72); }
+  #nav .nav-link:hover{ color:#fff; }
+  #nav.nav-scrolled .nav-link{ color:var(--muted); }
+  #nav.nav-scrolled .nav-link:hover{ color:var(--ink); }
+  #nav .bar{ background:#FBFAF7; transition:background-color .4s ease; }
+  #nav.nav-scrolled .bar{ background:var(--ink); }
+
+  /* ---------- CARDS ---------- */
+  .surface{
+    background:#fff; border:1px solid var(--line); border-radius:3px;
+    box-shadow:0 1px 2px rgba(26,26,28,.03);
+    transition:transform .6s var(--spring), box-shadow .6s var(--spring), border-color .4s ease;
+    will-change:transform;
+  }
+  .surface:hover{
+    transform:translateY(-4px);
+    box-shadow:0 1px 2px rgba(26,26,28,.04), 0 24px 50px -28px rgba(26,26,28,.28), 0 12px 24px -18px rgba(200,134,47,.18);
+    border-color:#cfc8bc;
+  }
+
+  .surface-dark{
+    background:linear-gradient(160deg, rgba(36,36,42,.9), rgba(20,20,23,.9));
+    border:1px solid var(--line-dark); border-radius:3px;
+    transition:transform .6s var(--spring), box-shadow .6s var(--spring), border-color .4s ease;
+  }
+  .surface-dark:hover{ transform:translateY(-4px); border-color:rgba(231,197,138,.35); }
+
+  /* service number */
+  .svc-num{ font-family:'Fraunces',serif; font-size:13px; color:var(--accent); font-variant-numeric:tabular-nums; }
+
+  /* industry pills */
+  .pill{
+    font-size:12.5px; letter-spacing:.01em; border:1px solid var(--line); color:var(--ink);
+    padding:9px 17px; border-radius:40px; background:#fff;
+    transition:transform .45s var(--spring), border-color .35s ease, color .35s ease, background-color .35s ease;
+  }
+  .pill:hover{ transform:translateY(-2px); border-color:var(--accent); color:var(--accent); }
+
+  /* work thumb image treatment */
+  .thumb{ position:relative; overflow:hidden; border-radius:3px; border:1px solid var(--line-dark); }
+  .thumb img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .9s var(--spring); filter:grayscale(.25) contrast(1.02);
+  }
+  .thumb::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(18,18,20,.72), rgba(18,18,20,.05) 55%);
+  }
+  .thumb .color-treat{
+    content:""; position:absolute; inset:0; mix-blend-mode:multiply;
+    background:linear-gradient(150deg, rgba(200,134,47,.20), rgba(18,18,20,.1));
+  }
+  .thumb:hover img{ transform:scale(1.05); }
+  .thumb .meta{ position:absolute; left:0; right:0; bottom:0; padding:18px 20px; z-index:2; }
+  .play{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2;
+    width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:rgba(251,250,247,.12); border:1px solid rgba(251,250,247,.5); backdrop-filter:blur(4px);
+    transition:transform .5s var(--spring), background-color .4s ease;
+  }
+  .thumb:hover .play{ transform:translate(-50%,-50%) scale(1.08); background:rgba(200,134,47,.9); border-color:transparent; }
+
+  /* ---------- REVEAL ANIMATION ---------- */
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .9s var(--spring), transform .9s var(--spring); }
+  .reveal.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* big WINS letter */
+  .win-letter{ font-family:'Fraunces',serif; font-weight:300; color:var(--accent-soft); line-height:.8; }
+
+  /* marquee */
+  .marquee{ overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); }
+  .marquee-track{ display:flex; gap:64px; width:max-content; animation:scroll 34s linear infinite; }
+  @keyframes scroll{ to{ transform:translateX(-50%); } }
+  .marquee:hover .marquee-track{ animation-play-state:paused; }
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+  /* ---------- BOOKING MODAL ---------- */
+  .booking-modal{ position:fixed; inset:0; z-index:100; display:none; }
+  .booking-modal.open{ display:block; }
+  body.modal-open{ overflow:hidden; }
+  .booking-backdrop{
+    position:absolute; inset:0; background:rgba(13,13,15,.62);
+    backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+    opacity:0; transition:opacity .4s ease;
+  }
+  .booking-modal.open .booking-backdrop{ opacity:1; }
+  .booking-dialog{
+    position:relative; max-width:430px; width:calc(100% - 32px); max-height:calc(100dvh - 40px);
+    margin:20px auto; overflow-y:auto; background:var(--paper); border:1px solid var(--line);
+    border-radius:6px; box-shadow:0 40px 90px -30px rgba(13,13,15,.6);
+    padding:22px 22px 20px;
+    transform:translateY(16px) scale(.985); opacity:0;
+    transition:transform .5s var(--spring), opacity .4s ease;
+  }
+  .booking-modal.open .booking-dialog{ transform:none; opacity:1; }
+  .booking-x{
+    position:absolute; top:16px; right:16px; width:34px; height:34px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--muted);
+    border:1px solid var(--line); background:#fff; cursor:pointer;
+    transition:transform .4s var(--spring), color .3s ease, border-color .3s ease;
+  }
+  .booking-x:hover{ transform:rotate(90deg); color:var(--ink); border-color:var(--accent); }
+  .booking-x:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  .booking-steps{ display:flex; gap:8px; margin-top:14px; }
+  .booking-steps .step{
+    flex:1; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
+    padding-top:10px; border-top:2px solid var(--line); transition:color .3s ease, border-color .3s ease;
+  }
+  .booking-steps .step.active{ color:var(--accent); border-color:var(--accent); }
+  .booking-steps .step.done{ color:var(--ink); border-color:var(--ink); }
+
+  .booking-step{ margin-top:16px; }
+  .booking-step.hidden{ display:none; }
+  .booking-title{ font-family:'Fraunces',serif; font-size:20px; font-weight:400; line-height:1.12; }
+  .booking-sub{ font-size:12px; color:var(--muted); margin-top:5px; }
+
+  /* calendar */
+  .cal{ margin-top:14px; border:1px solid var(--line); border-radius:4px; padding:11px; background:#fff; }
+  .cal-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .cal-month{ font-family:'Fraunces',serif; font-size:15px; }
+  .cal-nav{
+    width:28px; height:28px; border-radius:4px; border:1px solid var(--line); background:#fff;
+    cursor:pointer; font-size:16px; color:var(--ink); display:flex; align-items:center; justify-content:center;
+    transition:border-color .3s ease, color .3s ease, background-color .3s ease;
+  }
+  .cal-nav:hover:not(:disabled){ border-color:var(--accent); color:var(--accent); }
+  .cal-nav:disabled{ opacity:.35; cursor:not-allowed; }
+  .cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .cal-dow span{ text-align:center; font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:2px 0 6px; }
+  .cal-day{
+    aspect-ratio:1; border:1px solid transparent; border-radius:4px; background:transparent;
+    font-size:12px; color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:background-color .25s ease, color .25s ease, border-color .25s ease, transform .3s var(--spring);
+  }
+  .cal-day:hover:not(:disabled){ border-color:var(--accent); transform:translateY(-1px); }
+  .cal-day:disabled{ color:#c4bdb1; cursor:default; }
+  .cal-day.empty{ border:0; cursor:default; }
+  .cal-day.selected{ background:var(--accent); color:#15140f; font-weight:600; }
+  .cal-day.today:not(.selected){ box-shadow:inset 0 0 0 1px var(--line-dark); }
+
+  /* time slots */
+  .slots-wrap{ margin-top:14px; }
+  .slots-wrap.hidden{ display:none; }
+  .slots-label{ font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:8px; }
+  .slots{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+  .slot{
+    padding:8px 4px; border:1px solid var(--line); border-radius:4px; background:#fff;
+    font-size:12px; color:var(--ink); cursor:pointer; text-align:center;
+    transition:border-color .25s ease, background-color .25s ease, color .25s ease, transform .3s var(--spring);
+  }
+  .slot:hover{ border-color:var(--accent); transform:translateY(-1px); }
+  .slot.selected{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+
+  /* form fields */
+  .field{ margin-bottom:12px; }
+  .field label, .qlabel{ display:block; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:6px; }
+  .field input{
+    width:100%; padding:10px 12px; font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink);
+    background:#fff; border:1px solid var(--line); border-radius:4px; transition:border-color .25s ease, box-shadow .25s ease;
+  }
+  .field input::placeholder{ color:#b3ada2; }
+  .field input:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(200,134,47,.14); }
+
+  .question{ margin:16px 0; padding-top:15px; border-top:1px solid var(--line); }
+  .qlabel{ margin-bottom:12px; }
+  .qtext{ font-family:'Fraunces',serif; font-size:14.5px; color:var(--ink); margin-bottom:10px; line-height:1.3; }
+  .opts{ display:flex; flex-direction:column; gap:7px; }
+  .opt{
+    display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid var(--line);
+    border-radius:4px; background:#fff; cursor:pointer; font-size:13px; color:var(--ink);
+    transition:border-color .25s ease, background-color .25s ease, transform .3s var(--spring);
+  }
+  .opt:hover{ border-color:#cfc8bc; transform:translateY(-1px); }
+  .opt input{ position:absolute; opacity:0; pointer-events:none; }
+  .opt .dot{ width:16px; height:16px; border-radius:50%; border:1.5px solid var(--line); flex:none; position:relative; transition:border-color .25s ease; }
+  .opt .dot::after{ content:""; position:absolute; inset:3px; border-radius:50%; background:var(--accent); transform:scale(0); transition:transform .3s var(--spring); }
+  .opt.checked{ border-color:var(--accent); background:rgba(200,134,47,.06); }
+  .opt.checked .dot{ border-color:var(--accent); }
+  .opt.checked .dot::after{ transform:scale(1); }
+
+  .booking-actions{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:18px; }
+  .booking-sel{ font-size:12px; color:var(--muted); }
+  .booking-back{ background:none; border:0; color:var(--muted); font-size:13px; cursor:pointer; padding:8px 0; transition:color .3s ease; }
+  .booking-back:hover{ color:var(--ink); }
+  .btn[disabled]{ opacity:.4; cursor:not-allowed; pointer-events:none; }
+  .field-error{ color:#B4543A; font-size:11.5px; margin-top:6px; display:none; }
+  .field.invalid input{ border-color:#B4543A; }
+  .field.invalid .field-error, .question.invalid .field-error{ display:block; }
+
+  .booking-done{ text-align:center; padding:18px 6px 8px; }
+  .booking-done .tick{ width:60px; height:60px; border-radius:50%; background:rgba(200,134,47,.14); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:26px; margin:0 auto 18px; }
+
+  @media (max-width:480px){
+    .booking-dialog{ padding:26px 18px 22px; }
+    .slots{ grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+
+<body class="font-sans antialiased text-ink">
+
+<!-- ============ NAV ============ -->
+<header id="nav" class="nav-wrap fixed top-0 inset-x-0 z-50 border-b border-transparent">
+  <nav class="max-w-[1240px] mx-auto px-6 lg:px-10 h-[72px] flex items-center justify-between">
+    <a href="#top" class="flex items-center" aria-label="Win Media Studios home">
+      <img src="assets/wms-logo-white.png" alt="Win Media Studios" class="nav-logo-white h-7 w-auto" />
+      <img src="assets/wms-logo-ink.png" alt="Win Media Studios" class="nav-logo-ink h-7 w-auto" />
+    </a>
+
+    <div class="hidden md:flex items-center gap-9">
+      <a href="#work" class="nav-link">Work</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#approach" class="nav-link">Approach</a>
+      <a href="#about" class="nav-link">About</a>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <a href="#contact" data-book class="btn btn-primary hidden sm:inline-flex">
+        Book a call <span class="arrow">→</span>
+      </a>
+      <button id="menuBtn" class="md:hidden w-10 h-10 -mr-2 flex flex-col items-center justify-center gap-[5px]" aria-label="Open menu">
+        <span class="bar block w-5 h-px"></span>
+        <span class="bar block w-5 h-px"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- mobile menu -->
+  <div id="mobileMenu" class="md:hidden hidden border-t border-line bg-paper/95 backdrop-blur">
+    <div class="px-6 py-5 flex flex-col gap-1">
+      <a href="#work" class="mob-link py-3 text-ink/80 border-b border-line">Work</a>
+      <a href="#services" class="mob-link py-3 text-ink/80 border-b border-line">Services</a>
+      <a href="#approach" class="mob-link py-3 text-ink/80 border-b border-line">Approach</a>
+      <a href="#about" class="mob-link py-3 text-ink/80 border-b border-line">About</a>
+      <a href="#contact" data-book class="btn btn-primary mt-4 justify-center">Book a call <span class="arrow">→</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO (CINEMATIC) ============ -->
+  <section class="hero grain relative overflow-hidden">
+    <div class="hero-media" aria-hidden="true"></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 pt-[150px] pb-[110px] lg:pt-[180px] lg:pb-[140px]">
+      <div class="max-w-[860px]">
+        <div class="eyebrow soft reveal">Content &amp; Personal Branding Studio · Singapore</div>
+
+        <h1 class="display-xxl text-paper mt-7 reveal" style="font-size:clamp(44px,7.4vw,92px);">
+          Become the <span class="it accent-text" style="color:var(--accent-soft);">go-to expert</span><br class="hidden sm:block" />
+          in your industry.
+        </h1>
+
+        <p class="body-lead on-dark mt-8 max-w-[560px] reveal">
+          We're a done-for-you content studio for established business owners. We handle the strategy, the
+          filming and the ads, building the authority that grows your audience and drives real revenue,
+          so you can stay focused on your message.
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center gap-4 reveal">
+          <a href="#contact" data-book class="btn btn-primary">Book a discovery call <span class="arrow">→</span></a>
+          <a href="#showreel" class="btn btn-ghost-dark">
+            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full border border-white/40">▶</span>
+            Watch the showreel
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- bottom stat strip -->
+    <div class="relative border-t border-lineDark">
+      <div class="max-w-[1240px] mx-auto px-6 lg:px-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-lineDark">
+          <div class="py-7 pr-6">
+            <div class="font-display text-accentSoft" style="font-size:36px; font-weight:300;">2022</div>
+            <div class="text-mutedDark text-[12.5px] mt-1">Founded in Singapore</div>
+          </div>
+          <div class="py-7 px-6">
+            <div class="font-display text-accentSoft" style="font-size:36px; font-weight:300;">50+</div>
+            <div class="text-mutedDark text-[12.5px] mt-1">Clients served</div>
+          </div>
+          <div class="py-7 px-6">
+            <div class="font-display text-accentSoft" style="font-size:36px; font-weight:300;">10</div>
+            <div class="text-mutedDark text-[12.5px] mt-1">Person team, two countries</div>
+          </div>
+          <div class="py-7 pl-6">
+            <div class="font-display text-accentSoft" style="font-size:36px; font-weight:300;">Done<span class="text-mutedDark">-</span>for<span class="text-mutedDark">-</span>you</div>
+            <div class="text-mutedDark text-[12.5px] mt-1">End-to-end content systems</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SHOWREEL / VIDEO ============ -->
+  <section id="showreel" class="cinematic grain relative overflow-hidden border-t border-lineDark">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+      <div class="flex flex-wrap items-end justify-between gap-6 reveal">
+        <div class="max-w-[560px]">
+          <div class="eyebrow soft">Our work in motion</div>
+          <h2 class="display-lg text-paper mt-5" style="font-size:clamp(30px,4vw,48px);">
+            See the <span class="it" style="color:var(--accent-soft);">studio</span> at work.
+          </h2>
+        </div>
+        <p class="body-lead on-dark max-w-[38ch]">
+          A look at the kind of cinematic content we craft for the experts we partner with.
+        </p>
+      </div>
+
+      <div class="mt-12 reveal">
+        <div class="video-frame">
+          <div id="ytplayer" class="yt-player"></div>
+          <button id="videoCover" class="video-cover" type="button" aria-label="Play video">
+            <span class="video-play" aria-hidden="true">▶</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST MARQUEE ============ -->
+  <section class="bg-paper2 border-b border-line">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-6 flex flex-col lg:flex-row items-center gap-6">
+      <span class="eyebrow no-line whitespace-nowrap shrink-0">Trusted across industries</span>
+      <div class="marquee w-full">
+        <div class="marquee-track text-muted font-display" style="font-size:19px;">
+          <span>Financial Advisory</span><span>Real Estate</span><span>Business Consulting</span>
+          <span>Healthcare</span><span>Coaching &amp; Mentorship</span><span>Professional Services</span>
+          <span>Entrepreneurship</span><span>Personal Branding</span>
+          <!-- duplicate for seamless loop -->
+          <span aria-hidden="true">Financial Advisory</span><span aria-hidden="true">Real Estate</span><span aria-hidden="true">Business Consulting</span>
+          <span aria-hidden="true">Healthcare</span><span aria-hidden="true">Coaching &amp; Mentorship</span><span aria-hidden="true">Professional Services</span>
+          <span aria-hidden="true">Entrepreneurship</span><span aria-hidden="true">Personal Branding</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHO WE ARE / INTRO ============ -->
+  <section id="about" class="bg-paper">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <div class="lg:col-span-4 reveal">
+          <div class="eyebrow">Who we are</div>
+          <p class="text-muted text-[13.5px] leading-[1.7] mt-6 max-w-[34ch]">
+            Win Media Studios is a Singapore-based content production and personal branding studio. We
+            partner with founders and professionals to grow their influence through strategic,
+            done-for-you content systems.
+          </p>
+          <a href="#services" class="inline-flex items-center gap-2 mt-7 text-[13px] text-ink border-b border-accent pb-1 hover:gap-3 transition-all">
+            See how we work <span>→</span>
+          </a>
+        </div>
+
+        <div class="lg:col-span-8 reveal">
+          <h2 class="display-lg" style="font-size:clamp(28px,3.6vw,46px);">
+            We lead with <span class="it accent-text">strategy</span>, not just cameras. We carry the
+            weight so you can stay focused on <span class="it">your message.</span>
+          </h2>
+          <div class="hairline mt-10"></div>
+          <div class="grid sm:grid-cols-2 gap-x-12 gap-y-7 mt-8">
+            <div>
+              <h3 class="font-display text-[19px]">A partner, not a vendor</h3>
+              <p class="text-muted text-[13.5px] leading-[1.7] mt-2">
+                We understand your industry and bring the thinking: positioning, funnels and authority
+                systems, not only the production.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-display text-[19px]">Premium &amp; built for the long game</h3>
+              <p class="text-muted text-[13.5px] leading-[1.7] mt-2">
+                Brand is an investment, not a cost. We make credible offline experts look like the
+                authority they already are, online.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" class="bg-paper2 border-y border-line">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+      <div class="max-w-[640px] reveal">
+        <div class="eyebrow">What we do</div>
+        <h2 class="display-lg mt-5" style="font-size:clamp(30px,4vw,48px);">
+          One studio for your whole <span class="it accent-text">authority engine.</span>
+        </h2>
+        <p class="body-lead mt-6">
+          From the first strategy call to the published post, we own the craft end-to-end, so the only
+          thing on your plate is showing up.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
+        <!-- card -->
+        <article class="surface p-7 flex flex-col reveal">
+          <div class="flex items-center justify-between">
+            <span class="svc-num">01</span>
+            <span class="text-accent text-xl">◷</span>
+          </div>
+          <h3 class="font-display text-[22px] mt-6">Brand &amp; Content Strategy</h3>
+          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
+            Positioning, messaging and a content engine designed around how your buyers actually decide.
+            The plan before the camera ever rolls.
+          </p>
+          <hr class="hairline my-5" />
+          <span class="text-[11.5px] text-muted">Positioning · Funnels · Content pillars</span>
+        </article>
+
+        <article class="surface p-7 flex flex-col reveal">
+          <div class="flex items-center justify-between">
+            <span class="svc-num">02</span>
+            <span class="text-accent text-xl">▷</span>
+          </div>
+          <h3 class="font-display text-[22px] mt-6">Video Content Production</h3>
+          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
+            Cinematic, intentional, well-lit shoots, turned into a month of short-form and long-form
+            content in a single, painless session.
+          </p>
+          <hr class="hairline my-5" />
+          <span class="text-[11.5px] text-muted">Shoots · Editing · Short-form</span>
+        </article>
+
+        <article class="surface p-7 flex flex-col reveal">
+          <div class="flex items-center justify-between">
+            <span class="svc-num">03</span>
+            <span class="text-accent text-xl">◆</span>
+          </div>
+          <h3 class="font-display text-[22px] mt-6">Paid Ads &amp; Distribution</h3>
+          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
+            We put spend behind the content that performs, turning attention into qualified leads and real,
+            measurable revenue.
+          </p>
+          <hr class="hairline my-5" />
+          <span class="text-[11.5px] text-muted">Meta · YouTube · Lead gen</span>
+        </article>
+
+        <article class="surface p-7 flex flex-col reveal">
+          <div class="flex items-center justify-between">
+            <span class="svc-num">04</span>
+            <span class="text-accent text-xl">❖</span>
+          </div>
+          <h3 class="font-display text-[22px] mt-6">Done-for-You Systems</h3>
+          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
+            Scheduling, captions, publishing and reporting: the full operating system for your personal
+            brand, run for you each month.
+          </p>
+          <hr class="hairline my-5" />
+          <span class="text-[11.5px] text-muted">Management · Captions · Reporting</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ APPROACH / PROCESS (CINEMATIC) ============ -->
+  <section id="approach" class="cinematic grain relative overflow-hidden">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+        <div class="lg:col-span-4 reveal">
+          <div class="eyebrow soft">How we work</div>
+          <h2 class="display-lg text-paper mt-5" style="font-size:clamp(30px,4vw,46px);">
+            A calm, four-step <span class="it" style="color:var(--accent-soft);">partnership.</span>
+          </h2>
+          <p class="body-lead on-dark mt-6 max-w-[40ch]">
+            Done-for-you is a promise of care. We take the weight off your shoulders and handle the entire
+            journey from strategy to results.
+          </p>
+        </div>
+
+        <div class="lg:col-span-8">
+          <div class="grid sm:grid-cols-2 gap-px bg-lineDark border border-lineDark rounded-[3px] overflow-hidden">
+            <div class="bg-dark p-8 reveal">
+              <div class="font-display text-accentSoft text-[15px]">01</div>
+              <h3 class="font-display text-paper text-[22px] mt-3">Discovery &amp; Strategy</h3>
+              <p class="text-mutedDark text-[13px] leading-[1.7] mt-3">
+                We learn your business, your goals and your audience, then map the positioning and content
+                plan that will build your authority.
+              </p>
+            </div>
+            <div class="bg-dark p-8 reveal">
+              <div class="font-display text-accentSoft text-[15px]">02</div>
+              <h3 class="font-display text-paper text-[22px] mt-3">Production Day</h3>
+              <p class="text-mutedDark text-[13px] leading-[1.7] mt-3">
+                One relaxed, well-directed shoot. You show up and speak, and we handle lighting, sound,
+                direction and the entire set.
+              </p>
+            </div>
+            <div class="bg-dark p-8 reveal">
+              <div class="font-display text-accentSoft text-[15px]">03</div>
+              <h3 class="font-display text-paper text-[22px] mt-3">Edit &amp; Publish</h3>
+              <p class="text-mutedDark text-[13px] leading-[1.7] mt-3">
+                We craft, caption and schedule a full month of content, published consistently across the
+                platforms that matter.
+              </p>
+            </div>
+            <div class="bg-dark p-8 reveal">
+              <div class="font-display text-accentSoft text-[15px]">04</div>
+              <h3 class="font-display text-paper text-[22px] mt-3">Amplify &amp; Report</h3>
+              <p class="text-mutedDark text-[13px] leading-[1.7] mt-3">
+                We put ad spend behind what works and report on the numbers that matter: reach, leads and
+                revenue, not vanity metrics.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK / SHOWREEL (CINEMATIC) ============ -->
+  <section id="work" class="cinematic grain relative overflow-hidden border-t border-lineDark">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+      <div class="flex flex-wrap items-end justify-between gap-6 reveal">
+        <div class="max-w-[560px]">
+          <div class="eyebrow soft">Selected work</div>
+          <h2 class="display-lg text-paper mt-5" style="font-size:clamp(30px,4vw,48px);">
+            Real people. <span class="it" style="color:var(--accent-soft);">Real authority.</span>
+          </h2>
+        </div>
+        <p class="body-lead on-dark max-w-[34ch]">
+          A glimpse of the founders and experts we've helped step into the spotlight.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-14">
+        <a href="#contact" class="thumb aspect-[4/5] reveal">
+          <img src="https://placehold.co/640x800/1E1E22/9A958C?text=+" alt="Client feature" />
+          <span class="color-treat"></span>
+          <span class="play">▶</span>
+          <div class="meta">
+            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Financial Advisory</div>
+            <div class="font-display text-paper text-[20px] mt-1">The authority series</div>
+          </div>
+        </a>
+        <a href="#contact" class="thumb aspect-[4/5] reveal">
+          <img src="https://placehold.co/640x800/15151A/9A958C?text=+" alt="Client feature" />
+          <span class="color-treat"></span>
+          <span class="play">▶</span>
+          <div class="meta">
+            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Real Estate</div>
+            <div class="font-display text-paper text-[20px] mt-1">Listings that convert</div>
+          </div>
+        </a>
+        <a href="#contact" class="thumb aspect-[4/5] reveal">
+          <img src="https://placehold.co/640x800/1A1A1C/9A958C?text=+" alt="Client feature" />
+          <span class="color-treat"></span>
+          <span class="play">▶</span>
+          <div class="meta">
+            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Coaching</div>
+            <div class="font-display text-paper text-[20px] mt-1">Founder spotlight</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="mt-12 reveal">
+        <a href="#contact" class="btn btn-ghost-dark">See the full showreel <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIAL / PULL QUOTE ============ -->
+  <section class="bg-paper2 border-y border-line">
+    <div class="max-w-[1000px] mx-auto px-6 lg:px-10 py-24 lg:py-32 text-center reveal">
+      <div class="font-display accent-text text-[56px] leading-none">“</div>
+      <blockquote class="display-lg mt-2" style="font-size:clamp(24px,3.2vw,38px); font-weight:300; line-height:1.3;">
+        They didn't just hand us files. They handed us a system. For the first time our brand online
+        looks like the authority we are <span class="it accent-text">offline.</span>
+      </blockquote>
+      <div class="mt-9 flex items-center justify-center gap-3">
+        <span class="w-9 h-px bg-line"></span>
+        <span class="text-[12px] tracking-[.22em] uppercase text-muted">A Win Media Studios client</span>
+        <span class="w-9 h-px bg-line"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHO WE SERVE ============ -->
+  <section class="bg-paper">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+        <div class="lg:col-span-5 reveal">
+          <div class="eyebrow">Who we serve</div>
+          <h2 class="display-lg mt-5" style="font-size:clamp(28px,3.6vw,42px);">
+            Credible offline, <span class="it accent-text">underbuilt online</span>, and ready to invest in
+            done-for-you.
+          </h2>
+          <p class="body-lead mt-6 max-w-[42ch]">
+            Established service-based business owners and team leaders who'd rather partner with experts
+            than DIY their brand.
+          </p>
+        </div>
+
+        <div class="lg:col-span-7 grid sm:grid-cols-2 gap-x-12 gap-y-10 reveal">
+          <div>
+            <h3 class="eyebrow no-line mb-4">Who they are</h3>
+            <ul class="space-y-0">
+              <li class="text-[13.5px] text-muted py-3 border-t border-line">Senior, respected experts in their field</li>
+              <li class="text-[13.5px] text-muted py-3 border-t border-line">Financial advisers &amp; FA team leaders</li>
+              <li class="text-[13.5px] text-muted py-3 border-t border-line">Property agency leaders &amp; consultants</li>
+              <li class="text-[13.5px] text-muted py-3 border-t border-line">Coaches, consultants &amp; founders</li>
+              <li class="text-[13.5px] text-muted py-3 border-t border-line">Healthcare &amp; professional-services leaders</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="eyebrow no-line mb-4">What they value</h3>
+            <ul class="space-y-0">
+              <li class="text-[13.5px] text-muted py-3 border-t border-line">Brand as an investment, not a cost</li>
+              <li class="text-[13.5px] text-muted py-3 border-t border-line">Quality enough to pay for done-for-you</li>
+              <li class="text-[13.5px] text-muted py-3 border-t border-line">A partner who removes the burden</li>
+              <li class="text-[13.5px] text-muted py-3 border-t border-line">Being made to look like the authority they are</li>
+              <li class="text-[13.5px] text-muted py-3 border-t border-line">The long game over chasing trends</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 reveal">
+        <h3 class="eyebrow no-line mb-5">Industries we serve</h3>
+        <div class="flex flex-wrap gap-2.5">
+          <span class="pill">Financial Advisory</span>
+          <span class="pill">Real Estate</span>
+          <span class="pill">Business Consulting</span>
+          <span class="pill">Healthcare</span>
+          <span class="pill">Coaching &amp; Mentorship</span>
+          <span class="pill">Professional Services</span>
+          <span class="pill">Entrepreneurship</span>
+          <span class="pill">Personal Branding</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA (CINEMATIC) ============ -->
+  <section id="contact" class="cinematic grain relative overflow-hidden border-t border-lineDark">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-28 lg:py-36 text-center">
+      <div class="eyebrow soft center reveal">Let's build your authority</div>
+      <h2 class="display-xl text-paper mt-7 mx-auto max-w-[16ch] reveal" style="font-size:clamp(38px,6vw,72px);">
+        Premium, creative, and built for the <span class="it" style="color:var(--accent-soft);">long game.</span>
+      </h2>
+      <p class="body-lead on-dark mt-7 mx-auto max-w-[52ch] reveal">
+        Book a discovery call and we'll map exactly how Win Media Studios can make you the go-to expert in
+        your industry.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4 reveal">
+        <a href="#contact" data-book class="btn btn-primary">Book a discovery call <span class="arrow">→</span></a>
+        <a href="mailto:raymond@winmediastudios.com" class="btn btn-ghost-dark">Email the studio</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-dark text-paper">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 pt-20 pb-10">
+    <div class="grid md:grid-cols-12 gap-12">
+      <div class="md:col-span-5">
+        <img src="assets/wms-logo-white.png" alt="Win Media Studios" class="h-9 w-auto" />
+        <p class="text-mutedDark text-[13.5px] leading-[1.7] mt-6 max-w-[40ch]">
+          A Singapore-based content production and personal branding studio. We help founders and
+          professionals become the go-to expert in their industry.
+        </p>
+        <p class="text-mutedDark text-[11px] tracking-[.22em] uppercase mt-7">Est. 2022 · Singapore</p>
+      </div>
+
+      <div class="md:col-span-3 md:col-start-7">
+        <h4 class="eyebrow soft no-line mb-5">Explore</h4>
+        <ul class="space-y-3">
+          <li><a href="#work" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Work</a></li>
+          <li><a href="#services" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Services</a></li>
+          <li><a href="#approach" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Approach</a></li>
+          <li><a href="#about" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">About</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-3">
+        <h4 class="eyebrow soft no-line mb-5">Get in touch</h4>
+        <ul class="space-y-3">
+          <li><a href="mailto:raymond@winmediastudios.com" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">raymond@winmediastudios.com</a></li>
+          <li><a href="#contact" data-book class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Book a discovery call</a></li>
+        </ul>
+        <a href="#contact" data-book class="btn btn-primary mt-6">Start a project <span class="arrow">→</span></a>
+      </div>
+    </div>
+
+    <hr class="hairline-dark mt-16 mb-7" />
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-mutedDark text-[11.5px]">
+      <span>© <span id="year">2026</span> Win Media Studios. All rights reserved.</span>
+      <span class="tracking-[.22em] uppercase">Become the go-to expert in your industry</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ BOOKING MODAL ============ -->
+<div id="bookingModal" class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="bookingHeading">
+  <div class="booking-backdrop" data-close></div>
+  <div class="booking-dialog">
+    <button class="booking-x" data-close type="button" aria-label="Close">✕</button>
+
+    <div class="eyebrow">Book a discovery call</div>
+    <h3 id="bookingHeading" class="sr-only">Book a discovery call</h3>
+    <div class="booking-steps">
+      <span class="step active" data-ind="1">1 · Date &amp; time</span>
+      <span class="step" data-ind="2">2 · Your details</span>
+    </div>
+
+    <!-- STEP 1: DATE & TIME -->
+    <div class="booking-step" data-step="1">
+      <div class="booking-title">Pick a date that works for you.</div>
+      <div class="booking-sub">All times are Singapore time (GMT+8). A 30-minute call.</div>
+
+      <div class="cal">
+        <div class="cal-head">
+          <button class="cal-nav" id="calPrev" type="button" aria-label="Previous month">‹</button>
+          <div class="cal-month" id="calMonth"></div>
+          <button class="cal-nav" id="calNext" type="button" aria-label="Next month">›</button>
+        </div>
+        <div class="cal-grid cal-dow">
+          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
+        <div class="cal-grid" id="calDays"></div>
+      </div>
+
+      <div class="slots-wrap hidden" id="slotsWrap">
+        <div class="slots-label">Available times</div>
+        <div class="slots" id="slots"></div>
+      </div>
+
+      <div class="booking-actions">
+        <span class="booking-sel" id="selSummary">Select a date to see times</span>
+        <button class="btn btn-primary" id="toStep2" type="button" disabled>Continue <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 2: DETAILS -->
+    <form class="booking-step hidden" data-step="2" id="bookingForm" novalidate>
+      <div class="booking-title">Tell us where to reach you.</div>
+      <div class="booking-sub" id="step2Summary"></div>
+
+      <div style="margin-top:20px;">
+        <div class="field">
+          <label for="bkName">Name</label>
+          <input type="text" id="bkName" name="name" autocomplete="name" placeholder="Your full name" required>
+          <div class="field-error">Please enter your name.</div>
+        </div>
+        <div class="field">
+          <label for="bkPhone">Phone</label>
+          <input type="tel" id="bkPhone" name="phone" autocomplete="tel" placeholder="+65 0000 0000" required>
+          <div class="field-error">Please enter your phone number.</div>
+        </div>
+        <div class="field">
+          <label for="bkWhats">WhatsApp</label>
+          <input type="tel" id="bkWhats" name="whatsapp" placeholder="+65 0000 0000 (if different)">
+          <div class="field-error">Please enter a WhatsApp number.</div>
+        </div>
+        <div class="field">
+          <label for="bkEmail">Email</label>
+          <input type="email" id="bkEmail" name="email" autocomplete="email" placeholder="you@company.com" required>
+          <div class="field-error">Please enter a valid email.</div>
+        </div>
+      </div>
+
+      <!-- Q1 -->
+      <div class="question" data-q="commitment">
+        <div class="qtext">I agree to show up at the time I've booked. I respect the value of my time and others, and will give at least 24 hours notice if I need to reschedule.</div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="commitment" value="Yes, I value my time &amp; others" required><span class="dot"></span>Yes, I value my time &amp; others</label>
+          <label class="opt"><input type="radio" name="commitment" value="No, I can't commit to that right now"><span class="dot"></span>No, I can't commit to that right now</label>
+        </div>
+        <div class="field-error">Please choose an option.</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question" data-q="revenue">
+        <div class="qtext">What is your monthly revenue?</div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="revenue" value="< $10k / month" required><span class="dot"></span>&lt; $10k / month</label>
+          <label class="opt"><input type="radio" name="revenue" value="$10k to $49k / month"><span class="dot"></span>$10k to $49k / month</label>
+          <label class="opt"><input type="radio" name="revenue" value="$50k to $100k / month"><span class="dot"></span>$50k to $100k / month</label>
+          <label class="opt"><input type="radio" name="revenue" value="> $100k / month"><span class="dot"></span>&gt; $100k / month</label>
+        </div>
+        <div class="field-error">Please choose an option.</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question" data-q="ads">
+        <div class="qtext">Are you currently running paid ads?</div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="ads" value="No, I'm not currently running paid ads" required><span class="dot"></span>No, I'm not currently running paid ads</label>
+          <label class="opt"><input type="radio" name="ads" value="Yes, I'm currently running paid ads"><span class="dot"></span>Yes, I'm currently running paid ads</label>
+        </div>
+        <div class="field-error">Please choose an option.</div>
+      </div>
+
+      <div class="booking-actions">
+        <button class="booking-back" id="toStep1" type="button">← Back</button>
+        <button class="btn btn-primary" type="submit">Confirm booking <span class="arrow">→</span></button>
+      </div>
+    </form>
+
+    <!-- DONE -->
+    <div class="booking-step hidden booking-done" data-step="done">
+      <div class="tick">✓</div>
+      <div class="booking-title">You're booked in.</div>
+      <p class="booking-sub" id="doneSummary" style="max-width:42ch;margin:10px auto 0;"></p>
+      <p class="booking-sub" style="margin-top:14px;">Thanks — we've got your details and the team will be in touch shortly to confirm your call.</p>
+      <div style="margin-top:22px;"><button class="btn btn-ghost-light" data-close type="button">Close</button></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // nav scroll state
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('nav-scrolled', window.scrollY > 24);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive:true });
+
+  // mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  document.querySelectorAll('.mob-link, #mobileMenu a').forEach(a =>
+    a.addEventListener('click', () => mobileMenu.classList.add('hidden'))
+  );
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = Math.min(i * 60, 180) + 'ms';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ---- Showreel: custom YouTube player with no clickable YouTube chrome ----
+  (function () {
+    const mount = document.getElementById('ytplayer');
+    const cover = document.getElementById('videoCover');
+    if (!mount || !cover) return;
+
+    let player = null, ready = false;
+
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+
+    window.onYouTubeIframeAPIReady = function () {
+      player = new YT.Player('ytplayer', {
+        videoId: 'Xq7CMPAdjws',
+        host: 'https://www.youtube-nocookie.com',
+        playerVars: {
+          rel: 0, controls: 0, modestbranding: 1, playsinline: 1,
+          disablekb: 1, fs: 0, iv_load_policy: 3
+        },
+        events: {
+          onReady: () => { ready = true; },
+          onStateChange: (e) => {
+            cover.classList.toggle('playing', e.data === YT.PlayerState.PLAYING);
+          }
+        }
+      });
+    };
+
+    cover.addEventListener('click', function () {
+      if (!ready || !player) return;
+      const s = player.getPlayerState();
+      if (s === YT.PlayerState.PLAYING) player.pauseVideo();
+      else player.playVideo();
+    });
+  })();
+
+  // ---- Booking modal: calendar + form ----
+  (function () {
+    const modal = document.getElementById('bookingModal');
+    if (!modal) return;
+
+    // Paste your deployed Google Apps Script web app URL here (it ends in /exec).
+    // Until then, the form falls back to opening a prefilled email.
+    const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxHT6z8J7NA90MC_ejnlDq-Mvu7YkEK-Ag5TX404xtifSW_Eq1_YdyP6yMFcmPuJihIsA/exec';
+
+    const dialog   = modal.querySelector('.booking-dialog');
+    const stepEls  = modal.querySelectorAll('.booking-step');
+    const stepInds = modal.querySelectorAll('.booking-steps .step');
+    const calMonth = document.getElementById('calMonth');
+    const calDays  = document.getElementById('calDays');
+    const calPrev  = document.getElementById('calPrev');
+    const calNext  = document.getElementById('calNext');
+    const slotsWrap = document.getElementById('slotsWrap');
+    const slotsEl  = document.getElementById('slots');
+    const selSummary = document.getElementById('selSummary');
+    const toStep2  = document.getElementById('toStep2');
+    const toStep1  = document.getElementById('toStep1');
+    const step2Summary = document.getElementById('step2Summary');
+    const form     = document.getElementById('bookingForm');
+    const doneSummary = document.getElementById('doneSummary');
+
+    const SLOTS = ['9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'];
+    const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    let view = new Date(); view.setDate(1); view.setHours(0,0,0,0);
+    const today = new Date(); today.setHours(0,0,0,0);
+    const minMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    let selectedDate = null, selectedSlot = null, lastFocus = null;
+
+    function fmtDate(d){
+      return d.toLocaleDateString('en-GB',{ weekday:'long', day:'numeric', month:'long', year:'numeric' });
+    }
+
+    // Build an ISO start time in Singapore time (GMT+8) from the chosen date + slot.
+    function buildStartISO(date, slot){
+      const m = slot.match(/(\d+):(\d+)\s*(AM|PM)/i);
+      if (!m) return '';
+      let h = parseInt(m[1],10); const min = parseInt(m[2],10); const ap = m[3].toUpperCase();
+      if (ap === 'PM' && h !== 12) h += 12;
+      if (ap === 'AM' && h === 12) h = 0;
+      const p = n => String(n).padStart(2,'0');
+      return date.getFullYear() + '-' + p(date.getMonth()+1) + '-' + p(date.getDate())
+        + 'T' + p(h) + ':' + p(min) + ':00+08:00';
+    }
+
+    function renderCal(){
+      calMonth.textContent = MONTHS[view.getMonth()] + ' ' + view.getFullYear();
+      calPrev.disabled = (view.getFullYear() === minMonth.getFullYear() && view.getMonth() === minMonth.getMonth());
+      calDays.innerHTML = '';
+      // Monday-first offset
+      let firstDow = new Date(view.getFullYear(), view.getMonth(), 1).getDay(); // 0=Sun
+      firstDow = (firstDow + 6) % 7; // 0=Mon
+      const daysInMonth = new Date(view.getFullYear(), view.getMonth()+1, 0).getDate();
+      for (let i=0;i<firstDow;i++){
+        const e = document.createElement('div'); e.className='cal-day empty'; calDays.appendChild(e);
+      }
+      for (let d=1; d<=daysInMonth; d++){
+        const date = new Date(view.getFullYear(), view.getMonth(), d);
+        const btn = document.createElement('button');
+        btn.type='button'; btn.className='cal-day'; btn.textContent=d;
+        const isPast = date < today;
+        const isSun = date.getDay() === 0;
+        if (date.getTime() === today.getTime()) btn.classList.add('today');
+        if (isPast || isSun){ btn.disabled = true; }
+        else {
+          btn.addEventListener('click', function(){
+            selectedDate = date; selectedSlot = null;
+            calDays.querySelectorAll('.cal-day.selected').forEach(x=>x.classList.remove('selected'));
+            btn.classList.add('selected');
+            renderSlots();
+          });
+        }
+        if (selectedDate && date.getTime() === selectedDate.getTime()) btn.classList.add('selected');
+        calDays.appendChild(btn);
+      }
+    }
+
+    function renderSlots(){
+      slotsWrap.classList.remove('hidden');
+      slotsEl.innerHTML = '';
+      SLOTS.forEach(function(t){
+        const b = document.createElement('button');
+        b.type='button'; b.className='slot'; b.textContent=t;
+        if (t === selectedSlot) b.classList.add('selected');
+        b.addEventListener('click', function(){
+          selectedSlot = t;
+          slotsEl.querySelectorAll('.slot.selected').forEach(x=>x.classList.remove('selected'));
+          b.classList.add('selected');
+          updateStep1();
+        });
+        slotsEl.appendChild(b);
+      });
+      updateStep1();
+    }
+
+    function updateStep1(){
+      if (selectedDate && selectedSlot){
+        selSummary.textContent = fmtDate(selectedDate) + ' · ' + selectedSlot;
+        toStep2.disabled = false;
+      } else if (selectedDate){
+        selSummary.textContent = 'Now choose a time';
+        toStep2.disabled = true;
+      } else {
+        selSummary.textContent = 'Select a date to see times';
+        toStep2.disabled = true;
+      }
+    }
+
+    function showStep(name){
+      stepEls.forEach(s => s.classList.toggle('hidden', s.getAttribute('data-step') !== name));
+      stepInds.forEach(ind=>{
+        const n = ind.getAttribute('data-ind');
+        ind.classList.toggle('active', (name==='1'&&n==='1')||(name==='2'&&n==='2'));
+        ind.classList.toggle('done', (name==='2'&&n==='1')||(name==='done'));
+      });
+      dialog.scrollTop = 0;
+    }
+
+    function openModal(){
+      lastFocus = document.activeElement;
+      if (!selectedDate){ view = new Date(); view.setDate(1); view.setHours(0,0,0,0); }
+      renderCal(); updateStep1(); showStep('1');
+      modal.classList.add('open'); document.body.classList.add('modal-open');
+      modal.setAttribute('aria-hidden','false');
+    }
+    function closeModal(){
+      modal.classList.remove('open'); document.body.classList.remove('modal-open');
+      modal.setAttribute('aria-hidden','true');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    // open triggers
+    document.querySelectorAll('[data-book]').forEach(el=>{
+      el.addEventListener('click', e=>{ e.preventDefault(); openModal(); });
+    });
+    modal.querySelectorAll('[data-close]').forEach(el=> el.addEventListener('click', closeModal));
+    document.addEventListener('keydown', e=>{ if (e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
+
+    calPrev.addEventListener('click', ()=>{ view.setMonth(view.getMonth()-1); renderCal(); });
+    calNext.addEventListener('click', ()=>{ view.setMonth(view.getMonth()+1); renderCal(); });
+
+    toStep2.addEventListener('click', ()=>{
+      step2Summary.textContent = fmtDate(selectedDate) + ' · ' + selectedSlot + ' (SGT)';
+      showStep('2');
+    });
+    toStep1.addEventListener('click', ()=> showStep('1'));
+
+    // radio visual state
+    form.querySelectorAll('.opt input').forEach(inp=>{
+      inp.addEventListener('change', ()=>{
+        form.querySelectorAll('input[name="'+inp.name+'"]').forEach(r=> r.closest('.opt').classList.toggle('checked', r.checked));
+        inp.closest('.question').classList.remove('invalid');
+      });
+    });
+    form.querySelectorAll('.field input').forEach(inp=>{
+      inp.addEventListener('input', ()=> inp.closest('.field').classList.remove('invalid'));
+    });
+
+    function validate(){
+      let ok = true;
+      const name = form.bkName, phone = form.bkPhone, email = form.bkEmail;
+      [['bkName',v=>v.trim()],['bkPhone',v=>v.trim()],['bkEmail',v=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.trim())]]
+        .forEach(([id,test])=>{
+          const f = document.getElementById(id);
+          const valid = test(f.value);
+          f.closest('.field').classList.toggle('invalid', !valid);
+          if (!valid) ok = false;
+        });
+      ['commitment','revenue','ads'].forEach(q=>{
+        const checked = form.querySelector('input[name="'+q+'"]:checked');
+        const block = form.querySelector('.question[data-q="'+q+'"]');
+        block.classList.toggle('invalid', !checked);
+        if (!checked) ok = false;
+      });
+      return ok;
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if (!validate()){
+        const firstBad = form.querySelector('.field.invalid, .question.invalid');
+        if (firstBad) firstBad.scrollIntoView({behavior:'smooth', block:'center'});
+        return;
+      }
+      const payload = {
+        date: fmtDate(selectedDate),
+        time: selectedSlot + ' (SGT)',
+        startISO: buildStartISO(selectedDate, selectedSlot),
+        durationMins: 30,
+        name: form.bkName.value.trim(),
+        phone: form.bkPhone.value.trim(),
+        whatsapp: form.bkWhats.value.trim() || '(same as phone)',
+        email: form.bkEmail.value.trim(),
+        commitment: form.querySelector('input[name="commitment"]:checked').value,
+        revenue: form.querySelector('input[name="revenue"]:checked').value,
+        ads: form.querySelector('input[name="ads"]:checked').value
+      };
+
+      doneSummary.textContent = payload.date + ' at ' + payload.time;
+      showStep('done');
+
+      const configured = SHEETS_ENDPOINT && SHEETS_ENDPOINT.indexOf('PASTE_') === -1;
+
+      if (configured) {
+        // Send to Google Sheet via Apps Script. Use a "simple request"
+        // (text/plain, no-cors) so the browser doesn't block it.
+        fetch(SHEETS_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        }).catch(function () { /* ignore — opaque response */ });
+      } else {
+        // Fallback until the Sheets endpoint is configured: prefilled email.
+        const labels = {
+          date:'Booking date', time:'Booking time', name:'Name', phone:'Phone',
+          whatsapp:'WhatsApp', email:'Email', commitment:'Commitment',
+          revenue:'Monthly revenue', ads:'Running paid ads'
+        };
+        const subject = 'Discovery Call Booking — ' + payload.name;
+        const body = Object.keys(labels).map(k => labels[k] + ': ' + payload[k]).join('\n');
+        const a = document.createElement('a');
+        a.href = 'mailto:raymond@winmediastudios.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        document.body.appendChild(a); a.click(); a.remove();
+      }
+    });
+  })();
+</script>
+</body>
+</html>

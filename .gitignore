@@ -1,0 +1,12 @@
+# OS / editor
+.DS_Store
+
+# Local dev / tooling (not needed for the live site)
+.claude/
+.tmp_view/
+*.log
+
+# Internal source files we don't want published
+Brand_assets/
+claude.md
+CLAUDE.md
