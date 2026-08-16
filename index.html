@@ -269,6 +269,56 @@
   .marquee:hover .marquee-track{ animation-play-state:paused; }
   .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
+  /* ---------- WORK TILES + VIDEO LIGHTBOX ---------- */
+  a.workcard{ display:block; cursor:pointer; transition:transform .5s var(--spring); }
+  a.workcard:focus-visible{ outline:2px solid var(--accent); outline-offset:4px; border-radius:4px; }
+  a.workcard:active{ transform:scale(.993); }
+  /* caption sits below the frame, so keep the vignette light and off the artwork */
+  .workcard .thumb::after{ background:linear-gradient(to top, rgba(18,18,20,.34), rgba(18,18,20,0) 46%); }
+  .workcard .thumb img{ filter:grayscale(.06) contrast(1.02); }
+  .workcard:hover .thumb img{ transform:scale(1.05); }
+  .workcard:hover .play{ transform:translate(-50%,-50%) scale(1.08); background:rgba(200,134,47,.9); border-color:transparent; }
+  .workcard .wc-title{ transition:color .35s ease; }
+  .workcard:hover .wc-title{ color:var(--accent-soft); }
+  .thumb .dur{
+    position:absolute; top:13px; right:13px; z-index:2;
+    font-size:10px; letter-spacing:.12em; color:var(--paper); font-variant-numeric:tabular-nums;
+    padding:4px 8px; border-radius:2px;
+    background:rgba(13,13,15,.55); border:1px solid rgba(251,250,247,.24);
+    backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px);
+  }
+
+  .vbox{ position:fixed; inset:0; z-index:120; display:none; }
+  .vbox.open{ display:block; }
+  .vbox-backdrop{
+    position:absolute; inset:0; background:rgba(13,13,15,.88);
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    opacity:0; transition:opacity .4s ease;
+  }
+  .vbox.open .vbox-backdrop{ opacity:1; }
+  .vbox-dialog{
+    position:absolute; top:50%; left:50%; width:min(1080px, calc(100% - 36px));
+    transform:translate(-50%,-46%) scale(.986); opacity:0;
+    transition:transform .55s var(--spring), opacity .4s ease;
+  }
+  .vbox.open .vbox-dialog{ transform:translate(-50%,-50%); opacity:1; }
+  .vbox-frame{
+    position:relative; width:100%; aspect-ratio:16/9; background:#000;
+    border:1px solid rgba(251,250,247,.14); border-radius:4px; overflow:hidden;
+    box-shadow:0 50px 110px -35px rgba(0,0,0,.85), 0 0 0 1px rgba(200,134,47,.10);
+  }
+  .vbox-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .vbox-cap{ margin-top:15px; }
+  .vbox-x{
+    position:absolute; top:-44px; right:0; width:36px; height:36px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--paper);
+    background:rgba(251,250,247,.10); border:1px solid rgba(251,250,247,.34); cursor:pointer;
+    transition:transform .45s var(--spring), background-color .3s ease, border-color .3s ease;
+  }
+  .vbox-x:hover{ transform:rotate(90deg); background:rgba(200,134,47,.92); border-color:transparent; }
+  .vbox-x:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  @media (max-width:640px){ .vbox-x{ top:-40px; } }
+
   /* ---------- BOOKING MODAL ---------- */
   .booking-modal{ position:fixed; inset:0; z-index:100; display:none; }
   .booking-modal.open{ display:block; }
@@ -721,38 +771,101 @@
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-14">
-        <a href="#contact" class="thumb aspect-[4/5] reveal">
-          <img src="https://placehold.co/640x800/1E1E22/9A958C?text=+" alt="Client feature" />
-          <span class="color-treat"></span>
-          <span class="play">▶</span>
-          <div class="meta">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-11 mt-14">
+        <a href="https://www.youtube.com/watch?v=j4MD41WDV_Y" target="_blank" rel="noopener"
+           class="workcard reveal" data-video="j4MD41WDV_Y"
+           data-cat="Financial Advisory" data-title="6 Bible investment principles that made me millions" data-client="Gabriel Wong">
+          <div class="thumb aspect-video">
+            <img src="https://i.ytimg.com/vi/j4MD41WDV_Y/maxresdefault.jpg" loading="lazy" alt="Gabriel Wong — 6 Bible investment principles that made me millions" />
+            <span class="color-treat"></span>
+            <span class="play">▶</span>
+            <span class="dur">25:30</span>
+          </div>
+          <div class="mt-4">
             <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Financial Advisory</div>
-            <div class="font-display text-paper text-[20px] mt-1">The authority series</div>
+            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">6 investment principles that made me millions</div>
+            <div class="text-[13px] text-mutedDark mt-1.5">Gabriel Wong</div>
           </div>
         </a>
-        <a href="#contact" class="thumb aspect-[4/5] reveal">
-          <img src="https://placehold.co/640x800/15151A/9A958C?text=+" alt="Client feature" />
-          <span class="color-treat"></span>
-          <span class="play">▶</span>
-          <div class="meta">
+        <a href="https://www.youtube.com/watch?v=dgEGrvfpmI4" target="_blank" rel="noopener"
+           class="workcard reveal" data-video="dgEGrvfpmI4"
+           data-cat="Real Estate" data-title="Spotting undervalued properties: the 3P framework" data-client="Jared Tan">
+          <div class="thumb aspect-video">
+            <img src="https://i.ytimg.com/vi/dgEGrvfpmI4/maxresdefault.jpg" loading="lazy" alt="Jared Tan — Spotting undervalued properties: the 3P framework" />
+            <span class="color-treat"></span>
+            <span class="play">▶</span>
+            <span class="dur">56:46</span>
+          </div>
+          <div class="mt-4">
             <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Real Estate</div>
-            <div class="font-display text-paper text-[20px] mt-1">Listings that convert</div>
+            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">Spotting undervalued properties</div>
+            <div class="text-[13px] text-mutedDark mt-1.5">Jared Tan</div>
           </div>
         </a>
-        <a href="#contact" class="thumb aspect-[4/5] reveal">
-          <img src="https://placehold.co/640x800/1A1A1C/9A958C?text=+" alt="Client feature" />
-          <span class="color-treat"></span>
-          <span class="play">▶</span>
-          <div class="meta">
+        <a href="https://www.youtube.com/watch?v=NErF6z-9KiE" target="_blank" rel="noopener"
+           class="workcard reveal" data-video="NErF6z-9KiE"
+           data-cat="Coaching" data-title="From ambition to addiction: the dopamine trap of our generation" data-client="Melvin Soh">
+          <div class="thumb aspect-video">
+            <img src="https://i.ytimg.com/vi/NErF6z-9KiE/maxresdefault.jpg" loading="lazy" alt="Melvin Soh — From ambition to addiction: the dopamine trap of our generation" />
+            <span class="color-treat"></span>
+            <span class="play">▶</span>
+            <span class="dur">1:26:11</span>
+          </div>
+          <div class="mt-4">
             <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Coaching</div>
-            <div class="font-display text-paper text-[20px] mt-1">Founder spotlight</div>
+            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">From ambition to addiction</div>
+            <div class="text-[13px] text-mutedDark mt-1.5">Melvin Soh</div>
+          </div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=tnjE323SlxM" target="_blank" rel="noopener"
+           class="workcard reveal" data-video="tnjE323SlxM"
+           data-cat="Legal" data-title="Being good at your job doesn't always save you" data-client="Jonathan Wong &amp; Ivan Lee">
+          <div class="thumb aspect-video">
+            <img src="https://i.ytimg.com/vi/tnjE323SlxM/maxresdefault.jpg" loading="lazy" alt="Jonathan Wong and Ivan Lee — Being good at your job doesn't always save you" />
+            <span class="color-treat"></span>
+            <span class="play">▶</span>
+            <span class="dur">32:51</span>
+          </div>
+          <div class="mt-4">
+            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Legal</div>
+            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">Being good at your job isn't enough</div>
+            <div class="text-[13px] text-mutedDark mt-1.5">Jonathan Wong &amp; Ivan Lee</div>
+          </div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=dpDb4x9lorc" target="_blank" rel="noopener"
+           class="workcard reveal" data-video="dpDb4x9lorc"
+           data-cat="Entrepreneurship" data-title="Turning 8 failures into an 8-figure empire" data-client="Ma Yi Duo">
+          <div class="thumb aspect-video">
+            <img src="https://i.ytimg.com/vi/dpDb4x9lorc/maxresdefault.jpg" loading="lazy" alt="Ma Yi Duo — Turning 8 failures into an 8-figure empire" />
+            <span class="color-treat"></span>
+            <span class="play">▶</span>
+            <span class="dur">53:38</span>
+          </div>
+          <div class="mt-4">
+            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Entrepreneurship</div>
+            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">8 failures into an 8-figure empire</div>
+            <div class="text-[13px] text-mutedDark mt-1.5">Ma Yi Duo</div>
+          </div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=TtGYEGLVZAQ" target="_blank" rel="noopener"
+           class="workcard reveal" data-video="TtGYEGLVZAQ"
+           data-cat="Tax &amp; Property" data-title="The tax mistake almost every commercial property buyer makes" data-client="Tina Tan">
+          <div class="thumb aspect-video">
+            <img src="https://i.ytimg.com/vi/TtGYEGLVZAQ/maxresdefault.jpg" loading="lazy" alt="Tina Tan — The tax mistake almost every commercial property buyer makes" />
+            <span class="color-treat"></span>
+            <span class="play">▶</span>
+            <span class="dur">27:41</span>
+          </div>
+          <div class="mt-4">
+            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Tax &amp; Property</div>
+            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">The tax mistake buyers keep making</div>
+            <div class="text-[13px] text-mutedDark mt-1.5">Tina Tan</div>
           </div>
         </a>
       </div>
 
       <div class="mt-12 reveal">
-        <a href="#contact" class="btn btn-ghost-dark">See the full showreel <span class="arrow">→</span></a>
+        <a href="#showreel" class="btn btn-ghost-dark">See the full showreel <span class="arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -889,6 +1002,19 @@
     </div>
   </div>
 </footer>
+
+<!-- ============ VIDEO LIGHTBOX ============ -->
+<div id="videoBox" class="vbox" role="dialog" aria-modal="true" aria-labelledby="vboxTitle">
+  <div class="vbox-backdrop" data-vclose></div>
+  <div class="vbox-dialog">
+    <button class="vbox-x" data-vclose type="button" aria-label="Close video">✕</button>
+    <div class="vbox-frame"><div id="vboxMount"></div></div>
+    <div class="vbox-cap">
+      <div id="vboxCat" class="text-[11px] tracking-[.22em] uppercase text-accentSoft"></div>
+      <div id="vboxTitle" class="font-display text-paper text-[19px] mt-1"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ============ BOOKING MODAL ============ -->
 <div id="bookingModal" class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="bookingHeading">
@@ -1306,6 +1432,61 @@
         document.body.appendChild(a); a.click(); a.remove();
       }
     });
+  })();
+
+  /* ---------- WORK VIDEO LIGHTBOX ---------- */
+  (function () {
+    const box   = document.getElementById('videoBox');
+    const mount = document.getElementById('vboxMount');
+    const catEl = document.getElementById('vboxCat');
+    const titEl = document.getElementById('vboxTitle');
+    if (!box || !mount) return;
+
+    let lastFocus = null;
+
+    function open(tile) {
+      const id = tile.getAttribute('data-video');
+      if (!id) return;
+      lastFocus = tile;
+
+      const client = tile.getAttribute('data-client') || '';
+      const title  = tile.getAttribute('data-title')  || '';
+      catEl.textContent = tile.getAttribute('data-cat') || '';
+      titEl.textContent = client ? client + ' — ' + title : title;
+
+      const f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id +
+              '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      f.title = titEl.textContent || 'Win Media Studios video';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.setAttribute('allowfullscreen', '');
+      mount.replaceChildren(f);
+
+      box.classList.add('open');
+      document.body.classList.add('modal-open');
+      const x = box.querySelector('.vbox-x');
+      if (x) x.focus();
+    }
+
+    function close() {
+      if (!box.classList.contains('open')) return;
+      box.classList.remove('open');
+      document.body.classList.remove('modal-open');
+      mount.replaceChildren();               // stops playback
+      if (lastFocus) { lastFocus.focus(); lastFocus = null; }
+    }
+
+    document.querySelectorAll('a.workcard[data-video]').forEach(tile => {
+      tile.addEventListener('click', e => {
+        // let modified clicks open YouTube in a new tab as normal
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        e.preventDefault();
+        open(tile);
+      });
+    });
+
+    box.addEventListener('click', e => { if (e.target.hasAttribute('data-vclose')) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   })();
 </script>
 </body>
