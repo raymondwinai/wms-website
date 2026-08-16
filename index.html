@@ -269,6 +269,23 @@
   .marquee:hover .marquee-track{ animation-play-state:paused; }
   .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
+  /* ---------- STUDIO SET SHOTS ---------- */
+  .set-shot{
+    position:relative; overflow:hidden; border-radius:3px;
+    border:1px solid var(--line); aspect-ratio:2/1; background:var(--dark);
+    box-shadow:0 18px 40px -24px rgba(26,26,28,.45);
+  }
+  .set-shot img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .9s var(--spring);
+  }
+  .set-shot::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(150deg, rgba(200,134,47,.10), rgba(18,18,20,.06));
+    mix-blend-mode:multiply;
+  }
+  figure:hover .set-shot img{ transform:scale(1.04); }
+
   /* ---------- WORK TILES + VIDEO LIGHTBOX ---------- */
   a.workcard{ display:block; cursor:pointer; transition:transform .5s var(--spring); }
   a.workcard:focus-visible{ outline:2px solid var(--accent); outline-offset:4px; border-radius:4px; }
@@ -456,6 +473,7 @@
     <div class="hidden md:flex items-center gap-9">
       <a href="#work" class="nav-link">Work</a>
       <a href="#services" class="nav-link">Services</a>
+      <a href="#studio" class="nav-link">Studio</a>
       <a href="#approach" class="nav-link">Approach</a>
       <a href="#about" class="nav-link">About</a>
     </div>
@@ -476,6 +494,7 @@
     <div class="px-6 py-5 flex flex-col gap-1">
       <a href="#work" class="mob-link py-3 text-ink/80 border-b border-line">Work</a>
       <a href="#services" class="mob-link py-3 text-ink/80 border-b border-line">Services</a>
+      <a href="#studio" class="mob-link py-3 text-ink/80 border-b border-line">Studio</a>
       <a href="#approach" class="mob-link py-3 text-ink/80 border-b border-line">Approach</a>
       <a href="#about" class="mob-link py-3 text-ink/80 border-b border-line">About</a>
       <a href="#contact" data-book class="btn btn-primary mt-4 justify-center">Book a call <span class="arrow">→</span></a>
@@ -756,6 +775,116 @@
     </div>
   </section>
 
+  <!-- ============ PODCAST STUDIO ============ -->
+  <section id="studio" class="bg-paper border-y border-line">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+      <div class="max-w-[640px] reveal">
+        <div class="eyebrow">The studio</div>
+        <h2 class="display-lg mt-5" style="font-size:clamp(30px,4vw,48px);">
+          Just show up and <span class="it accent-text">talk.</span>
+        </h2>
+        <p class="body-lead mt-6">
+          Our own fully rigged podcast studio, with an engineer on site, three dressed camera sets and
+          your raw footage back within 24 hours. You're not booking a room. You're hiring a production
+          department.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
+        <article class="surface p-7 flex flex-col reveal">
+          <div class="flex items-center justify-between">
+            <span class="svc-num">01</span>
+            <span class="text-accent text-xl">◷</span>
+          </div>
+          <h3 class="font-display text-[22px] mt-6">Pre-prepped studio</h3>
+          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
+            Lighting, camera angles and sets are rigged and ready before you walk through the door.
+          </p>
+        </article>
+
+        <article class="surface p-7 flex flex-col reveal">
+          <div class="flex items-center justify-between">
+            <span class="svc-num">02</span>
+            <span class="text-accent text-xl">▷</span>
+          </div>
+          <h3 class="font-display text-[22px] mt-6">Pro-grade gear</h3>
+          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
+            Top-tier audio and multi-camera video equipment, in a room built to look and sound premium.
+          </p>
+        </article>
+
+        <article class="surface p-7 flex flex-col reveal">
+          <div class="flex items-center justify-between">
+            <span class="svc-num">03</span>
+            <span class="text-accent text-xl">◆</span>
+          </div>
+          <h3 class="font-display text-[22px] mt-6">On-site engineer</h3>
+          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
+            A professional runs the whole session, so the recording is clean the first time.
+          </p>
+        </article>
+
+        <article class="surface p-7 flex flex-col reveal">
+          <div class="flex items-center justify-between">
+            <span class="svc-num">04</span>
+            <span class="text-accent text-xl">❖</span>
+          </div>
+          <h3 class="font-display text-[22px] mt-6">Zero stress</h3>
+          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
+            Sit down and speak. We handle every technical detail from setup to delivery.
+          </p>
+        </article>
+      </div>
+
+      <div class="mt-20 reveal">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <h3 class="font-display text-[26px] lg:text-[30px] max-w-[420px]">
+            Three sets, <span class="it accent-text">one booking.</span>
+          </h3>
+          <p class="text-muted text-[14px] leading-[1.7] max-w-[38ch]">
+            Switch the look to match the episode. All three are dressed and lit before your session
+            starts.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-5 mt-10">
+          <figure class="reveal">
+            <div class="set-shot">
+              <img src="assets/studio-set-a.jpg" loading="lazy"
+                   alt="Set A — warm shelving and greenery, used for interview formats" />
+            </div>
+            <figcaption class="text-muted text-[13px] leading-[1.7] mt-4">
+              Warm shelving and greenery. Our most-used look for interview formats and two-hander
+              conversations.
+            </figcaption>
+          </figure>
+          <figure class="reveal">
+            <div class="set-shot">
+              <img src="assets/studio-set-b.jpg" loading="lazy"
+                   alt="Set B — soft, bright and minimal, used for lifestyle and founder storytelling" />
+            </div>
+            <figcaption class="text-muted text-[13px] leading-[1.7] mt-4">
+              Soft, bright and minimal. Reads well for lifestyle, wellness and founder storytelling.
+            </figcaption>
+          </figure>
+          <figure class="reveal">
+            <div class="set-shot">
+              <img src="assets/studio-set-c.jpg" loading="lazy"
+                   alt="Set C — moody low-key lighting against dark wood, used for solo pieces and ads" />
+            </div>
+            <figcaption class="text-muted text-[13px] leading-[1.7] mt-4">
+              Moody low-key lighting against dark wood. Built for solo pieces to camera and ads.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="mt-14 reveal">
+        <a href="#contact" class="btn btn-primary">Enquire about the studio <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ WORK / SHOWREEL (CINEMATIC) ============ -->
   <section id="work" class="cinematic grain relative overflow-hidden border-t border-lineDark">
     <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
@@ -980,6 +1109,7 @@
         <ul class="space-y-3">
           <li><a href="#work" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Work</a></li>
           <li><a href="#services" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Services</a></li>
+          <li><a href="#studio" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Studio</a></li>
           <li><a href="#approach" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Approach</a></li>
           <li><a href="#about" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">About</a></li>
         </ul>
