@@ -222,6 +222,91 @@
   .opt-sub{ font-size:11px; color:var(--dim); }
   .summary{ border-top:1px solid var(--line); }
 
+  /* ---------- BOOKING FLOW ---------- */
+  .steps{ counter-reset:step; }
+  .steps > fieldset:not([hidden]) .step-legend::before{ counter-increment:step; content:counter(step) " · "; }
+  .step-legend{ font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--ash); }
+  .seg{ display:inline-flex; padding:3px; border:1px solid var(--line-2); border-radius:999px; background:rgba(244,241,234,.02); }
+  .seg[hidden]{ display:none; }
+  #bookHead[hidden], #bookHeading[hidden]{ display:none; }
+  .seg button{ font-size:12px; padding:7px 15px; border-radius:999px; color:var(--ash); cursor:pointer;
+    transition:background-color .3s ease, color .3s ease, transform .4s var(--spring); }
+  .seg button:hover{ color:var(--bone); }
+  .seg button:active{ transform:scale(.96); }
+  .seg button:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:2px; }
+  .seg button[aria-selected="true"]{ background:var(--gold); color:#14120d; }
+
+  .cal{ padding:18px; border:1px solid var(--line); border-radius:4px; background:rgba(11,11,13,.35); }
+  .cal-nav{ width:34px; height:34px; border-radius:50%; border:1px solid var(--line-2); color:var(--bone); font-size:17px; line-height:1; cursor:pointer;
+    transition:border-color .3s ease, background-color .3s ease, transform .4s var(--spring); }
+  .cal-nav:hover:not(:disabled){ border-color:rgba(231,197,138,.55); background:rgba(244,241,234,.05); }
+  .cal-nav:active:not(:disabled){ transform:scale(.92); }
+  .cal-nav:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:2px; }
+  .cal-nav:disabled{ opacity:.25; cursor:not-allowed; }
+  .cal-week, .cal-grid{ display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:6px; text-align:center; }
+  .cal-week span{ font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+  .cal-day{ height:44px; border-radius:3px; font-size:14px; color:var(--bone); border:1px solid var(--line); background:rgba(244,241,234,.035);
+    font-variant-numeric:tabular-nums; cursor:pointer; transition:border-color .25s ease, background-color .25s ease, color .25s ease, transform .4s var(--spring); }
+  .cal-day:hover:not(:disabled){ border-color:rgba(231,197,138,.6); transform:translateY(-1px); }
+  .cal-day:active:not(:disabled){ transform:scale(.94); }
+  .cal-day:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:2px; }
+  .cal-day:disabled{ color:var(--dim); opacity:.45; background:transparent; border-color:transparent; cursor:not-allowed; }
+  .cal-day.sel{ background:var(--gold); border-color:var(--gold); color:#14120d; font-weight:500; box-shadow:0 10px 22px -12px rgba(200,134,47,.85); }
+  @media (max-width:480px){ .cal{ margin:0 -14px; padding:12px 8px; } .cal-week, .cal-grid{ gap:4px; } .cal-day{ height:42px; font-size:13.5px; } }
+
+  .times{ display:grid; grid-template-columns:repeat(auto-fill,minmax(168px,1fr)); gap:8px; }
+  .time{ padding:12px 14px; border-radius:3px; border:1px solid var(--line-2); background:rgba(244,241,234,.02); font-size:13px; color:var(--bone);
+    text-align:left; font-variant-numeric:tabular-nums; cursor:pointer;
+    transition:border-color .25s ease, background-color .25s ease, transform .4s var(--spring), box-shadow .4s var(--spring); }
+  .time:hover{ border-color:rgba(231,197,138,.55); transform:translateY(-1px); }
+  .time:active{ transform:scale(.97); }
+  .time:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:2px; }
+  .time.sel{ border-color:var(--gold); background:rgba(200,134,47,.12); box-shadow:0 0 0 1px var(--gold) inset; }
+  .time .t-end{ color:var(--ash); }
+  @media (max-width:520px){
+    .times{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .time{ padding:11px 12px; }
+    .time .t-end{ display:block; font-size:11.5px; margin-top:2px; }
+  }
+
+  .fld{ display:flex; flex-direction:column; gap:7px; }
+  .fld span{ font-size:12px; color:var(--ash); }
+  .fld em{ font-style:normal; color:var(--dim); }
+  .fld input{ width:100%; background:rgba(11,11,13,.55); border:1px solid var(--line-2); border-radius:3px; padding:13px 14px; font-size:14px; color:var(--bone);
+    transition:border-color .25s ease, box-shadow .25s ease; }
+  .fld input::placeholder{ color:var(--dim); }
+  .fld input:hover{ border-color:rgba(244,241,234,.3); }
+  .fld input:focus{ outline:none; border-color:var(--gold); box-shadow:0 0 0 3px rgba(200,134,47,.2); }
+  .fld.bad input{ border-color:#C9675A; box-shadow:0 0 0 3px rgba(201,103,90,.15); }
+  .hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+
+  .agree{ display:flex; gap:12px; align-items:flex-start; font-size:12.5px; line-height:1.7; color:var(--ash); cursor:pointer; }
+  .agree[hidden]{ display:none; }
+  .agree input{ appearance:none; -webkit-appearance:none; flex:none; width:18px; height:18px; margin-top:2px; border:1px solid var(--line-2); border-radius:3px;
+    background:rgba(11,11,13,.55); display:grid; place-content:center; cursor:pointer; transition:background-color .2s ease, border-color .2s ease; }
+  .agree input::after{ content:""; width:9px; height:5px; border-left:2px solid #14120d; border-bottom:2px solid #14120d; transform:rotate(-45deg) translate(1px,-1px); opacity:0; }
+  .agree input:hover{ border-color:rgba(231,197,138,.6); }
+  .agree input:checked{ background:var(--gold); border-color:var(--gold); }
+  .agree input:checked::after{ opacity:1; }
+  .agree input:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:2px; }
+  .agree.bad input{ border-color:#C9675A; }
+
+  .opt:disabled{ opacity:.35; cursor:not-allowed; transform:none; }
+  .book-err{ font-size:13px; line-height:1.6; color:#F0BCB2; padding:12px 14px; border:1px solid rgba(201,103,90,.45); background:rgba(201,103,90,.08); border-radius:3px; }
+  .book-err a{ color:var(--bone); text-decoration:underline; text-underline-offset:3px; }
+  .spin{ display:none; width:14px; height:14px; border-radius:50%; border:2px solid rgba(20,18,13,.3); border-top-color:#14120d; animation:spin .8s linear infinite; }
+  .btn.busy{ pointer-events:none; opacity:.85; }
+  .btn.busy .spin{ display:inline-block; }
+  .btn.busy .arrow{ display:none; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .res-row{ display:flex; justify-content:space-between; gap:18px; padding:12px 0; border-top:1px solid var(--line); font-size:13.5px; }
+  .res-row dt{ color:var(--ash); flex:none; }
+  .res-row dd{ color:var(--bone); text-align:right; }
+  .qr-tile{ background:#fff; padding:14px; border-radius:4px; width:max-content; box-shadow:var(--shadow-2); }
+  .qr-tile canvas, .qr-tile img{ display:block; width:184px; height:184px; }
+  #bookResult h3:focus{ outline:none; }
+
   /* ---------- EPISODES + LIGHTBOX ---------- */
   .ep{ display:block; cursor:pointer; transition:transform .5s var(--spring); }
   .ep:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:4px; border-radius:3px; }
@@ -694,38 +779,94 @@
 <section id="book" class="stage grain relative border-t border-white/[.06]">
   <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
     <div class="grid lg:grid-cols-12 gap-8">
-      <div class="lg:col-span-7 card-raised p-7 sm:p-9 lg:p-11 reveal">
-        <div class="eyebrow">Book a session</div>
-        <h2 class="display-md mt-5" style="font-size:clamp(28px,3.4vw,42px);">Pick your time and your set.</h2>
-
-        <fieldset class="mt-9">
-          <legend class="text-[12px] tracking-[.18em] uppercase text-ash">1 · How long?</legend>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4" role="radiogroup" aria-label="Session length" id="optHours">
-            <button type="button" class="opt" role="radio" aria-checked="false" data-hours="1"><span class="opt-dot"></span><span class="opt-k">1 hour</span><span class="opt-v num">$250</span></button>
-            <button type="button" class="opt" role="radio" aria-checked="true"  data-hours="2"><span class="opt-dot"></span><span class="opt-k">2 hours</span><span class="opt-v num">$450</span><span class="opt-sub">Most common</span></button>
-            <button type="button" class="opt" role="radio" aria-checked="false" data-hours="3"><span class="opt-dot"></span><span class="opt-k">3 hours</span><span class="opt-v num">$650</span></button>
-            <button type="button" class="opt" role="radio" aria-checked="false" data-hours="4"><span class="opt-dot"></span><span class="opt-k">4 hours</span><span class="opt-v num">$850</span></button>
+      <div class="lg:col-span-7 card-raised p-7 sm:p-9 lg:p-11 reveal" id="bookCard">
+        <div class="flex flex-wrap items-center justify-between gap-4" id="bookHead">
+          <div class="eyebrow" id="bookEyebrow">Book a session</div>
+          <div class="seg" role="tablist" aria-label="What would you like to book?" id="modeTabs" hidden>
+            <button type="button" role="tab" aria-selected="true" data-mode="session">Session</button>
+            <button type="button" role="tab" aria-selected="false" data-mode="tour">Free tour</button>
           </div>
-        </fieldset>
-
-        <fieldset class="mt-8">
-          <legend class="text-[12px] tracking-[.18em] uppercase text-ash">2 · Which set?</legend>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4" role="radiogroup" aria-label="Set" id="optSet">
-            <button type="button" class="opt" role="radio" aria-checked="false" data-set="The Library"><span class="opt-dot"></span><span class="opt-k">Set A</span><span class="text-[15px] text-bone">The Library</span></button>
-            <button type="button" class="opt" role="radio" aria-checked="false" data-set="The Lounge"><span class="opt-dot"></span><span class="opt-k">Set B</span><span class="text-[15px] text-bone">The Lounge</span></button>
-            <button type="button" class="opt" role="radio" aria-checked="false" data-set="The Den"><span class="opt-dot"></span><span class="opt-k">Set C</span><span class="text-[15px] text-bone">The Den</span></button>
-            <button type="button" class="opt" role="radio" aria-checked="true"  data-set="Not sure yet"><span class="opt-dot"></span><span class="opt-k">Undecided</span><span class="text-[15px] text-bone">Help me choose</span></button>
-          </div>
-        </fieldset>
-
-        <div class="summary mt-9 pt-7 flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <div class="text-[12px] text-ash" id="sumLabel">2 hours · Help me choose</div>
-            <div class="flex items-baseline gap-2 mt-1"><span class="serif text-[40px] font-light num" id="sumPrice">$450</span><span class="text-[12px] text-dim">No GST</span></div>
-          </div>
-          <button type="button" class="btn btn-gold" id="bookGo"><span id="bookGoLabel">Continue</span> <span class="arrow">→</span></button>
         </div>
-        <p class="text-[12px] text-dim mt-5 leading-[1.7]" id="bookNote">Full payment confirms your slot. Free reschedule or cancellation up to 48 hours before.</p>
+        <h2 class="display-md mt-5" id="bookHeading" style="font-size:clamp(28px,3.4vw,42px);">Pick your time and your set.</h2>
+
+        <div id="bookForm" class="steps">
+          <fieldset class="mt-9" data-session-only>
+            <legend class="step-legend">How long?</legend>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4" role="radiogroup" aria-label="Session length" id="optHours">
+              <button type="button" class="opt" role="radio" aria-checked="false" data-hours="1"><span class="opt-dot"></span><span class="opt-k">1 hour</span><span class="opt-v num">$250</span></button>
+              <button type="button" class="opt" role="radio" aria-checked="true"  data-hours="2"><span class="opt-dot"></span><span class="opt-k">2 hours</span><span class="opt-v num">$450</span><span class="opt-sub">Most common</span></button>
+              <button type="button" class="opt" role="radio" aria-checked="false" data-hours="3"><span class="opt-dot"></span><span class="opt-k">3 hours</span><span class="opt-v num">$650</span></button>
+              <button type="button" class="opt" role="radio" aria-checked="false" data-hours="4"><span class="opt-dot"></span><span class="opt-k">4 hours</span><span class="opt-v num">$850</span></button>
+            </div>
+          </fieldset>
+
+          <fieldset class="mt-8" data-session-only>
+            <legend class="step-legend">Which set?</legend>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4" role="radiogroup" aria-label="Set" id="optSet">
+              <button type="button" class="opt" role="radio" aria-checked="false" data-set="The Library"><span class="opt-dot"></span><span class="opt-k">Set A</span><span class="text-[15px] text-bone">The Library</span></button>
+              <button type="button" class="opt" role="radio" aria-checked="false" data-set="The Lounge"><span class="opt-dot"></span><span class="opt-k">Set B</span><span class="text-[15px] text-bone">The Lounge</span></button>
+              <button type="button" class="opt" role="radio" aria-checked="false" data-set="The Den"><span class="opt-dot"></span><span class="opt-k">Set C</span><span class="text-[15px] text-bone">The Den</span></button>
+              <button type="button" class="opt" role="radio" aria-checked="true"  data-set="Not sure yet"><span class="opt-dot"></span><span class="opt-k">Undecided</span><span class="text-[15px] text-bone">Help me choose</span></button>
+            </div>
+          </fieldset>
+
+          <fieldset class="mt-8" data-live hidden>
+            <legend class="step-legend">Pick a date</legend>
+            <div class="cal mt-4">
+              <div class="flex items-center justify-between">
+                <button type="button" class="cal-nav" id="calPrev" aria-label="Previous month">‹</button>
+                <div class="serif text-[19px]" id="calMonth" aria-live="polite"></div>
+                <button type="button" class="cal-nav" id="calNext" aria-label="Next month">›</button>
+              </div>
+              <div class="cal-week mt-4" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+              <div class="cal-grid mt-2" id="calGrid" role="grid" aria-label="Available dates"></div>
+              <p class="text-[12px] text-dim mt-3" id="calStatus">Loading live availability…</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="mt-8" data-live hidden>
+            <legend class="step-legend">Pick a time</legend>
+            <div class="times mt-4" id="timeGrid" role="radiogroup" aria-label="Start time">
+              <p class="text-[13px] text-dim">Choose a date to see open times.</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="mt-8" data-live hidden>
+            <legend class="step-legend">Your details</legend>
+            <div class="grid sm:grid-cols-2 gap-3 mt-4">
+              <label class="fld"><span>Full name</span><input id="fName" type="text" autocomplete="name" maxlength="80" required /></label>
+              <label class="fld"><span>Email</span><input id="fEmail" type="email" autocomplete="email" maxlength="120" required /></label>
+              <label class="fld"><span>WhatsApp / phone</span><input id="fPhone" type="tel" autocomplete="tel" maxlength="25" placeholder="+65" required /></label>
+              <label class="fld"><span>Anything we should know? <em>Optional</em></span><input id="fNotes" type="text" maxlength="500" /></label>
+              <label class="hp" aria-hidden="true">Website<input id="fWebsite" type="text" tabindex="-1" autocomplete="off" /></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="mt-8" data-live data-session-only hidden>
+            <legend class="step-legend">How would you like to pay?</legend>
+            <div class="grid sm:grid-cols-2 gap-3 mt-4" role="radiogroup" aria-label="Payment method" id="optPay">
+              <button type="button" class="opt" role="radio" aria-checked="false" data-pay="paynow"><span class="opt-dot"></span><span class="text-[15px] text-bone">PayNow</span><span class="opt-sub !text-[12px] !text-ash">No fees. Your slot is held for 12 hours while you pay.</span></button>
+              <button type="button" class="opt" role="radio" aria-checked="false" data-pay="card"><span class="opt-dot"></span><span class="text-[15px] text-bone">Card</span><span class="opt-sub !text-[12px] !text-ash">Confirmed instantly through secure Stripe checkout.</span></button>
+            </div>
+          </fieldset>
+
+          <label class="agree mt-7" data-live data-session-only hidden>
+            <input type="checkbox" id="fAgree" />
+            <span>I agree to the <a href="#terms" class="link-u">booking terms</a>: full payment confirms my slot, it's free to reschedule or cancel up to 48 hours before, and inside 48 hours the payment is forfeited.</span>
+          </label>
+
+          <div class="summary mt-9 pt-7 flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <div class="text-[12px] text-ash" id="sumLabel">2 hours · Help me choose</div>
+              <div class="flex items-baseline gap-2 mt-1"><span class="serif text-[40px] font-light num" id="sumPrice">$450</span><span class="text-[12px] text-dim" id="sumGst">No GST</span></div>
+            </div>
+            <button type="button" class="btn btn-gold" id="bookGo"><span class="spin" aria-hidden="true"></span><span id="bookGoLabel">Continue</span> <span class="arrow">→</span></button>
+          </div>
+          <p class="book-err mt-5" id="bookErr" role="alert" hidden></p>
+          <p class="text-[12px] text-dim mt-5 leading-[1.7]" id="bookNote">Full payment confirms your slot. Free reschedule or cancellation up to 48 hours before.</p>
+        </div>
+
+        <div id="bookResult" hidden aria-live="polite"></div>
       </div>
 
       <div class="lg:col-span-5 flex flex-col gap-8">
@@ -759,7 +900,7 @@
         <h3 class="serif text-[22px] font-light mt-4">Payment</h3>
         <ul class="body mt-4 space-y-3">
           <li>Your booking is confirmed once it's paid in full.</li>
-          <li>Pay online by card when you book.</li>
+          <li>Pay by PayNow or card when you book. PayNow slots are held for 12 hours while your payment comes through.</li>
           <li>No GST. The rate you see is the rate you pay.</li>
         </ul>
       </div>
@@ -775,7 +916,7 @@
         <div class="serif text-goldSoft text-[15px]">03</div>
         <h3 class="serif text-[22px] font-light mt-4">Your session</h3>
         <ul class="body mt-4 space-y-3">
-          <li>Sessions run 1 to 4 hours, 9am to 9pm, seven days a week.</li>
+          <li>Sessions run 1 to 4 hours, 9am to 9pm, seven days a week. Book at least 24 hours ahead.</li>
           <li>We reset the studio for an hour between bookings, so your set is dressed and lit when you arrive.</li>
           <li>Raw footage within 24 hours. Two rounds of revisions on every edit.</li>
         </ul>
@@ -951,26 +1092,19 @@
 <script>
   /* =========================================================
      BOOKING CONFIG
-     Paste each Cal.com event link here once your Cal.com
-     account is set up. While a link is empty, that button
-     falls back to a pre-filled WhatsApp message instead.
+     STUDIO_API: the web app URL from deploying apps-script/studio
+     (ends in /exec). While it's empty, or if the booking server
+     can't be reached, booking falls back to a pre-filled WhatsApp
+     message so the page never breaks.
      ========================================================= */
-  const BOOKING = {
-    cal: {
-      1: '',      // e.g. 'https://cal.com/winmediastudios/studio-1hr'
-      2: '',      // e.g. 'https://cal.com/winmediastudios/studio-2hr'
-      3: '',
-      4: '',
-      tour: ''    // e.g. 'https://cal.com/winmediastudios/studio-tour'
-    },
-    whatsapp: '6589397426'
-  };
+  const STUDIO_API = '';
+  const WHATSAPP = '6589397426';
   /* YouTube ID for the studio reel (the part after watch?v=). */
   const REEL_YOUTUBE_ID = '';
 
   const RATES = { 1: 250, 2: 450, 3: 650, 4: 850 };
 
-  function waLink(text){ return 'https://wa.me/' + BOOKING.whatsapp + '?text=' + encodeURIComponent(text); }
+  function waLink(text){ return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text); }
   function go(url){ window.open(url, '_blank', 'noopener'); }
 
   /* ---------- year ---------- */
@@ -1004,62 +1138,424 @@
     els.forEach(e => io.observe(e));
   })();
 
-  /* ---------- booking widget ---------- */
+  /* ---------- booking ---------- */
   (function(){
-    const state = { hours: 2, set: 'Not sure yet' };
-    const hoursEls = document.querySelectorAll('#optHours .opt');
-    const setEls = document.querySelectorAll('#optSet .opt');
-    const sumLabel = document.getElementById('sumLabel');
-    const sumPrice = document.getElementById('sumPrice');
-    const goLabel = document.getElementById('bookGoLabel');
-    const note = document.getElementById('bookNote');
+    // Local testing only: ?api=http://localhost:8787 points the page at a test server.
+    let API = STUDIO_API;
+    try {
+      if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)){
+        const q = new URLSearchParams(location.search).get('api');
+        if (q) sessionStorage.setItem('wms-api', q);
+        API = q || sessionStorage.getItem('wms-api') || API;
+      }
+    } catch (_) {}
 
-    function setLabel(){ return state.set === 'Not sure yet' ? 'Help me choose' : state.set; }
+    const $ = id => document.getElementById(id);
+    const result = $('bookResult'), form = $('bookForm');
+    const hoursEls = [...document.querySelectorAll('#optHours .opt')];
+    const setEls = [...document.querySelectorAll('#optSet .opt')];
+    const payEls = [...document.querySelectorAll('#optPay .opt')];
+    const tabEls = [...document.querySelectorAll('#modeTabs [data-mode]')];
+
+    const state = { mode: 'session', hours: 2, set: 'Not sure yet', pay: null, date: null, time: null,
+                    live: false, avail: { session: null, tour: null }, loading: {}, month: null, busy: false,
+                    payments: { paynow: false, card: false }, result: false };
+
+    const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const MON = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    const wdOf = d => new Date(d + 'T00:00:00Z').getUTCDay();
+    const dayLabel = d => { const x = new Date(d + 'T00:00:00Z'); return WD[x.getUTCDay()] + ' ' + x.getUTCDate() + ' ' + MON[x.getUTCMonth()].slice(0, 3); };
+    const toMins = t => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5));
+    const t12 = m => { let h = Math.floor(m / 60); const ap = h >= 12 ? 'pm' : 'am'; h = h % 12 || 12; return h + ':' + String(m % 60).padStart(2, '0') + ' ' + ap; };
+    const rangeLabel = t => t12(toMins(t)) + ' – ' + t12(toMins(t) + durMins());
+    const durMins = () => state.mode === 'tour' ? 15 : state.hours * 60;
+    const setLabel = () => state.set === 'Not sure yet' ? 'Help me choose' : state.set;
+    const hoursLabel = h => h + (h === 1 ? ' hour' : ' hours');
+    const listJoin = a => a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
+    const waSession = () => waLink('Hi WMS, I\'d like to book the studio.\n\nLength: ' + hoursLabel(state.hours) + ' ($' + RATES[state.hours] + ')\nSet: ' + setLabel() +
+                                   '\nPreferred date & time: ' + (state.date ? dayLabel(state.date) + (state.time ? ', ' + rangeLabel(state.time) : '') : ''));
+    const waTour = () => waLink('Hi WMS, I\'d like to book a free 15-minute studio tour. Preferred date & time: ');
+
+    function api(params, body){
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 25000);
+      const url = body ? API : API + (API.indexOf('?') < 0 ? '?' : '&') + new URLSearchParams(params);
+      return fetch(url, body ? { method: 'POST', body: JSON.stringify(body), signal: ctl.signal } : { signal: ctl.signal })
+        .then(r => r.json()).finally(() => clearTimeout(timer));
+    }
+
+    /* ---- availability ---- */
+    const avail = () => state.avail[state.mode];
+    const fits = day => !!day && (state.mode === 'tour' ? day.slots.length > 0 : day.slots.some(s => s.max >= state.hours));
+
+    function load(mode, force){
+      if (!API) return Promise.resolve();
+      if (state.avail[mode] && !force) return Promise.resolve();
+      if (state.loading[mode]) return state.loading[mode];
+      if (mode === state.mode) $('calStatus').textContent = 'Loading live availability…';
+      state.loading[mode] = api({ action: 'availability', type: mode })
+        .then(res => {
+          if (!res || !res.ok || !res.days || !res.days.length) throw new Error('unavailable');
+          state.avail[mode] = res;
+          if (res.payments) state.payments = res.payments;
+          state.live = true;
+        })
+        .catch(() => { if (!state.avail.session && !state.avail.tour) state.live = false; })
+        .finally(() => { state.loading[mode] = null; render(); });
+      return state.loading[mode];
+    }
+
+    /* ---- render ---- */
     function render(){
+      const tour = state.mode === 'tour';
+      tabEls.forEach(b => b.setAttribute('aria-selected', String(b.dataset.mode === state.mode)));
+      $('modeTabs').hidden = !state.live || state.result;
+      $('bookHead').hidden = state.result;
+      $('bookHeading').hidden = state.result;
+      $('bookEyebrow').textContent = tour ? 'Free studio tour' : 'Book a session';
+      $('bookHeading').textContent = tour ? 'See the studio first.' : 'Pick your time and your set.';
+      form.querySelectorAll('[data-live], [data-session-only]').forEach(el => {
+        el.hidden = (el.hasAttribute('data-live') && !state.live) || (el.hasAttribute('data-session-only') && tour);
+      });
+
       hoursEls.forEach(b => b.setAttribute('aria-checked', String(Number(b.dataset.hours) === state.hours)));
       setEls.forEach(b => b.setAttribute('aria-checked', String(b.dataset.set === state.set)));
-      sumLabel.textContent = state.hours + (state.hours === 1 ? ' hour' : ' hours') + ' · ' + setLabel();
-      sumPrice.textContent = '$' + RATES[state.hours];
-      const live = !!BOOKING.cal[state.hours];
-      goLabel.textContent = live ? 'Choose a date & pay' : 'Request this slot on WhatsApp';
-      note.textContent = live
-        ? 'Full payment confirms your slot. Free reschedule or cancellation up to 48 hours before.'
-        : "Online booking is launching soon. For now, send us your preferred date on WhatsApp and we'll confirm your slot. Full payment confirms it. Free reschedule or cancellation up to 48 hours before.";
+      if (state.pay && !state.payments[state.pay]) state.pay = null;
+      if (!state.pay){ state.pay = state.payments.paynow ? 'paynow' : state.payments.card ? 'card' : null; }
+      payEls.forEach(b => {
+        const on = !!state.payments[b.dataset.pay];
+        b.disabled = !on;
+        b.setAttribute('aria-checked', String(b.dataset.pay === state.pay));
+        b.title = on ? '' : 'Not available right now';
+      });
+
+      if (state.live) { renderCal(); renderTimes(); }
+
+      const when = state.date ? ' · ' + dayLabel(state.date) + (state.time ? ', ' + rangeLabel(state.time) : '') : '';
+      $('sumLabel').textContent = tour ? 'Free studio tour · 15 minutes' + when : hoursLabel(state.hours) + ' · ' + setLabel() + when;
+      $('sumPrice').textContent = tour ? 'Free' : '$' + RATES[state.hours];
+      $('sumGst').textContent = tour ? '' : 'No GST';
+
+      let label, note;
+      if (!state.live){
+        label = 'Request this slot on WhatsApp';
+        note = API ? 'Live booking is unavailable right now. Send us your preferred date on WhatsApp and we\'ll confirm your slot. Full payment confirms it. Free reschedule or cancellation up to 48 hours before.'
+                   : 'Online booking is launching soon. For now, send us your preferred date on WhatsApp and we\'ll confirm your slot. Full payment confirms it. Free reschedule or cancellation up to 48 hours before.';
+      } else if (tour){
+        label = 'Book my free tour';
+        note = 'No payment needed. Walk the sets, meet the team and ask anything. Tours need to be booked at least a day ahead.';
+      } else {
+        label = state.pay === 'card' ? 'Pay $' + RATES[state.hours] + ' by card' : state.pay === 'paynow' ? 'Hold my slot · PayNow' : 'Continue';
+        note = 'Full payment confirms your slot. Free reschedule or cancellation up to 48 hours before. Sessions need to be booked at least 24 hours ahead.';
+        if (!state.payments.paynow && !state.payments.card) note = 'Online payment is unavailable right now. Please WhatsApp us to book.';
+      }
+      $('bookGoLabel').textContent = state.busy ? 'One moment…' : label;
+      $('bookGo').classList.toggle('busy', state.busy);
+      $('bookNote').textContent = note;
     }
-    function radioKeys(group, attr, parse){
+
+    function renderCal(){
+      const av = avail(), grid = $('calGrid');
+      if (!av){ grid.innerHTML = ''; $('calMonth').textContent = ''; $('calStatus').textContent = 'Loading live availability…'; return; }
+      const days = av.days, byDay = {};
+      days.forEach(x => { byDay[x.d] = x; });
+      const first = days[0].d.slice(0, 7), last = days[days.length - 1].d.slice(0, 7);
+      if (!state.month || state.month < first || state.month > last){
+        const f = days.find(fits); state.month = (f ? f.d : days[0].d).slice(0, 7);
+      }
+      const y = Number(state.month.slice(0, 4)), m = Number(state.month.slice(5, 7));
+      $('calMonth').textContent = MON[m - 1] + ' ' + y;
+      $('calPrev').disabled = state.month <= first;
+      $('calNext').disabled = state.month >= last;
+      const lead = (wdOf(state.month + '-01') + 6) % 7;          // weeks start on Monday
+      const dim = new Date(Date.UTC(y, m, 0)).getUTCDate();
+      let html = '';
+      for (let i = 0; i < lead; i++) html += '<span aria-hidden="true"></span>';
+      for (let d = 1; d <= dim; d++){
+        const ds = state.month + '-' + String(d).padStart(2, '0');
+        const ok = fits(byDay[ds]), sel = state.date === ds;
+        html += '<button type="button" class="cal-day' + (sel ? ' sel' : '') + '" data-day="' + ds + '"' + (ok ? '' : ' disabled') +
+                ' aria-pressed="' + sel + '" aria-label="' + dayLabel(ds) + (ok ? '' : ', unavailable') + '">' + d + '</button>';
+      }
+      grid.innerHTML = html;
+      const any = days.some(fits);
+      $('calStatus').textContent = !any ? 'No open slots in the next 60 days. WhatsApp us and we\'ll find a time.'
+        : state.mode === 'tour' ? 'Live availability. Tours run 15 minutes.'
+        : 'Live availability. Greyed-out dates have no ' + state.hours + '-hour gap left.';
+    }
+
+    function renderTimes(){
+      const g = $('timeGrid'), av = avail();
+      if (!av || !state.date){ g.innerHTML = '<p class="text-[13px] text-dim">Choose a date to see open times.</p>'; return; }
+      const day = av.days.find(x => x.d === state.date);
+      const slots = (day ? day.slots : []).filter(s => state.mode === 'tour' || s.max >= state.hours);
+      if (!slots.length){ g.innerHTML = '<p class="text-[13px] text-dim">No times left on this date for that length. Try another date.</p>'; return; }
+      g.innerHTML = slots.map(s => '<button type="button" class="time' + (state.time === s.t ? ' sel' : '') + '" role="radio" aria-checked="' +
+        (state.time === s.t) + '" data-time="' + s.t + '" aria-label="' + rangeLabel(s.t) + '">' + t12(toMins(s.t)) +
+        '<span class="t-end"> – ' + t12(toMins(s.t) + durMins()) + '</span></button>').join('');
+    }
+
+    /* Drops a chosen date or time that no longer fits after a change. */
+    function revalidate(){
+      const av = avail();
+      if (!av) { state.time = null; return; }
+      const day = state.date && av.days.find(x => x.d === state.date);
+      if (state.date && !fits(day)) { state.date = null; state.time = null; return; }
+      if (state.time && !(day && day.slots.some(s => s.t === state.time && (state.mode === 'tour' || s.max >= state.hours)))) state.time = null;
+    }
+
+    /* ---- errors ---- */
+    function showErr(msg, withWa){
+      const e = $('bookErr');
+      const wa = state.mode === 'tour' ? waTour() : waSession();
+      e.innerHTML = esc(msg) + (withWa ? ' <a href="' + wa + '" target="_blank" rel="noopener">' + (/whatsapp/i.test(msg) ? 'Open WhatsApp' : 'WhatsApp us instead') + '</a>' : '');
+      e.hidden = false;
+    }
+    function clearErr(){ $('bookErr').hidden = true; document.querySelectorAll('#bookCard .bad').forEach(x => x.classList.remove('bad')); }
+
+    function missing(){
+      const out = [], bad = [];
+      if (!state.date) out.push('a date');
+      if (!state.time) out.push('a time');
+      if ($('fName').value.trim().length < 2){ out.push('your name'); bad.push('fName'); }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('fEmail').value.trim())){ out.push('a valid email'); bad.push('fEmail'); }
+      if (!/^\+?[\d\s()-]{6,20}$/.test($('fPhone').value.trim())){ out.push('a valid phone number'); bad.push('fPhone'); }
+      if (state.mode === 'session'){
+        if (!state.pay) out.push('a payment method');
+        if (!$('fAgree').checked){ out.push('your agreement to the booking terms'); bad.push('fAgree'); }
+      }
+      bad.forEach(id => $(id).closest('.fld, .agree').classList.add('bad'));
+      return out;
+    }
+
+    /* ---- submit ---- */
+    function submit(){
+      if (state.busy) return;
+      if (!state.live){ go(state.mode === 'tour' ? waTour() : waSession()); return; }
+      clearErr();
+      const need = missing();
+      if (need.length){ showErr('Please add ' + listJoin(need) + '.'); return; }
+
+      const base = { date: state.date, time: state.time, name: $('fName').value.trim(), email: $('fEmail').value.trim(),
+                     phone: $('fPhone').value.trim(), notes: $('fNotes').value.trim(), website: $('fWebsite').value };
+      const body = state.mode === 'tour' ? Object.assign({ action: 'tour' }, base)
+        : Object.assign({ action: 'hold', hours: state.hours, set: state.set, payment: state.pay, agree: true }, base);
+      let leaving = false;
+      state.busy = true; render();
+      api(null, body).then(res => {
+        if (!res || !res.ok){
+          if (res && (res.code === 'SLOT_TAKEN' || res.code === 'TOO_SOON')){
+            state.time = null; load(state.mode, true).then(() => { revalidate(); render(); });
+          }
+          showErr((res && res.message) || 'Something went wrong. Please try again.', true);
+          return;
+        }
+        state.avail.session = null; state.avail.tour = null;
+        if (state.mode === 'tour') return showTour(res, base);
+        if (res.payment === 'card'){
+          try { sessionStorage.setItem('wms-hold-' + res.ref, res.token); } catch (_) {}
+          leaving = true; location.href = res.checkoutUrl; return;
+        }
+        showPaynow(res);
+      }).catch(() => showErr('We couldn\'t reach the booking system. Please try again in a moment.', true))
+        .finally(() => { if (!leaving){ state.busy = false; render(); } });
+    }
+
+    /* ---- results ---- */
+    function rows(list){
+      return '<dl class="mt-6">' + list.map(r => '<div class="res-row"><dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd></div>').join('') + '</dl>';
+    }
+    function showResult(html){
+      state.result = true; render();
+      form.hidden = true;
+      result.innerHTML = html;
+      result.hidden = false;
+      const h = result.querySelector('h3'); if (h){ h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+      $('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      result.querySelectorAll('[data-again]').forEach(b => b.addEventListener('click', reset));
+    }
+    function actions(again){
+      return '<div class="mt-8 flex flex-wrap gap-3">' + (again ? '<button type="button" class="btn btn-line" data-again>' + esc(again) + '</button>' : '') +
+             '<a class="btn btn-line" href="' + waLink('Hi WMS, a question about my studio booking.') + '" target="_blank" rel="noopener">Questions? WhatsApp us</a></div>';
+    }
+    function showPaynow(res){
+      const pn = res.paynow;
+      const payTo = pn ? (pn.proxyType === 'UEN' ? 'UEN ' : '') + pn.proxy : 'WhatsApp us for details';
+      showResult(
+        '<div class="eyebrow bare">Slot held · ' + esc(res.ref) + '</div>' +
+        '<h3 class="display-md mt-4" style="font-size:clamp(26px,3vw,36px);">Your slot is held. <span class="it gold-text">Pay to confirm it.</span></h3>' +
+        '<div class="grid sm:grid-cols-[1fr_auto] gap-8 items-start">' +
+          rows([['When', res.label], ['Set', setLabel()], ['Amount', '$' + res.amount + ' · No GST'], ['Pay by PayNow to', payTo],
+                ['Payment reference', res.ref], ['Held until', res.holdUntilLabel]]) +
+          (pn ? '<div class="mt-6"><div class="qr-tile" id="pnQr" role="img" aria-label="PayNow QR code for $' + esc(res.amount) + '"></div>' +
+                '<div class="text-[11.5px] text-dim mt-3 max-w-[212px]">Scan with your banking app. The amount and reference are filled in for you.</div></div>' : '') +
+        '</div>' +
+        '<p class="body mt-6">Please include the reference <span class="text-bone">' + esc(res.ref) + '</span> with your payment. We\'ve emailed you these details. ' +
+        'Once your payment lands, we\'ll email your confirmation and calendar invite. If it hasn\'t arrived by ' + esc(res.holdUntilLabel) + ', the slot is released.</p>' +
+        actions('Book another session'));
+      if (pn) drawQr(pn, res);
+    }
+    function showTour(res){
+      showResult(
+        '<div class="eyebrow bare">Tour booked · ' + esc(res.ref) + '</div>' +
+        '<h3 class="display-md mt-4" style="font-size:clamp(26px,3vw,36px);">Your tour is booked. <span class="it gold-text">See you soon.</span></h3>' +
+        rows([['When', res.label], ['Where', '47 Kallang Pudding Rd, #09-13, Crescent @ Kallang'], ['Reference', res.ref]]) +
+        '<p class="body mt-6">A calendar invite is on its way to your inbox. Need a different time? WhatsApp us.</p>' + actions('Book a session'));
+    }
+    function showBooked(res){
+      showResult(
+        '<div class="eyebrow bare">Booking confirmed · ' + esc(res.ref) + '</div>' +
+        '<h3 class="display-md mt-4" style="font-size:clamp(26px,3vw,36px);">You\'re booked. <span class="it gold-text">See you in the studio.</span></h3>' +
+        rows([['When', res.label], ['Where', '47 Kallang Pudding Rd, #09-13, Crescent @ Kallang'], ['Reference', res.ref]]) +
+        '<p class="body mt-6">Your confirmation and calendar invite are on their way. Your set will be dressed and lit when you arrive. ' +
+        'Need to reschedule? WhatsApp us at least 48 hours before your start time.</p>' + actions('Book another session'));
+    }
+    function showNote(eyebrow, title, body, again){
+      showResult('<div class="eyebrow bare">' + esc(eyebrow) + '</div><h3 class="display-md mt-4" style="font-size:clamp(26px,3vw,36px);">' + title + '</h3>' +
+                 '<p class="body mt-5">' + esc(body) + '</p>' + actions(again));
+    }
+    function reset(){
+      result.hidden = true; result.innerHTML = ''; form.hidden = false; state.result = false;
+      state.date = null; state.time = null; state.month = null;
+      if (state.mode === 'tour'){ state.mode = 'session'; }
+      load(state.mode, true); render();
+    }
+
+    /* ---- PayNow QR (SGQR format) ---- */
+    function tlv(id, v){ v = String(v); return id + String(v.length).padStart(2, '0') + v; }
+    function crc16(s){
+      let c = 0xFFFF;
+      for (let i = 0; i < s.length; i++){
+        c ^= s.charCodeAt(i) << 8;
+        for (let j = 0; j < 8; j++){ c = (c & 0x8000) ? ((c << 1) ^ 0x1021) : (c << 1); c &= 0xFFFF; }
+      }
+      return c.toString(16).toUpperCase().padStart(4, '0');
+    }
+    function paynowString(pn, amount, ref, expiry){
+      const proxy = pn.proxyType === 'UEN' ? pn.proxy : pn.proxy.replace(/[^\d+]/g, '');
+      const acct = tlv('00', 'SG.PAYNOW') + tlv('01', pn.proxyType === 'UEN' ? '2' : '0') + tlv('02', proxy) + tlv('03', '0') + (expiry ? tlv('04', expiry) : '');
+      let s = tlv('00', '01') + tlv('01', '12') + tlv('26', acct) + tlv('52', '0000') + tlv('53', '702') + tlv('54', Number(amount).toFixed(2)) +
+              tlv('58', 'SG') + tlv('59', String(pn.name || 'Win Media Studios').slice(0, 25)) + tlv('60', 'Singapore') + tlv('62', tlv('01', ref));
+      s += '6304';
+      return s + crc16(s);
+    }
+    function drawQr(pn, res){
+      const expiry = res.holdUntil ? new Date(Date.parse(res.holdUntil) + 8 * 3600e3).toISOString().slice(0, 10).replace(/-/g, '') : '';
+      const text = paynowString(pn, res.amount, res.ref, expiry);
+      const paint = () => {
+        const el = $('pnQr'); if (!el) return;
+        new QRCode(el, { text: text, width: 184, height: 184, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+      };
+      if (window.QRCode) return paint();
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+      s.onload = paint;
+      s.onerror = () => { const el = $('pnQr'); if (el) el.outerHTML = '<p class="text-[12px] text-dim mt-6">QR code unavailable. Use the PayNow details on the left.</p>'; };
+      document.head.appendChild(s);
+    }
+    window.__paynowString = paynowString;   // exposed for testing
+
+    /* ---- events ---- */
+    function radioKeys(group, apply){
       group.forEach((b, i) => b.addEventListener('keydown', e => {
         if (!['ArrowRight','ArrowDown','ArrowLeft','ArrowUp'].includes(e.key)) return;
         e.preventDefault();
         const dir = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : -1;
-        const next = group[(i + dir + group.length) % group.length];
-        state[attr] = parse(next); render(); next.focus();
+        let next = group[(i + dir + group.length) % group.length];
+        if (next.disabled) next = group[(i + 2 * dir + group.length * 2) % group.length];
+        if (next.disabled) return;
+        apply(next); revalidate(); render(); next.focus();
       }));
     }
-    hoursEls.forEach(b => b.addEventListener('click', () => { state.hours = Number(b.dataset.hours); render(); }));
+    hoursEls.forEach(b => b.addEventListener('click', () => { state.hours = Number(b.dataset.hours); revalidate(); render(); }));
     setEls.forEach(b => b.addEventListener('click', () => { state.set = b.dataset.set; render(); }));
-    radioKeys([...hoursEls], 'hours', b => Number(b.dataset.hours));
-    radioKeys([...setEls], 'set', b => b.dataset.set);
+    payEls.forEach(b => b.addEventListener('click', () => { if (!b.disabled){ state.pay = b.dataset.pay; render(); } }));
+    radioKeys(hoursEls, b => { state.hours = Number(b.dataset.hours); });
+    radioKeys(setEls, b => { state.set = b.dataset.set; });
+    radioKeys(payEls, b => { state.pay = b.dataset.pay; });
+
+    tabEls.forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+    function setMode(mode){
+      if (state.mode === mode) return;
+      state.mode = mode; state.date = null; state.time = null; state.month = null; clearErr();
+      render(); load(mode);
+    }
+
+    $('calGrid').addEventListener('click', e => {
+      const b = e.target.closest('.cal-day'); if (!b || b.disabled) return;
+      state.date = b.dataset.day; state.time = null; clearErr(); render();
+      const t = document.querySelector('#timeGrid .time'); if (t && window.innerWidth < 768) t.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    $('timeGrid').addEventListener('click', e => {
+      const b = e.target.closest('.time'); if (!b) return;
+      state.time = b.dataset.time; clearErr(); render();
+    });
+    const shiftMonth = n => {
+      const y = Number(state.month.slice(0, 4)), m = Number(state.month.slice(5, 7)) - 1 + n;
+      const d = new Date(Date.UTC(y, m, 1)); state.month = d.toISOString().slice(0, 7); render();
+    };
+    $('calPrev').addEventListener('click', () => shiftMonth(-1));
+    $('calNext').addEventListener('click', () => shiftMonth(1));
+    ['fName','fEmail','fPhone','fAgree'].forEach(id => $(id).addEventListener('input', () => $(id).closest('.fld, .agree').classList.remove('bad')));
+    $('fAgree').addEventListener('change', () => $('fAgree').closest('.agree').classList.remove('bad'));
+    $('bookGo').addEventListener('click', submit);
 
     document.querySelectorAll('[data-pick-set]').forEach(b => b.addEventListener('click', () => {
-      state.set = b.dataset.pickSet; render();
-      document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!result.hidden) reset();
+      setMode('session'); state.set = b.dataset.pickSet; render();
+      $('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }));
-
-    document.getElementById('bookGo').addEventListener('click', () => {
-      const link = BOOKING.cal[state.hours];
-      if (link){ go(link + (link.indexOf('?') < 0 ? '?' : '&') + 'notes=' + encodeURIComponent('Set: ' + state.set)); return; }
-      go(waLink('Hi WMS, I\'d like to book the studio.\n\nLength: ' + state.hours + (state.hours === 1 ? ' hour' : ' hours') +
-        ' ($' + RATES[state.hours] + ')\nSet: ' + setLabel() + '\nPreferred date & time: '));
-    });
-
     document.querySelectorAll('[data-tour]').forEach(b => b.addEventListener('click', () => {
-      go(BOOKING.cal.tour || waLink('Hi WMS, I\'d like to book a free 15-minute studio tour. Preferred date & time: '));
+      if (!API) { go(waTour()); return; }
+      if (!result.hidden) reset();
+      setMode('tour');
+      $('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }));
-    document.querySelectorAll('[data-wa]').forEach(b => b.addEventListener('click', e => {
-      e.preventDefault(); go(waLink(b.dataset.wa));
-    }));
+    document.querySelectorAll('[data-wa]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); go(waLink(b.dataset.wa)); }));
+
+    /* ---- returning from Stripe checkout ---- */
+    function handleReturn(){
+      const q = new URLSearchParams(location.search);
+      const ref = q.get('booking');
+      if (!ref || !API) return false;
+      const clean = () => { try { history.replaceState(null, '', location.pathname + '#book'); } catch (_) {} };
+      if (q.get('session_id')){
+        showNote('One moment', 'Confirming your payment…', 'This only takes a few seconds.');
+        api(null, { action: 'verify', ref: ref, sessionId: q.get('session_id') }).then(res => {
+          if (res && res.ok && res.status === 'PAID') showBooked(res);
+          else if (res && res.ok) showNote('Payment processing · ' + ref, 'We\'re still confirming your payment.',
+            'If your card was charged, your booking will be confirmed by email shortly. Questions? WhatsApp us with reference ' + ref + '.', 'Back to booking');
+          else showNote('Something went wrong', 'We couldn\'t confirm this booking.', ((res && res.message) || '') + ' Please WhatsApp us with reference ' + ref + '.', 'Back to booking');
+        }).catch(() => showNote('Something went wrong', 'We couldn\'t reach the booking system.',
+          'If you paid, your booking will still be confirmed by email. Questions? WhatsApp us with reference ' + ref + '.', 'Back to booking'))
+          .finally(clean);
+        return true;
+      }
+      if (q.get('cancelled')){
+        let token = ''; try { token = sessionStorage.getItem('wms-hold-' + ref) || ''; } catch (_) {}
+        const done = () => showNote('Checkout cancelled', 'No payment taken.', 'We\'ve released the slot you picked. Choose another time whenever you\'re ready.', 'Pick a time');
+        (token ? api(null, { action: 'release', ref: ref, token: token }) : Promise.resolve()).then(done, done).finally(clean);
+        return true;
+      }
+      return false;
+    }
 
     render();
+    const returning = handleReturn();
+    if (API){
+      if (returning) load('session');
+      else {
+        // Fetch when the booking section gets close, when someone touches it, or after 3s, whichever comes first.
+        const start = () => load(state.mode);
+        if ('IntersectionObserver' in window){
+          const io = new IntersectionObserver(es => { if (es[0].isIntersecting){ io.disconnect(); start(); } }, { rootMargin: '900px 0px' });
+          io.observe($('book'));
+        }
+        ['pointerenter', 'focusin', 'touchstart'].forEach(ev => $('book').addEventListener(ev, start, { once: true, passive: true }));
+        setTimeout(start, 3000);
+      }
+    }
   })();
 
   /* ---------- video lightbox ---------- */
