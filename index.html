@@ -2,14 +2,19 @@
 <html lang="en-GB">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Win Media Studios | Become the go-to expert in your industry</title>
 <meta name="description" content="Win Media Studios is a Singapore-based content production and personal branding studio. Done-for-you video content, ads and authority systems that grow your influence and drive real revenue." />
 
-<link rel="icon" type="image/png" href="assets/favicon.png" />
+<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" type="image/png" href="assets/brand/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/brand/icon-192.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="assets/hero-bg.jpg" />
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -17,1122 +22,694 @@
     theme: {
       extend: {
         colors: {
-          ink:        "#1A1A1C",
-          paper:      "#FBFAF7",
-          paper2:     "#F2EFE9",
-          dark:       "#121214",
-          dark2:      "#1E1E22",
-          accent:     "#C8862F",
-          accentSoft: "#E7C58A",
-          line:       "#DAD5CC",
-          lineDark:   "#34343A",
-          muted:      "#6B665E",
-          mutedDark:  "#9A958C",
+          page: 'var(--page)', card: 'var(--card)', group: 'var(--group)', fill: 'var(--fill)',
+          ink: 'var(--ink)', mute: 'var(--mute)', dim: 'var(--dim)', accent: 'var(--accent)', green: 'var(--green)'
         },
-        fontFamily: {
-          serif: ['Fraunces', 'Georgia', 'serif'],
-          sans:  ['Inter', 'system-ui', 'sans-serif'],
-        },
-        letterSpacing: {
-          eyebrow: '0.30em',
-        },
-      },
-    },
+        fontFamily: { sans: ['-apple-system','BlinkMacSystemFont','"SF Pro Display"','"SF Pro Text"','"Helvetica Neue"','system-ui','"Segoe UI"','Roboto','sans-serif'] }
+      }
+    }
   };
 </script>
 
 <style>
+  /* ---------- TOKENS: dark only (WMS bronze, Satoshi headlines, glass cards) ---------- */
   :root{
-    --ink:#1A1A1C; --paper:#FBFAF7; --paper-2:#F2EFE9;
-    --dark:#121214; --dark-2:#1E1E22;
-    --accent:#C8862F; --accent-soft:#E7C58A;
-    --line:#DAD5CC; --line-dark:#34343A;
-    --muted:#6B665E; --muted-dark:#9A958C;
-    --spring: cubic-bezier(.16,1,.3,1);
+    color-scheme:dark;
+    --page:#0a0a0a; --card:rgba(255,255,255,.045); --group:rgba(255,255,255,.06); --fill:rgba(255,255,255,.1); --hair:rgba(255,255,255,.1);
+    --ink:#f6f2ea; --mute:#aaa397; --dim:#857f75;
+    --accent:#E0913A; --accent-hover:#EAA04E; --accent-ink:#EDB266; --on-accent:#1a1206; --accent-soft:rgba(224,145,58,.15);
+    --grad:linear-gradient(135deg,#C8862F,#EDB266 55%,#F6DCA8);
+    --green:#30d158; --green-bright:#30d158; --green-soft:rgba(48,209,88,.15);
+    --rose:#ff6482; --rose-soft:rgba(255,55,95,.16);
+    --amber:#ffb340; --amber-soft:rgba(255,179,64,.15);
+    --red:#ff6b5e;
+    --shadow:none;
+    --shadow-lift:0 18px 44px -18px rgba(0,0,0,.8);
+    --glow:radial-gradient(120% 90% at 100% 0%, rgba(224,145,58,.17), transparent 55%);
+    --display:'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --sans:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui, "Segoe UI", Roboto, sans-serif;
+    --ease:cubic-bezier(.2,.8,.2,1);
+    --r:22px; --r-cover:14px;
+    --glass:rgba(10,10,10,.72);
+    --map-filter:invert(.9) hue-rotate(180deg) saturate(.5) brightness(.85);
   }
 
-  html{ scroll-behavior:smooth; }
-  body{ background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; }
+  html{ scroll-behavior:smooth; background:var(--page); }
+  body{ background:var(--page); color:var(--ink); font:400 17px/1.4 var(--sans); letter-spacing:-.01em;
+        -webkit-font-smoothing:antialiased; font-variant-numeric:tabular-nums; }
+  ::selection{ background:var(--accent); color:var(--on-accent); }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 20px; }
+  @media (min-width:768px){ .wrap{ padding:0 32px; } }
+  .measure{ max-width:720px; }
+  section{ scroll-margin-top:64px; }
 
-  ::selection{ background:var(--accent); color:#fff; }
+  /* ---------- TYPE ---------- */
+  .t-hero{ text-wrap:balance; font-family:var(--display); font-size:clamp(42px,6.6vw,74px); font-weight:500; letter-spacing:-.03em; line-height:1.03; }
+  .t-big{ font-family:var(--display); font-size:64px; font-weight:500; letter-spacing:-.035em; line-height:1; font-variant-numeric:lining-nums tabular-nums; }
+  .t-large{ text-wrap:balance; font-family:var(--display); font-size:clamp(30px,4vw,42px); font-weight:500; letter-spacing:-.025em; line-height:1.1; }
+  .t-section{ text-wrap:balance; font-family:var(--display); font-size:24px; font-weight:500; letter-spacing:-.015em; line-height:1.2; }
+  .t-card{ font-size:19px; font-weight:600; letter-spacing:-.02em; line-height:1.25; }
+  .t-figure{ font-family:var(--display); font-size:48px; font-weight:500; letter-spacing:-.035em; line-height:1; font-variant-numeric:lining-nums tabular-nums; }
+  .lead{ font-size:clamp(17px,1.6vw,19px); line-height:1.5; color:var(--mute); }
+  .body{ font-size:15px; line-height:1.5; color:var(--mute); letter-spacing:-.005em; }
+  .hint{ font-size:13px; line-height:1.45; color:var(--dim); letter-spacing:0; }
+  .eyebrow{ font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); }
+  .soft{ color:var(--mute); }
+  .t-hero .soft, .t-large .soft, .t-section .soft, .t-head .soft{ font-weight:400; }
+  .hl{ color:var(--accent-ink); }
+  .grad{ background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lnk{ color:var(--accent-ink); border-radius:4px; transition:opacity .2s ease; }
+  .lnk:hover{ text-decoration:underline; text-underline-offset:3px; }
+  .lnk:active{ opacity:.6; }
+  .lnk:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:3px; }
 
-  /* ---------- TYPE HELPERS ---------- */
-  .font-display{ font-family:'Fraunces',Georgia,serif; }
-  .it{ font-style:italic; }
-  .accent-text{ color:var(--accent); }
-
-  .eyebrow{
-    font-size:10px; letter-spacing:.30em; text-transform:uppercase;
-    color:var(--accent); font-weight:600;
-    display:inline-flex; align-items:center; gap:11px;
-  }
-  .eyebrow::before{ content:""; width:26px; height:1px; background:var(--accent); display:inline-block; }
-  .eyebrow.soft{ color:var(--accent-soft); }
-  .eyebrow.soft::before{ background:var(--accent-soft); }
-  .eyebrow.center{ justify-content:center; }
-  .eyebrow.no-line::before{ display:none; }
-
-  .display-xxl{ font-family:'Fraunces',serif; font-weight:300; line-height:1.02; letter-spacing:-0.025em; }
-  .display-xl{  font-family:'Fraunces',serif; font-weight:300; line-height:1.05; letter-spacing:-0.02em; }
-  .display-lg{  font-family:'Fraunces',serif; font-weight:400; line-height:1.08; letter-spacing:-0.015em; }
-
-  .body-lead{ font-size:clamp(16px,1.4vw,18px); line-height:1.7; color:var(--muted); }
-  .body-lead.on-dark{ color:var(--muted-dark); }
-
-  .hairline{ height:1px; background:var(--line); border:0; }
-  .hairline-dark{ height:1px; background:var(--line-dark); border:0; }
-
-  /* ---------- GRAIN + GRADIENT TEXTURE (dark) ---------- */
-  .cinematic{
-    position:relative; background:var(--dark); color:var(--paper); isolation:isolate;
-  }
-  .cinematic::before{
-    content:""; position:absolute; inset:0; z-index:-2;
-    background:
-      radial-gradient(120% 120% at 50% 120%, rgba(30,30,34,.9), transparent 60%),
-      linear-gradient(180deg,#16161a,#0f0f11);
-  }
-  /* ---------- VIDEO / SHOWREEL ---------- */
-  .video-frame{
-    position:relative; width:100%; aspect-ratio:16/9;
-    border-radius:4px; overflow:hidden; background:#000;
-    border:1px solid var(--line-dark);
-    box-shadow:0 1px 1px rgba(0,0,0,.4), 0 40px 80px -32px rgba(0,0,0,.75), 0 0 0 1px rgba(231,197,138,.06);
-  }
-  .video-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
-  .yt-player, .yt-player iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
-  /* transparent layer over the player: catches every click so no YouTube link is reachable */
-  .video-cover{
-    position:absolute; inset:0; z-index:3; width:100%; height:100%;
-    display:flex; align-items:center; justify-content:center;
-    border:0; cursor:pointer; -webkit-tap-highlight-color:transparent;
-    background:radial-gradient(circle at center, rgba(13,13,15,.30), rgba(13,13,15,0) 46%);
-    transition:background-color .4s ease;
-  }
-  .video-cover.playing{ background:transparent; }
-  .video-play{
-    width:76px; height:76px; border-radius:50%; padding-left:5px;
-    display:flex; align-items:center; justify-content:center;
-    background:rgba(200,134,47,.94); color:#15140f; font-size:22px;
-    box-shadow:0 12px 34px -8px rgba(0,0,0,.6), 0 0 0 8px rgba(251,250,247,.06);
-    transition:transform .5s var(--spring), opacity .45s ease, background-color .3s ease;
-  }
-  .video-cover:hover .video-play{ transform:scale(1.08); background:var(--accent); }
-  .video-cover.playing .video-play{ opacity:0; transform:scale(.7); pointer-events:none; }
-
-  /* ---------- HERO WITH PHOTO BACKGROUND ---------- */
-  .hero{ position:relative; background:var(--dark); color:var(--paper); isolation:isolate; }
-  .hero-media{
-    position:absolute; inset:0; z-index:-3;
-    background:#0f0f11 url('assets/hero-bg.jpg') center 30% / cover no-repeat;
-    filter:grayscale(.12) contrast(1.03) brightness(.92);
-  }
-  .hero-scrim{
-    position:absolute; inset:0; z-index:-2;
-    background:
-      linear-gradient(90deg, rgba(13,13,15,.94) 0%, rgba(13,13,15,.78) 40%, rgba(13,13,15,.45) 72%, rgba(13,13,15,.34) 100%),
-      linear-gradient(180deg, rgba(13,13,15,.82) 0%, rgba(13,13,15,.18) 26%, rgba(13,13,15,.30) 62%, rgba(13,13,15,.78) 100%);
-  }
-
-  .grain::after{
-    content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
-    opacity:.5; mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+  /* ---------- SURFACES ---------- */
+  .card{ background:var(--card); border:1px solid var(--hair); border-radius:var(--r); }
+  .card-pad{ padding:20px; }
+  @media (min-width:768px){ .card-pad{ padding:26px; } }
+  .glow{ background:var(--glow), var(--card); border-color:rgba(224,145,58,.28); }
+  .hair{ border:0; height:.5px; background:var(--hair); }
+  .media{ position:relative; overflow:hidden; border-radius:var(--r); background:var(--fill); }
+  .media img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .9s var(--ease); }
 
   /* ---------- BUTTONS ---------- */
-  .btn{
-    position:relative; display:inline-flex; align-items:center; gap:10px;
-    font-size:13px; font-weight:500; letter-spacing:.02em;
-    padding:15px 26px; border-radius:2px; cursor:pointer;
-    transition:transform .5s var(--spring), box-shadow .5s var(--spring), background-color .35s ease, color .35s ease, border-color .35s ease;
-    will-change:transform;
-  }
-  .btn:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
-  .btn .arrow{ transition:transform .5s var(--spring); }
-  .btn:hover .arrow{ transform:translateX(4px); }
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:7px; min-height:44px; padding:0 20px; border-radius:980px;
+        font-size:15px; font-weight:600; letter-spacing:-.01em; cursor:pointer; white-space:nowrap;
+        transition:transform .12s ease, background-color .2s ease, color .2s ease, opacity .2s ease; }
+  .btn:active{ transform:scale(.96); }
+  .btn:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:3px; }
+  .btn-primary{ background:var(--accent); color:var(--on-accent); }
+  .btn-primary:hover{ background:var(--accent-hover); }
+  .btn-link{ background:var(--accent-soft); color:var(--accent-ink); }
+  .btn-link:hover{ background:color-mix(in srgb, var(--accent) 16%, transparent); }
+  .btn-quiet{ background:var(--fill); color:var(--ink); }
+  .btn-quiet:hover{ background:color-mix(in srgb, var(--fill) 80%, var(--ink) 8%); }
+  .btn-wide{ width:100%; min-height:50px; font-size:17px; }
+  .btn-sm{ min-height:36px; padding:0 14px; font-size:14px; }
+  .btn .arrow{ font-weight:500; }
 
-  .btn-primary{
-    background:var(--accent); color:#15140f;
-    box-shadow:0 1px 1px rgba(0,0,0,.04), 0 10px 24px -10px rgba(200,134,47,.55);
-  }
-  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 1px 1px rgba(0,0,0,.05), 0 18px 36px -12px rgba(200,134,47,.65); }
-  .btn-primary:active{ transform:translateY(0); }
+  .pill{ display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:980px; font-size:13px; font-weight:600; white-space:nowrap; }
+  .pill::before{ content:""; width:6px; height:6px; border-radius:50%; background:currentColor; }
+  .pill.nodot::before{ display:none; }
+  .pill-green{ background:var(--green-soft); color:var(--green); }
+  .pill-accent{ background:var(--accent-soft); color:var(--accent-ink); }
+  .pill-amber{ background:var(--amber-soft); color:var(--amber); }
+  .pill-grey{ background:var(--fill); color:var(--mute); }
+  .tag{ display:inline-flex; padding:5px 11px; border-radius:980px; background:var(--group); color:var(--mute); font-size:13px; font-weight:500; }
 
-  .btn-ghost-dark{
-    background:transparent; color:var(--paper); border:1px solid rgba(255,255,255,.22);
-  }
-  .btn-ghost-dark:hover{ transform:translateY(-2px); border-color:rgba(231,197,138,.6); background:rgba(255,255,255,.04); }
-  .btn-ghost-dark:active{ transform:translateY(0); }
-
-  .btn-ghost-light{
-    background:transparent; color:var(--ink); border:1px solid var(--line);
-  }
-  .btn-ghost-light:hover{ transform:translateY(-2px); border-color:var(--accent); }
-  .btn-ghost-light:active{ transform:translateY(0); }
-
-  /* ---------- NAV ---------- */
-  .nav-wrap{ transition:background-color .4s ease, border-color .4s ease, backdrop-filter .4s ease; }
-  .nav-scrolled{
-    background:rgba(251,250,247,.82); backdrop-filter:saturate(140%) blur(12px);
-    border-color:var(--line);
-  }
-  .nav-link{ position:relative; font-size:13px; color:var(--muted); transition:color .3s ease; }
+  /* ---------- TOP BARS ---------- */
+  .slots{ background:var(--card); border-bottom:.5px solid var(--hair); }
+  .slots .dot{ width:7px; height:7px; border-radius:50%; background:var(--green-bright); }
+  .nav{ position:sticky; top:0; z-index:50; background:var(--glass);
+        backdrop-filter:saturate(180%) blur(22px); -webkit-backdrop-filter:saturate(180%) blur(22px); border-bottom:.5px solid var(--hair); }
+  .logo{ height:22px; width:auto; display:block; }
+  .nav-link{ font-size:14px; color:var(--mute); padding:8px 2px; border-radius:6px; transition:color .2s ease; }
   .nav-link:hover{ color:var(--ink); }
-  .nav-link::after{
-    content:""; position:absolute; left:0; bottom:-6px; height:1px; width:0; background:var(--accent);
-    transition:width .45s var(--spring);
-  }
-  .nav-link:hover::after{ width:100%; }
+  .nav-link:active{ opacity:.6; }
+  .nav-link:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:3px; }
 
-  /* nav contrast: white over dark hero (top), ink once scrolled onto light bg */
-  .nav-logo-ink{ display:none; }
-  #nav.nav-scrolled .nav-logo-ink{ display:block; }
-  #nav.nav-scrolled .nav-logo-white{ display:none; }
-  #nav .nav-link{ color:rgba(251,250,247,.72); }
-  #nav .nav-link:hover{ color:#fff; }
-  #nav.nav-scrolled .nav-link{ color:var(--muted); }
-  #nav.nav-scrolled .nav-link:hover{ color:var(--ink); }
-  #nav .bar{ background:#FBFAF7; transition:background-color .4s ease; }
-  #nav.nav-scrolled .bar{ background:var(--ink); }
-
-  /* ---------- CARDS ---------- */
-  .surface{
-    background:#fff; border:1px solid var(--line); border-radius:3px;
-    box-shadow:0 1px 2px rgba(26,26,28,.03);
-    transition:transform .6s var(--spring), box-shadow .6s var(--spring), border-color .4s ease;
-    will-change:transform;
-  }
-  .surface:hover{
-    transform:translateY(-4px);
-    box-shadow:0 1px 2px rgba(26,26,28,.04), 0 24px 50px -28px rgba(26,26,28,.28), 0 12px 24px -18px rgba(200,134,47,.18);
-    border-color:#cfc8bc;
+  /* ---------- FACTS ---------- */
+  .facts{ display:grid; grid-template-columns:repeat(2,1fr); }
+  .facts > div{ padding:20px; }
+  .facts > div:nth-child(odd){ border-right:.5px solid var(--hair); }
+  .facts > div:nth-child(-n+2){ border-bottom:.5px solid var(--hair); }
+  @media (min-width:768px){
+    .facts{ grid-template-columns:repeat(4,1fr); }
+    .facts > div{ padding:24px 26px; border-bottom:0 !important; border-right:.5px solid var(--hair); }
+    .facts > div:last-child{ border-right:0; }
   }
 
-  .surface-dark{
-    background:linear-gradient(160deg, rgba(36,36,42,.9), rgba(20,20,23,.9));
-    border:1px solid var(--line-dark); border-radius:3px;
-    transition:transform .6s var(--spring), box-shadow .6s var(--spring), border-color .4s ease;
-  }
-  .surface-dark:hover{ transform:translateY(-4px); border-color:rgba(231,197,138,.35); }
+  /* ---------- COVERS ---------- */
+  .cover{ position:relative; overflow:hidden; border-radius:var(--r-cover); background:var(--fill); aspect-ratio:16/9; box-shadow:0 1px 2px rgba(0,0,0,.08); }
+  .cover img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .9s var(--ease); }
+  .cover .kind{ position:absolute; z-index:2; top:9px; left:10px; font-size:10.5px; font-weight:600; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.4); }
+  .cover .dur, .media .dur{ position:absolute; z-index:2; top:8px; right:8px; font-size:10.5px; font-weight:600; color:#fff; background:rgba(0,0,0,.38);
+               backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); padding:2px 7px; border-radius:6px; }
+  .play{ position:absolute; z-index:2; top:50%; left:50%; transform:translate(-50%,-50%); width:52px; height:52px; border-radius:50%;
+         display:grid; place-items:center; color:#1d1d1f; background:rgba(255,255,255,.88); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+         box-shadow:0 6px 20px rgba(0,0,0,.18); transition:transform .3s var(--ease); }
+  .play svg{ width:18px; height:18px; margin-left:3px; }
+  .play-lg{ width:72px; height:72px; }
+  .play-lg svg{ width:24px; height:24px; }
+  .ep, .reel{ display:block; cursor:pointer; border-radius:var(--r-cover); }
+  .ep:hover .cover img, .reel:hover .media img{ transform:scale(1.04); }
+  .ep:hover .play, .reel:hover .play{ transform:translate(-50%,-50%) scale(1.06); }
+  .ep:active, .reel:active{ transform:scale(.985); transition:transform .12s ease; }
+  .ep:focus-visible, .reel:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:4px; }
+  .ep .t{ transition:color .2s ease; }
+  .ep:hover .t{ color:var(--accent-ink); }
 
-  /* service number */
-  .svc-num{ font-family:'Fraunces',serif; font-size:13px; color:var(--accent); font-variant-numeric:tabular-nums; }
+  /* ---------- SETS ---------- */
+  .set-card{ display:flex; flex-direction:column; overflow:hidden; }
+  .set-card .ph{ aspect-ratio:4/3; overflow:hidden; background:var(--fill); }
+  .set-card .ph img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .9s var(--ease); }
+  .set-card:hover .ph img{ transform:scale(1.04); }
+  .set-card:hover{ border-color:rgba(255,255,255,.18); box-shadow:var(--shadow-lift); }
+  .set-card{ transition:box-shadow .3s ease; }
 
-  /* industry pills */
-  .pill{
-    font-size:12.5px; letter-spacing:.01em; border:1px solid var(--line); color:var(--ink);
-    padding:9px 17px; border-radius:40px; background:#fff;
-    transition:transform .45s var(--spring), border-color .35s ease, color .35s ease, background-color .35s ease;
-  }
-  .pill:hover{ transform:translateY(-2px); border-color:var(--accent); color:var(--accent); }
+  /* ---------- STEPS (the difference) ---------- */
+  .steps-list{ position:relative; }
+  .steps-list::before, .steps-list::after{ content:""; position:absolute; left:15px; top:18px; bottom:18px; width:2px; border-radius:2px; }
+  .steps-list::before{ background:var(--fill); }
+  .steps-list::after{ background:var(--accent); transform-origin:top; transform:scaleY(0); transition:transform 1.3s var(--ease) .15s; }
+  .steps-list.in::after{ transform:scaleY(1); }
+  .step{ position:relative; display:flex; gap:16px; padding:12px 0; }
+  .step .node{ position:relative; z-index:1; flex:none; width:32px; height:32px; border-radius:50%; background:var(--accent); color:var(--on-accent); display:grid; place-items:center; }
+  .step .node svg{ width:15px; height:15px; }
+  .step.ours .node{ box-shadow:0 0 0 6px var(--accent-soft); }
+  .step .k{ font-size:13px; color:var(--dim); font-weight:600; }
+  .stop{ position:relative; z-index:1; margin:6px 0 6px 48px; display:flex; align-items:center; gap:10px; font-size:13px; font-weight:600; color:var(--dim); }
+  .stop::after{ content:""; flex:1; height:0; border-top:1px dashed var(--fill); }
+  .stop.go{ color:var(--accent-ink); }
+  .stop.go::after{ border-top:1px solid var(--accent-soft); }
 
-  /* work thumb image treatment */
-  .thumb{ position:relative; overflow:hidden; border-radius:3px; border:1px solid var(--line-dark); }
-  .thumb img{
-    width:100%; height:100%; object-fit:cover; display:block;
-    transition:transform .9s var(--spring); filter:grayscale(.25) contrast(1.02);
-  }
-  .thumb::after{
-    content:""; position:absolute; inset:0;
-    background:linear-gradient(to top, rgba(18,18,20,.72), rgba(18,18,20,.05) 55%);
-  }
-  .thumb .color-treat{
-    content:""; position:absolute; inset:0; mix-blend-mode:multiply;
-    background:linear-gradient(150deg, rgba(200,134,47,.20), rgba(18,18,20,.1));
-  }
-  .thumb:hover img{ transform:scale(1.05); }
-  .thumb .meta{ position:absolute; left:0; right:0; bottom:0; padding:18px 20px; z-index:2; }
-  .play{
-    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2;
-    width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    background:rgba(251,250,247,.12); border:1px solid rgba(251,250,247,.5); backdrop-filter:blur(4px);
-    transition:transform .5s var(--spring), background-color .4s ease;
-  }
-  .thumb:hover .play{ transform:translate(-50%,-50%) scale(1.08); background:rgba(200,134,47,.9); border-color:transparent; }
+  /* ---------- RATES ---------- */
+  .row{ display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:52px; padding:10px 0; border-top:.5px solid var(--hair); }
+  .row:first-child{ border-top:0; }
+  .row .v{ font-size:19px; font-weight:600; letter-spacing:-.02em; }
+  .row .sub{ font-size:13px; color:var(--mute); margin-top:2px; }
+  .was{ text-decoration:line-through; color:var(--dim); }
+  .bundle{ transition:transform .4s var(--ease), box-shadow .3s ease; }
+  .bundle:hover{ transform:translateY(-3px); border-color:rgba(255,255,255,.18); }
 
-  /* ---------- REVEAL ANIMATION ---------- */
-  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .9s var(--spring), transform .9s var(--spring); }
-  .reveal.in{ opacity:1; transform:none; }
-  @media (prefers-reduced-motion:reduce){
-    .reveal{ opacity:1; transform:none; transition:none; }
-    html{ scroll-behavior:auto; }
-  }
+  /* ---------- MAP ---------- */
+  .map{ aspect-ratio:4/3; }
+  .map iframe{ width:100%; height:100%; border:0; display:block; filter:var(--map-filter); }
 
-  /* big WINS letter */
-  .win-letter{ font-family:'Fraunces',serif; font-weight:300; color:var(--accent-soft); line-height:.8; }
+  /* ---------- MOBILE BOOK BAR ---------- */
+  .mbar{ position:fixed; left:0; right:0; bottom:0; z-index:90; padding:10px 20px calc(10px + env(safe-area-inset-bottom));
+         background:var(--glass); backdrop-filter:saturate(180%) blur(22px); -webkit-backdrop-filter:saturate(180%) blur(22px);
+         border-top:.5px solid var(--hair); transform:translateY(110%); transition:transform .5s var(--ease); }
+  .mbar.show{ transform:none; }
 
-  /* marquee */
-  .marquee{ overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); }
-  .marquee-track{ display:flex; gap:64px; width:max-content; animation:scroll 34s linear infinite; }
-  @keyframes scroll{ to{ transform:translateX(-50%); } }
-  .marquee:hover .marquee-track{ animation-play-state:paused; }
-  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-
-  /* ---------- STUDIO SET SHOTS ---------- */
-  .set-shot{
-    position:relative; overflow:hidden; border-radius:3px;
-    border:1px solid var(--line); aspect-ratio:2/1; background:var(--dark);
-    box-shadow:0 18px 40px -24px rgba(26,26,28,.45);
-  }
-  .set-shot img{
-    width:100%; height:100%; object-fit:cover; display:block;
-    transition:transform .9s var(--spring);
-  }
-  .set-shot::after{
-    content:""; position:absolute; inset:0; pointer-events:none;
-    background:linear-gradient(150deg, rgba(200,134,47,.10), rgba(18,18,20,.06));
-    mix-blend-mode:multiply;
-  }
-  figure:hover .set-shot img{ transform:scale(1.04); }
-
-  /* ---------- WORK TILES + VIDEO LIGHTBOX ---------- */
-  a.workcard{ display:block; cursor:pointer; transition:transform .5s var(--spring); }
-  a.workcard:focus-visible{ outline:2px solid var(--accent); outline-offset:4px; border-radius:4px; }
-  a.workcard:active{ transform:scale(.993); }
-  /* caption sits below the frame, so keep the vignette light and off the artwork */
-  .workcard .thumb::after{ background:linear-gradient(to top, rgba(18,18,20,.34), rgba(18,18,20,0) 46%); }
-  .workcard .thumb img{ filter:grayscale(.06) contrast(1.02); }
-  .workcard:hover .thumb img{ transform:scale(1.05); }
-  .workcard:hover .play{ transform:translate(-50%,-50%) scale(1.08); background:rgba(200,134,47,.9); border-color:transparent; }
-  .workcard .wc-title{ transition:color .35s ease; }
-  .workcard:hover .wc-title{ color:var(--accent-soft); }
-  .thumb .dur{
-    position:absolute; top:13px; right:13px; z-index:2;
-    font-size:10px; letter-spacing:.12em; color:var(--paper); font-variant-numeric:tabular-nums;
-    padding:4px 8px; border-radius:2px;
-    background:rgba(13,13,15,.55); border:1px solid rgba(251,250,247,.24);
-    backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px);
-  }
-
+  /* ---------- LIGHTBOX ---------- */
   .vbox{ position:fixed; inset:0; z-index:120; display:none; }
   .vbox.open{ display:block; }
-  .vbox-backdrop{
-    position:absolute; inset:0; background:rgba(13,13,15,.88);
-    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
-    opacity:0; transition:opacity .4s ease;
-  }
+  .vbox-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.82); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); opacity:0; transition:opacity .35s ease; }
   .vbox.open .vbox-backdrop{ opacity:1; }
-  .vbox-dialog{
-    position:absolute; top:50%; left:50%; width:min(1080px, calc(100% - 36px));
-    transform:translate(-50%,-46%) scale(.986); opacity:0;
-    transition:transform .55s var(--spring), opacity .4s ease;
-  }
+  .vbox-dialog{ position:absolute; top:50%; left:50%; width:min(1040px, calc(100% - 32px)); transform:translate(-50%,-47%) scale(.98); opacity:0;
+                transition:transform .5s var(--ease), opacity .35s ease; color:#f5f5f7; }
   .vbox.open .vbox-dialog{ transform:translate(-50%,-50%); opacity:1; }
-  .vbox-frame{
-    position:relative; width:100%; aspect-ratio:16/9; background:#000;
-    border:1px solid rgba(251,250,247,.14); border-radius:4px; overflow:hidden;
-    box-shadow:0 50px 110px -35px rgba(0,0,0,.85), 0 0 0 1px rgba(200,134,47,.10);
-  }
+  .vbox-frame{ position:relative; aspect-ratio:16/9; background:#000; border-radius:var(--r); overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.6); }
   .vbox-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
-  .vbox-cap{ margin-top:15px; }
-  .vbox-x{
-    position:absolute; top:-44px; right:0; width:36px; height:36px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--paper);
-    background:rgba(251,250,247,.10); border:1px solid rgba(251,250,247,.34); cursor:pointer;
-    transition:transform .45s var(--spring), background-color .3s ease, border-color .3s ease;
-  }
-  .vbox-x:hover{ transform:rotate(90deg); background:rgba(200,134,47,.92); border-color:transparent; }
-  .vbox-x:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
-  @media (max-width:640px){ .vbox-x{ top:-40px; } }
+  .vbox-empty{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; padding:24px; }
+  .vbox-x{ position:absolute; top:-48px; right:0; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font-size:15px; color:#fff;
+           background:rgba(255,255,255,.16); cursor:pointer; transition:background-color .2s ease, transform .12s ease; }
+  .vbox-x:hover{ background:rgba(255,255,255,.26); }
+  .vbox-x:active{ transform:scale(.92); }
+  .vbox-x:focus-visible{ outline:2px solid #D9963A; outline-offset:3px; }
+  body.locked{ overflow:hidden; }
 
-  /* ---------- BOOKING MODAL ---------- */
+  /* ---------- DARK GLASS ADDITIONS (Podcast HQ reference) ---------- */
+  .hero-x{ position:relative; isolation:isolate; overflow:hidden; }
+  .hero-bg{ position:absolute; inset:0; z-index:-1; }
+  .hero-bg img{ width:100%; height:100%; object-fit:cover; object-position:62% 45%; opacity:.85; }
+  .hero-bg::after{ content:""; position:absolute; inset:0;
+    background:radial-gradient(60% 55% at 50% 38%, rgba(10,10,10,.62), rgba(10,10,10,.3) 70%, rgba(10,10,10,.55)),
+               linear-gradient(to bottom, rgba(10,10,10,.5), rgba(10,10,10,.1) 30%, rgba(10,10,10,.35) 70%, #0a0a0a 98%); }
+  .chip-glass{ display:inline-flex; align-items:center; gap:9px; padding:8px 16px; border-radius:980px; font-size:13px; color:var(--mute);
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+  .dotb{ width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft); }
+  .btn-ghost{ background:rgba(255,255,255,.06); color:var(--ink); border:1px solid rgba(255,255,255,.2); }
+  .btn-ghost:hover{ background:rgba(255,255,255,.11); border-color:rgba(255,255,255,.3); }
+  .btn-primary{ box-shadow:0 10px 30px -10px rgba(224,145,58,.55); }
+  .hero-stats{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px 12px; max-width:860px; margin-left:auto; margin-right:auto;
+    padding-top:26px; border-top:1px solid var(--hair); }
+  @media (min-width:768px){ .hero-stats{ grid-template-columns:repeat(4,1fr); } }
+  .glance{ display:grid; grid-template-columns:1fr; border-top:1px solid var(--hair); }
+  @media (min-width:640px){ .glance{ grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:1024px){ .glance{ grid-template-columns:repeat(3,1fr); } }
+  .glance > div{ padding:14px 0; border-bottom:1px solid var(--hair); }
+  @media (min-width:640px){ .glance > div{ padding-right:20px; } }
+  .glance dt{ font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); }
+  .glance dd{ margin-top:4px; font-size:15px; color:var(--ink); }
+  .icon-tile{ display:grid; place-items:center; width:46px; height:46px; border-radius:13px; color:var(--accent-ink);
+    background:linear-gradient(180deg, rgba(224,145,58,.22), rgba(224,145,58,.07)); border:1px solid rgba(224,145,58,.26); }
+  .icon-tile svg{ width:21px; height:21px; }
+  .step-card{ position:relative; overflow:hidden; }
+  .step-card .icon-tile{ margin-top:18px; }
+  .step-no{ position:absolute; top:18px; right:22px; font-family:var(--display); font-size:46px; font-weight:700; color:rgba(255,255,255,.07); line-height:1; }
+  .step-foot{ display:flex; align-items:center; gap:8px; margin-top:18px; padding-top:14px; border-top:1px solid var(--hair); font-size:13px; color:var(--mute); }
+  .step-foot svg{ width:15px; height:15px; color:var(--accent-ink); flex:none; }
+  .mood{ font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-ink); }
+  .set-badge{ position:absolute; top:12px; left:12px; padding:5px 10px; border-radius:980px; font-size:12px; font-weight:600; color:#fff;
+    background:rgba(10,10,10,.55); border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+
+  /* ---------- MOTION: rise 14px and fade in, once ---------- */
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.in{ opacity:1; transform:none; }
+  .d1{ transition-delay:.04s; } .d2{ transition-delay:.08s; } .d3{ transition-delay:.12s; }
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    *, *::before, *::after{ transition:none !important; animation:none !important; }
+    .reveal{ opacity:1; transform:none; }
+    .steps-list::after{ transform:scaleY(1); }
+  }
+  /* ---------- HOMEPAGE ---------- */
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  .bar{ background:var(--ink); }
+  .mob-menu{ background:rgba(10,10,10,.94); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); border-top:1px solid var(--hair); }
+  .mob-link{ display:flex; align-items:center; min-height:48px; font-size:17px; color:var(--ink); border-bottom:1px solid var(--hair); }
+  .mob-link:active{ opacity:.6; }
+  #menuBtn{ border-radius:10px; transition:background-color .2s ease; }
+  #menuBtn:hover{ background:rgba(255,255,255,.06); }
+  #menuBtn:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:2px; }
+  .hero-bg.home img{ object-position:center 30%; opacity:.7; }
+
+  /* showreel: transparent cover over the YouTube player keeps every click on our own button */
+  .video-frame{ position:relative; width:100%; aspect-ratio:16/9; border-radius:var(--r); overflow:hidden; background:#000; border:1px solid var(--hair); }
+  .yt-player, .yt-player iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video-cover{ position:absolute; inset:0; z-index:3; width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    border:0; cursor:pointer; -webkit-tap-highlight-color:transparent; background:radial-gradient(circle at center, rgba(10,10,10,.3), rgba(10,10,10,0) 46%); transition:background-color .4s ease; }
+  .video-cover:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:-4px; }
+  .video-cover.playing{ background:transparent; }
+  .video-play{ width:76px; height:76px; border-radius:50%; display:grid; place-items:center; background:var(--accent); color:var(--on-accent);
+    box-shadow:0 14px 40px -10px rgba(224,145,58,.6), 0 0 0 10px rgba(224,145,58,.12); transition:transform .4s var(--ease), opacity .4s ease; }
+  .video-play svg{ width:26px; height:26px; margin-left:4px; }
+  .video-cover:hover .video-play{ transform:scale(1.06); }
+  .video-cover:active .video-play{ transform:scale(.96); }
+  .video-cover.playing .video-play{ opacity:0; transform:scale(.7); pointer-events:none; }
+
+  .workcard{ display:block; cursor:pointer; border-radius:var(--r-cover); }
+  .workcard:hover .cover img{ transform:scale(1.04); }
+  .workcard:hover .play{ transform:translate(-50%,-50%) scale(1.06); }
+  .workcard:active{ transform:scale(.985); transition:transform .12s ease; }
+  .workcard:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:4px; }
+  .workcard .wc-title{ transition:color .2s ease; }
+  .workcard:hover .wc-title{ color:var(--accent-ink); }
+  .quote-mark{ font-family:var(--display); font-size:72px; line-height:.6; color:var(--accent); }
+  .list-row{ padding:12px 0; border-top:1px solid var(--hair); font-size:15px; color:var(--mute); }
+  .btn-ghost-light{ background:rgba(255,255,255,.06); color:var(--ink); border:1px solid rgba(255,255,255,.2); }
+  .btn-ghost-light:hover{ background:rgba(255,255,255,.11); }
+  .btn[disabled]{ opacity:.4; cursor:not-allowed; pointer-events:none; }
+
+  /* ---------- DISCOVERY-CALL POPUP (markup and script unchanged; restyled dark) ---------- */
   .booking-modal{ position:fixed; inset:0; z-index:100; display:none; }
   .booking-modal.open{ display:block; }
   body.modal-open{ overflow:hidden; }
-  .booking-backdrop{
-    position:absolute; inset:0; background:rgba(13,13,15,.62);
-    backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
-    opacity:0; transition:opacity .4s ease;
-  }
+  .booking-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); opacity:0; transition:opacity .35s ease; }
   .booking-modal.open .booking-backdrop{ opacity:1; }
-  .booking-dialog{
-    position:relative; max-width:430px; width:calc(100% - 32px); max-height:calc(100dvh - 40px);
-    margin:20px auto; overflow-y:auto; background:var(--paper); border:1px solid var(--line);
-    border-radius:6px; box-shadow:0 40px 90px -30px rgba(13,13,15,.6);
-    padding:22px 22px 20px;
-    transform:translateY(16px) scale(.985); opacity:0;
-    transition:transform .5s var(--spring), opacity .4s ease;
-  }
+  .booking-dialog{ position:relative; max-width:460px; width:calc(100% - 24px); max-height:calc(100dvh - 32px); margin:16px auto; overflow-y:auto;
+    background:#161412; border:1px solid var(--hair); border-radius:var(--r); padding:24px 22px 22px; color:var(--ink);
+    box-shadow:0 40px 100px -30px rgba(0,0,0,.9); transform:translateY(14px) scale(.985); opacity:0; transition:transform .5s var(--ease), opacity .35s ease; }
   .booking-modal.open .booking-dialog{ transform:none; opacity:1; }
-  .booking-x{
-    position:absolute; top:16px; right:16px; width:34px; height:34px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--muted);
-    border:1px solid var(--line); background:#fff; cursor:pointer;
-    transition:transform .4s var(--spring), color .3s ease, border-color .3s ease;
-  }
-  .booking-x:hover{ transform:rotate(90deg); color:var(--ink); border-color:var(--accent); }
-  .booking-x:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-
+  .booking-x{ position:absolute; top:16px; right:16px; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font-size:14px;
+    color:var(--mute); background:rgba(255,255,255,.06); border:1px solid var(--hair); cursor:pointer; transition:background-color .2s ease, color .2s ease, transform .12s ease; }
+  .booking-x:hover{ color:var(--ink); background:rgba(255,255,255,.12); }
+  .booking-x:active{ transform:scale(.92); }
+  .booking-x:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:2px; }
   .booking-steps{ display:flex; gap:8px; margin-top:14px; }
-  .booking-steps .step{
-    flex:1; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
-    padding-top:10px; border-top:2px solid var(--line); transition:color .3s ease, border-color .3s ease;
-  }
-  .booking-steps .step.active{ color:var(--accent); border-color:var(--accent); }
+  .booking-steps .step{ flex:1; font-size:12px; font-weight:600; color:var(--dim); padding-top:10px; border-top:2px solid var(--fill); transition:color .3s ease, border-color .3s ease; }
+  .booking-steps .step.active{ color:var(--accent-ink); border-color:var(--accent); }
   .booking-steps .step.done{ color:var(--ink); border-color:var(--ink); }
-
-  .booking-step{ margin-top:16px; }
+  .booking-step{ margin-top:18px; }
   .booking-step.hidden{ display:none; }
-  .booking-title{ font-family:'Fraunces',serif; font-size:20px; font-weight:400; line-height:1.12; }
-  .booking-sub{ font-size:12px; color:var(--muted); margin-top:5px; }
-
-  /* calendar */
-  .cal{ margin-top:14px; border:1px solid var(--line); border-radius:4px; padding:11px; background:#fff; }
+  .booking-title{ font-family:var(--display); font-size:24px; font-weight:500; letter-spacing:-.02em; line-height:1.15; }
+  .booking-sub{ font-size:13px; color:var(--mute); margin-top:6px; }
+  .cal{ margin-top:14px; border-radius:16px; padding:12px; background:rgba(255,255,255,.04); border:1px solid var(--hair); }
   .cal-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-  .cal-month{ font-family:'Fraunces',serif; font-size:15px; }
-  .cal-nav{
-    width:28px; height:28px; border-radius:4px; border:1px solid var(--line); background:#fff;
-    cursor:pointer; font-size:16px; color:var(--ink); display:flex; align-items:center; justify-content:center;
-    transition:border-color .3s ease, color .3s ease, background-color .3s ease;
-  }
-  .cal-nav:hover:not(:disabled){ border-color:var(--accent); color:var(--accent); }
-  .cal-nav:disabled{ opacity:.35; cursor:not-allowed; }
+  .cal-month{ font-size:16px; font-weight:600; }
+  .cal-nav{ width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font-size:19px; color:var(--accent-ink); background:transparent; cursor:pointer;
+    transition:background-color .2s ease, transform .12s ease; }
+  .cal-nav:hover:not(:disabled){ background:var(--accent-soft); }
+  .cal-nav:active:not(:disabled){ transform:scale(.92); }
+  .cal-nav:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:2px; }
+  .cal-nav:disabled{ opacity:.3; cursor:not-allowed; }
   .cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-  .cal-dow span{ text-align:center; font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:2px 0 6px; }
-  .cal-day{
-    aspect-ratio:1; border:1px solid transparent; border-radius:4px; background:transparent;
-    font-size:12px; color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center;
-    transition:background-color .25s ease, color .25s ease, border-color .25s ease, transform .3s var(--spring);
-  }
-  .cal-day:hover:not(:disabled){ border-color:var(--accent); transform:translateY(-1px); }
-  .cal-day:disabled{ color:#c4bdb1; cursor:default; }
-  .cal-day.empty{ border:0; cursor:default; }
-  .cal-day.selected{ background:var(--accent); color:#15140f; font-weight:600; }
-  .cal-day.today:not(.selected){ box-shadow:inset 0 0 0 1px var(--line-dark); }
-
-  /* time slots */
+  .cal-dow span{ text-align:center; font-size:11px; font-weight:600; color:var(--dim); padding:2px 0 6px; }
+  .cal-day{ aspect-ratio:1; border-radius:50%; background:transparent; font-size:14px; color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-variant-numeric:tabular-nums; transition:background-color .2s ease, color .2s ease, transform .12s ease; }
+  .cal-day:hover:not(:disabled):not(.selected){ background:var(--accent-soft); color:var(--accent-ink); }
+  .cal-day:active:not(:disabled){ transform:scale(.92); }
+  .cal-day:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:1px; }
+  .cal-day:disabled{ color:var(--dim); opacity:.45; cursor:default; }
+  .cal-day.empty{ cursor:default; }
+  .cal-day.selected{ background:var(--accent); color:var(--on-accent); font-weight:700; }
+  .cal-day.today:not(.selected){ box-shadow:inset 0 0 0 1px rgba(255,255,255,.25); }
   .slots-wrap{ margin-top:14px; }
   .slots-wrap.hidden{ display:none; }
-  .slots-label{ font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:8px; }
+  .slots-label{ font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:8px; }
   .slots{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
-  .slot{
-    padding:8px 4px; border:1px solid var(--line); border-radius:4px; background:#fff;
-    font-size:12px; color:var(--ink); cursor:pointer; text-align:center;
-    transition:border-color .25s ease, background-color .25s ease, color .25s ease, transform .3s var(--spring);
-  }
-  .slot:hover{ border-color:var(--accent); transform:translateY(-1px); }
-  .slot.selected{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
-
-  /* form fields */
+  .slot{ min-height:40px; padding:8px 4px; border-radius:980px; background:rgba(255,255,255,.06); font-size:13px; color:var(--ink); cursor:pointer; text-align:center;
+    transition:background-color .2s ease, color .2s ease, transform .12s ease; }
+  .slot:hover:not(.selected){ background:var(--accent-soft); color:var(--accent-ink); }
+  .slot:active{ transform:scale(.96); }
+  .slot:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:2px; }
+  .slot.selected{ background:var(--accent); color:var(--on-accent); font-weight:600; }
   .field{ margin-bottom:12px; }
-  .field label, .qlabel{ display:block; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:6px; }
-  .field input{
-    width:100%; padding:10px 12px; font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink);
-    background:#fff; border:1px solid var(--line); border-radius:4px; transition:border-color .25s ease, box-shadow .25s ease;
-  }
-  .field input::placeholder{ color:#b3ada2; }
-  .field input:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(200,134,47,.14); }
-
-  .question{ margin:16px 0; padding-top:15px; border-top:1px solid var(--line); }
-  .qlabel{ margin-bottom:12px; }
-  .qtext{ font-family:'Fraunces',serif; font-size:14.5px; color:var(--ink); margin-bottom:10px; line-height:1.3; }
+  .field label, .qlabel{ display:block; font-size:13px; font-weight:500; color:var(--mute); margin-bottom:6px; }
+  .field input{ width:100%; min-height:48px; padding:0 14px; font-size:16px; color:var(--ink); background:rgba(255,255,255,.06); border:1px solid transparent; border-radius:12px;
+    transition:border-color .2s ease, box-shadow .2s ease, background-color .2s ease; }
+  .field input::placeholder{ color:var(--dim); }
+  .field input:focus{ outline:none; background:rgba(255,255,255,.08); border-color:var(--accent); box-shadow:0 0 0 4px var(--accent-soft); }
+  .question{ margin:18px 0; padding-top:16px; border-top:1px solid var(--hair); }
+  .qtext{ font-size:15px; font-weight:600; color:var(--ink); margin-bottom:10px; line-height:1.4; }
   .opts{ display:flex; flex-direction:column; gap:7px; }
-  .opt{
-    display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid var(--line);
-    border-radius:4px; background:#fff; cursor:pointer; font-size:13px; color:var(--ink);
-    transition:border-color .25s ease, background-color .25s ease, transform .3s var(--spring);
-  }
-  .opt:hover{ border-color:#cfc8bc; transform:translateY(-1px); }
+  .opt{ position:relative; display:flex; align-items:center; gap:12px; min-height:48px; padding:10px 14px; border-radius:14px; background:rgba(255,255,255,.05);
+    border:1px solid transparent; cursor:pointer; font-size:14px; color:var(--ink); transition:border-color .2s ease, background-color .2s ease, transform .12s ease; }
+  .opt:hover{ border-color:var(--hair); }
+  .opt:active{ transform:scale(.985); }
+  .opt:focus-within{ outline:2px solid var(--accent-ink); outline-offset:2px; }
   .opt input{ position:absolute; opacity:0; pointer-events:none; }
-  .opt .dot{ width:16px; height:16px; border-radius:50%; border:1.5px solid var(--line); flex:none; position:relative; transition:border-color .25s ease; }
-  .opt .dot::after{ content:""; position:absolute; inset:3px; border-radius:50%; background:var(--accent); transform:scale(0); transition:transform .3s var(--spring); }
-  .opt.checked{ border-color:var(--accent); background:rgba(200,134,47,.06); }
-  .opt.checked .dot{ border-color:var(--accent); }
+  .opt .dot{ width:18px; height:18px; border-radius:50%; box-shadow:inset 0 0 0 1.5px var(--dim); flex:none; position:relative; transition:box-shadow .2s ease; }
+  .opt .dot::after{ content:""; position:absolute; inset:4px; border-radius:50%; background:var(--accent); transform:scale(0); transition:transform .25s var(--ease); }
+  .opt.checked{ border-color:var(--accent); background:var(--accent-soft); }
+  .opt.checked .dot{ box-shadow:inset 0 0 0 1.5px var(--accent); }
   .opt.checked .dot::after{ transform:scale(1); }
-
-  .booking-actions{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:18px; }
-  .booking-sel{ font-size:12px; color:var(--muted); }
-  .booking-back{ background:none; border:0; color:var(--muted); font-size:13px; cursor:pointer; padding:8px 0; transition:color .3s ease; }
+  .booking-actions{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:20px; }
+  .booking-sel{ font-size:13px; color:var(--mute); }
+  .booking-back{ background:none; border:0; color:var(--mute); font-size:14px; cursor:pointer; min-height:44px; padding:0 4px; border-radius:8px; transition:color .2s ease; }
   .booking-back:hover{ color:var(--ink); }
-  .btn[disabled]{ opacity:.4; cursor:not-allowed; pointer-events:none; }
-  .field-error{ color:#B4543A; font-size:11.5px; margin-top:6px; display:none; }
-  .field.invalid input{ border-color:#B4543A; }
+  .booking-back:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:2px; }
+  .field-error{ color:var(--red); font-size:12.5px; margin-top:6px; display:none; }
+  .field.invalid input{ border-color:var(--red); }
   .field.invalid .field-error, .question.invalid .field-error{ display:block; }
-
   .booking-done{ text-align:center; padding:18px 6px 8px; }
-  .booking-done .tick{ width:60px; height:60px; border-radius:50%; background:rgba(200,134,47,.14); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:26px; margin:0 auto 18px; }
-
-  @media (max-width:480px){
-    .booking-dialog{ padding:26px 18px 22px; }
-    .slots{ grid-template-columns:repeat(2,1fr); }
-  }
+  .booking-done .tick{ width:64px; height:64px; border-radius:50%; background:var(--green-soft); color:var(--green); display:grid; place-items:center; font-size:28px; margin:0 auto 18px; }
+  @media (max-width:480px){ .booking-dialog{ padding:24px 18px 20px; } .slots{ grid-template-columns:repeat(2,1fr); } }
 </style>
 </head>
-
-<body class="font-sans antialiased text-ink">
+<body>
 
 <!-- ============ NAV ============ -->
-<header id="nav" class="nav-wrap fixed top-0 inset-x-0 z-50 border-b border-transparent">
-  <nav class="max-w-[1240px] mx-auto px-6 lg:px-10 h-[72px] flex items-center justify-between">
-    <a href="#top" class="flex items-center" aria-label="Win Media Studios home">
-      <img src="assets/wms-logo-white.png" alt="Win Media Studios" class="nav-logo-white h-7 w-auto" />
-      <img src="assets/wms-logo-ink.png" alt="Win Media Studios" class="nav-logo-ink h-7 w-auto" />
+<header id="nav" class="nav">
+  <nav class="wrap h-[60px] flex items-center justify-between gap-6">
+    <a href="#top" class="flex items-center rounded-md" aria-label="Win Media Studios home">
+      <img src="assets/brand/logo-white.png" alt="Win Media Studios" class="logo !h-[24px]" width="65" height="24" />
     </a>
-
-    <div class="hidden md:flex items-center gap-9">
+    <div class="hidden md:flex items-center gap-7">
       <a href="#work" class="nav-link">Work</a>
       <a href="#services" class="nav-link">Services</a>
       <a href="studio.html" class="nav-link">Studio</a>
       <a href="#approach" class="nav-link">Approach</a>
       <a href="#about" class="nav-link">About</a>
     </div>
-
-    <div class="flex items-center gap-4">
-      <a href="#contact" data-book class="btn btn-primary hidden sm:inline-flex">
-        Book a call <span class="arrow">→</span>
-      </a>
-      <button id="menuBtn" class="md:hidden w-10 h-10 -mr-2 flex flex-col items-center justify-center gap-[5px]" aria-label="Open menu">
-        <span class="bar block w-5 h-px"></span>
-        <span class="bar block w-5 h-px"></span>
+    <div class="flex items-center gap-2">
+      <a href="#contact" data-book class="btn btn-primary btn-sm hidden sm:inline-flex">Book a call</a>
+      <button id="menuBtn" type="button" class="md:hidden w-11 h-11 -mr-2 flex flex-col items-center justify-center gap-[5px]" aria-label="Open menu">
+        <span class="bar block w-5 h-[1.5px] rounded"></span><span class="bar block w-5 h-[1.5px] rounded"></span>
       </button>
     </div>
   </nav>
-
-  <!-- mobile menu -->
-  <div id="mobileMenu" class="md:hidden hidden border-t border-line bg-paper/95 backdrop-blur">
-    <div class="px-6 py-5 flex flex-col gap-1">
-      <a href="#work" class="mob-link py-3 text-ink/80 border-b border-line">Work</a>
-      <a href="#services" class="mob-link py-3 text-ink/80 border-b border-line">Services</a>
-      <a href="studio.html" class="mob-link py-3 text-ink/80 border-b border-line">Studio</a>
-      <a href="#approach" class="mob-link py-3 text-ink/80 border-b border-line">Approach</a>
-      <a href="#about" class="mob-link py-3 text-ink/80 border-b border-line">About</a>
-      <a href="#contact" data-book class="btn btn-primary mt-4 justify-center">Book a call <span class="arrow">→</span></a>
+  <div id="mobileMenu" class="md:hidden hidden mob-menu">
+    <div class="wrap py-3 flex flex-col">
+      <a href="#work" class="mob-link">Work</a>
+      <a href="#services" class="mob-link">Services</a>
+      <a href="studio.html" class="mob-link">Studio</a>
+      <a href="#approach" class="mob-link">Approach</a>
+      <a href="#about" class="mob-link">About</a>
+      <a href="#contact" data-book class="btn btn-primary btn-wide mt-4 mb-2">Book a discovery call</a>
     </div>
   </div>
 </header>
 
 <main id="top">
 
-  <!-- ============ HERO (CINEMATIC) ============ -->
-  <section class="hero grain relative overflow-hidden">
-    <div class="hero-media" aria-hidden="true"></div>
-    <div class="hero-scrim" aria-hidden="true"></div>
-    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 pt-[150px] pb-[110px] lg:pt-[180px] lg:pb-[140px]">
-      <div class="max-w-[860px] mx-auto text-center">
-        <div class="eyebrow soft center reveal">Content &amp; Personal Branding Studio · Singapore</div>
+<!-- ============ HERO ============ -->
+<section class="hero-x">
+  <div class="hero-bg home" aria-hidden="true"><img src="assets/hero-bg.jpg" alt="" /></div>
+  <div class="wrap relative text-center pt-20 md:pt-32 pb-10 md:pb-14">
+    <div class="chip-glass reveal"><span class="dotb" aria-hidden="true"></span>Content &amp; personal branding studio · Singapore</div>
+    <h1 class="t-hero mt-6 mx-auto max-w-[900px] reveal"><span class="soft">Become the</span> <span class="hl">go-to expert</span><br />in your industry.</h1>
+    <p class="lead mt-5 mx-auto max-w-[640px] reveal">
+      A done-for-you content studio for established business owners. We handle the strategy, the filming and the ads,
+      building the authority that grows your audience and drives real revenue, so you can stay focused on your message.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3 reveal">
+      <a href="#contact" data-book class="btn btn-primary">Book a discovery call <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="#showreel" class="btn btn-ghost"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Watch the showreel</a>
+    </div>
+    <div class="hero-stats mt-14 md:mt-20 reveal">
+      <div><div class="t-figure">2022</div><div class="hint mt-1.5">Founded in Singapore</div></div>
+      <div><div class="t-figure">50+</div><div class="hint mt-1.5">Clients served</div></div>
+      <div><div class="t-figure">10</div><div class="hint mt-1.5">Person team, two countries</div></div>
+      <div><div class="t-figure">1</div><div class="hint mt-1.5">Podcast studio of our own</div></div>
+    </div>
+  </div>
+</section>
 
-        <h1 class="display-xxl text-paper mt-7 reveal" style="font-size:clamp(44px,7.4vw,92px);">
-          Become the <span class="it accent-text" style="color:var(--accent-soft);">go-to expert</span><br class="hidden sm:block" />
-          in your industry.
-        </h1>
+<!-- ============ SHOWREEL ============ -->
+<section id="showreel" class="pt-16 md:pt-24">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-4 reveal">
+      <div>
+        <div class="eyebrow">Our work in motion</div>
+        <h2 class="t-large mt-2">See the studio at work.</h2>
+      </div>
+      <p class="body max-w-[38ch]">A look at the kind of cinematic content we make for the experts we partner with.</p>
+    </div>
+    <div class="video-frame mt-8 reveal">
+      <div id="ytplayer" class="yt-player"></div>
+      <button id="videoCover" class="video-cover" type="button" aria-label="Play the showreel">
+        <span class="video-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+      </button>
+    </div>
+  </div>
+</section>
 
-        <p class="body-lead on-dark mt-8 max-w-[560px] mx-auto reveal">
-          We're a done-for-you content studio for established business owners. We handle the strategy, the
-          filming and the ads, building the authority that grows your audience and drives real revenue,
-          so you can stay focused on your message.
-        </p>
-
-        <div class="mt-10 flex flex-wrap items-center justify-center gap-4 reveal">
-          <a href="#contact" data-book class="btn btn-primary">Book a discovery call <span class="arrow">→</span></a>
-          <a href="#showreel" class="btn btn-ghost-dark">
-            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full border border-white/40">▶</span>
-            Watch the showreel
-          </a>
-        </div>
+<!-- ============ WHO WE ARE ============ -->
+<section id="about" class="pt-20 md:pt-28">
+  <div class="wrap grid lg:grid-cols-12 gap-4">
+    <div class="lg:col-span-7 card card-pad md:!p-9 flex flex-col justify-between gap-8 reveal">
+      <div>
+        <div class="eyebrow">Who we are</div>
+        <h2 class="t-large mt-3">We lead with strategy, not just cameras. <span class="soft">We carry the weight so you can stay focused on your message.</span></h2>
+      </div>
+      <p class="body max-w-[56ch]">Win Media Studios is a Singapore-based content production and personal branding studio. We partner with founders and professionals to grow their influence through strategic, done-for-you content systems.</p>
+    </div>
+    <div class="lg:col-span-5 grid gap-4">
+      <div class="card card-pad md:!p-7 reveal">
+        <span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9.5" r="2.5"/><path d="M3.5 19c.8-3 3-4.6 5.5-4.6s4.7 1.6 5.5 4.6M14.5 14.6c2.4.1 4.3 1.6 5 4.4"/></svg></span>
+        <h3 class="t-card mt-4">A partner, not a vendor</h3>
+        <p class="body mt-1.5">We understand your industry and bring the thinking: positioning, funnels and authority systems, not only the production.</p>
+      </div>
+      <div class="card card-pad md:!p-7 reveal">
+        <span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19l5-6 4 3 7-9"/><path d="M15 7h5v5"/></svg></span>
+        <h3 class="t-card mt-4">Built for the long game</h3>
+        <p class="body mt-1.5">Brand is an investment, not a cost. We make credible offline experts look like the authority they already are, online.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- bottom stat strip -->
-    <div class="relative border-t border-lineDark">
-      <div class="max-w-[1240px] mx-auto px-6 lg:px-10">
-        <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-lineDark">
-          <div class="py-7 pr-6">
-            <div class="font-display text-accentSoft" style="font-size:36px; font-weight:300;">2022</div>
-            <div class="text-mutedDark text-[12.5px] mt-1">Founded in Singapore</div>
-          </div>
-          <div class="py-7 px-6">
-            <div class="font-display text-accentSoft" style="font-size:36px; font-weight:300;">50+</div>
-            <div class="text-mutedDark text-[12.5px] mt-1">Clients served</div>
-          </div>
-          <div class="py-7 px-6">
-            <div class="font-display text-accentSoft" style="font-size:36px; font-weight:300;">10</div>
-            <div class="text-mutedDark text-[12.5px] mt-1">Person team, two countries</div>
-          </div>
-          <div class="py-7 pl-6">
-            <div class="font-display text-accentSoft" style="font-size:36px; font-weight:300;">Done<span class="text-mutedDark">-</span>for<span class="text-mutedDark">-</span>you</div>
-            <div class="text-mutedDark text-[12.5px] mt-1">End-to-end content systems</div>
-          </div>
+<!-- ============ SERVICES ============ -->
+<section id="services" class="pt-20 md:pt-28">
+  <div class="wrap">
+    <div class="measure reveal">
+      <div class="eyebrow">What we do</div>
+      <h2 class="t-large mt-2">One studio for your whole authority engine.</h2>
+      <p class="body mt-3 max-w-[58ch]">From the first strategy call to the published post, we own the craft end to end, so the only thing on your plate is showing up.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+      <article class="card card-pad md:!p-7 flex flex-col reveal">
+        <span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span>
+        <h3 class="t-card mt-5">Brand &amp; content strategy</h3>
+        <p class="body mt-2 flex-1">Positioning, messaging and a content engine built around how your buyers actually decide. The plan before the camera rolls.</p>
+        <div class="flex flex-wrap gap-1.5 mt-5"><span class="tag">Positioning</span><span class="tag">Funnels</span><span class="tag">Pillars</span></div>
+      </article>
+      <article class="card card-pad md:!p-7 flex flex-col reveal d1">
+        <span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6.5" width="13" height="11" rx="2"/><path d="M16 10.5l5-3v9l-5-3"/></svg></span>
+        <h3 class="t-card mt-5">Video production</h3>
+        <p class="body mt-2 flex-1">Cinematic, well-lit shoots, turned into a month of short-form and long-form content in one painless session.</p>
+        <div class="flex flex-wrap gap-1.5 mt-5"><span class="tag">Shoots</span><span class="tag">Editing</span><span class="tag">Short-form</span></div>
+      </article>
+      <article class="card card-pad md:!p-7 flex flex-col reveal d2">
+        <span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19l5-6 4 3 7-9"/><path d="M15 7h5v5"/></svg></span>
+        <h3 class="t-card mt-5">Paid ads &amp; distribution</h3>
+        <p class="body mt-2 flex-1">We put spend behind the content that performs, turning attention into qualified leads and real, measurable revenue.</p>
+        <div class="flex flex-wrap gap-1.5 mt-5"><span class="tag">Meta</span><span class="tag">YouTube</span><span class="tag">Lead gen</span></div>
+      </article>
+      <article class="card card-pad md:!p-7 flex flex-col reveal d3">
+        <span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4M8 14h3M8 17h6"/></svg></span>
+        <h3 class="t-card mt-5">Done-for-you systems</h3>
+        <p class="body mt-2 flex-1">Scheduling, captions, publishing and reporting: the full operating system for your personal brand, run for you each month.</p>
+        <div class="flex flex-wrap gap-1.5 mt-5"><span class="tag">Management</span><span class="tag">Captions</span><span class="tag">Reporting</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPROACH ============ -->
+<section id="approach" class="pt-20 md:pt-28">
+  <div class="wrap">
+    <div class="measure reveal">
+      <div class="eyebrow">How we work</div>
+      <h2 class="t-large mt-2">A calm, four-step partnership.</h2>
+      <p class="body mt-3 max-w-[58ch]">Done-for-you is a promise of care. We take the weight off your shoulders and handle the whole journey from strategy to results.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+      <div class="card card-pad md:!p-7 step-card reveal"><div class="eyebrow">Step one</div><span class="step-no" aria-hidden="true">01</span>
+        <h3 class="t-section mt-4">Discovery &amp; strategy</h3><p class="body mt-2">We learn your business, goals and audience, then map the positioning and content plan.</p></div>
+      <div class="card card-pad md:!p-7 step-card reveal d1"><div class="eyebrow">Step two</div><span class="step-no" aria-hidden="true">02</span>
+        <h3 class="t-section mt-4">Production day</h3><p class="body mt-2">One relaxed, well-directed shoot. You show up and speak; we handle lighting, sound and direction.</p></div>
+      <div class="card card-pad md:!p-7 step-card reveal d2"><div class="eyebrow">Step three</div><span class="step-no" aria-hidden="true">03</span>
+        <h3 class="t-section mt-4">Edit &amp; publish</h3><p class="body mt-2">We craft, caption and schedule a full month of content across the platforms that matter.</p></div>
+      <div class="card card-pad md:!p-7 step-card reveal d3"><div class="eyebrow">Step four</div><span class="step-no" aria-hidden="true">04</span>
+        <h3 class="t-section mt-4">Amplify &amp; report</h3><p class="body mt-2">Ad spend behind what works, and reports on reach, leads and revenue. Not vanity metrics.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STUDIO TEASER ============ -->
+<section id="studio" class="pt-20 md:pt-28">
+  <div class="wrap">
+    <div class="card glow overflow-hidden grid lg:grid-cols-12 reveal">
+      <div class="lg:col-span-6 card-pad md:!p-10 flex flex-col justify-center">
+        <div class="eyebrow">WMS Studio · Kallang</div>
+        <h2 class="t-large mt-3">Our own podcast studio. <span class="soft">Just show up and talk.</span></h2>
+        <p class="body mt-4 max-w-[48ch]">Three dressed sets, three cameras switched live and an engineer on every session, with raw footage back within 24 hours. Book an hour, or hand us the whole show.</p>
+        <div class="flex flex-wrap gap-1.5 mt-5"><span class="tag">The Library</span><span class="tag">The Lounge</span><span class="tag">The Den</span></div>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="studio.html" class="btn btn-primary">Explore the studio <span class="arrow" aria-hidden="true">→</span></a>
+          <a href="studio.html#book" class="btn btn-ghost">Book a session</a>
         </div>
+      </div>
+      <div class="lg:col-span-6 grid grid-cols-2 gap-1.5 p-1.5 lg:pl-0">
+        <div class="media !rounded-[16px] col-span-2 aspect-[16/9]"><img src="assets/studio/set-a.jpg" loading="lazy" alt="The Library set at WMS Studio" /></div>
+        <div class="media !rounded-[16px] aspect-[4/3]"><img src="assets/studio/set-b.jpg" loading="lazy" alt="The Lounge set at WMS Studio" /></div>
+        <div class="media !rounded-[16px] aspect-[4/3]"><img src="assets/studio/set-c.jpg" loading="lazy" alt="The Den set at WMS Studio" /></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ============ SHOWREEL / VIDEO ============ -->
-  <section id="showreel" class="cinematic grain relative overflow-hidden border-t border-lineDark">
-    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
-      <div class="flex flex-wrap items-end justify-between gap-6 reveal">
-        <div class="max-w-[560px]">
-          <div class="eyebrow soft">Our work in motion</div>
-          <h2 class="display-lg text-paper mt-5" style="font-size:clamp(30px,4vw,48px);">
-            See the <span class="it" style="color:var(--accent-soft);">studio</span> at work.
-          </h2>
-        </div>
-        <p class="body-lead on-dark max-w-[38ch]">
-          A look at the kind of cinematic content we craft for the experts we partner with.
-        </p>
+<!-- ============ WORK ============ -->
+<section id="work" class="pt-20 md:pt-28">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-4 reveal">
+      <div>
+        <div class="eyebrow">Selected work</div>
+        <h2 class="t-large mt-2">Real people. <span class="soft">Real authority.</span></h2>
       </div>
+      <p class="body max-w-[38ch]">A glimpse of the founders and experts we've helped step into the spotlight.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 mt-8">
+      <a href="https://www.youtube.com/watch?v=j4MD41WDV_Y" target="_blank" rel="noopener" class="workcard reveal" data-video="j4MD41WDV_Y" data-cat="Financial Advisory" data-title="6 Bible investment principles that made me millions" data-client="Gabriel Wong">
+        <div class="cover"><img src="https://i.ytimg.com/vi/j4MD41WDV_Y/maxresdefault.jpg" loading="lazy" alt="Gabriel Wong — 6 Bible investment principles that made me millions" /><span class="dur">25:30</span><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+        <div class="mood mt-4">Financial Advisory</div>
+        <div class="wc-title text-[17px] font-semibold tracking-[-.015em] leading-snug mt-1">6 investment principles that made me millions</div>
+        <div class="hint mt-0.5">Gabriel Wong</div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=dgEGrvfpmI4" target="_blank" rel="noopener" class="workcard reveal d1" data-video="dgEGrvfpmI4" data-cat="Real Estate" data-title="Spotting undervalued properties: the 3P framework" data-client="Jared Tan">
+        <div class="cover"><img src="https://i.ytimg.com/vi/dgEGrvfpmI4/maxresdefault.jpg" loading="lazy" alt="Jared Tan — Spotting undervalued properties: the 3P framework" /><span class="dur">56:46</span><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+        <div class="mood mt-4">Real Estate</div>
+        <div class="wc-title text-[17px] font-semibold tracking-[-.015em] leading-snug mt-1">Spotting undervalued properties</div>
+        <div class="hint mt-0.5">Jared Tan</div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=NErF6z-9KiE" target="_blank" rel="noopener" class="workcard reveal d2" data-video="NErF6z-9KiE" data-cat="Coaching" data-title="From ambition to addiction: the dopamine trap of our generation" data-client="Melvin Soh">
+        <div class="cover"><img src="https://i.ytimg.com/vi/NErF6z-9KiE/maxresdefault.jpg" loading="lazy" alt="Melvin Soh — From ambition to addiction: the dopamine trap of our generation" /><span class="dur">1:26:11</span><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+        <div class="mood mt-4">Coaching</div>
+        <div class="wc-title text-[17px] font-semibold tracking-[-.015em] leading-snug mt-1">From ambition to addiction</div>
+        <div class="hint mt-0.5">Melvin Soh</div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=tnjE323SlxM" target="_blank" rel="noopener" class="workcard reveal" data-video="tnjE323SlxM" data-cat="Legal" data-title="Being good at your job doesn't always save you" data-client="Jonathan Wong &amp; Ivan Lee">
+        <div class="cover"><img src="https://i.ytimg.com/vi/tnjE323SlxM/maxresdefault.jpg" loading="lazy" alt="Jonathan Wong and Ivan Lee — Being good at your job doesn't always save you" /><span class="dur">32:51</span><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+        <div class="mood mt-4">Legal</div>
+        <div class="wc-title text-[17px] font-semibold tracking-[-.015em] leading-snug mt-1">Being good at your job isn't enough</div>
+        <div class="hint mt-0.5">Jonathan Wong &amp; Ivan Lee</div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=dpDb4x9lorc" target="_blank" rel="noopener" class="workcard reveal d1" data-video="dpDb4x9lorc" data-cat="Entrepreneurship" data-title="Turning 8 failures into an 8-figure empire" data-client="Ma Yi Duo">
+        <div class="cover"><img src="https://i.ytimg.com/vi/dpDb4x9lorc/maxresdefault.jpg" loading="lazy" alt="Ma Yi Duo — Turning 8 failures into an 8-figure empire" /><span class="dur">53:38</span><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+        <div class="mood mt-4">Entrepreneurship</div>
+        <div class="wc-title text-[17px] font-semibold tracking-[-.015em] leading-snug mt-1">8 failures into an 8-figure empire</div>
+        <div class="hint mt-0.5">Ma Yi Duo</div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=TtGYEGLVZAQ" target="_blank" rel="noopener" class="workcard reveal d2" data-video="TtGYEGLVZAQ" data-cat="Tax &amp; Property" data-title="The tax mistake almost every commercial property buyer makes" data-client="Tina Tan">
+        <div class="cover"><img src="https://i.ytimg.com/vi/TtGYEGLVZAQ/maxresdefault.jpg" loading="lazy" alt="Tina Tan — The tax mistake almost every commercial property buyer makes" /><span class="dur">27:41</span><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+        <div class="mood mt-4">Tax &amp; Property</div>
+        <div class="wc-title text-[17px] font-semibold tracking-[-.015em] leading-snug mt-1">The tax mistake buyers keep making</div>
+        <div class="hint mt-0.5">Tina Tan</div>
+      </a>
+    </div>
+    <div class="mt-10 reveal"><a href="#showreel" class="btn btn-ghost">See the full showreel <span class="arrow" aria-hidden="true">→</span></a></div>
+  </div>
+</section>
 
-      <div class="mt-12 reveal">
-        <div class="video-frame">
-          <div id="ytplayer" class="yt-player"></div>
-          <button id="videoCover" class="video-cover" type="button" aria-label="Play video">
-            <span class="video-play" aria-hidden="true">▶</span>
-          </button>
-        </div>
+<!-- ============ TESTIMONIAL ============ -->
+<section class="pt-20 md:pt-28">
+  <div class="wrap">
+    <div class="card card-pad md:!p-12 text-center reveal">
+      <div class="quote-mark" aria-hidden="true">“</div>
+      <blockquote class="t-large mx-auto max-w-[860px] mt-4">They didn't just hand us files. They handed us a system. <span class="soft">For the first time our brand online looks like the authority we are offline.</span></blockquote>
+      <div class="hint mt-6 font-semibold uppercase tracking-[.08em]">A Win Media Studios client</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHO WE SERVE ============ -->
+<section class="pt-20 md:pt-28">
+  <div class="wrap grid lg:grid-cols-12 gap-8 lg:gap-12">
+    <div class="lg:col-span-5 reveal">
+      <div class="eyebrow">Who we serve</div>
+      <h2 class="t-large mt-2">Credible offline, underbuilt online, <span class="soft">and ready to invest in done-for-you.</span></h2>
+      <p class="body mt-4 max-w-[44ch]">Established service-based business owners and team leaders who'd rather partner with experts than DIY their brand.</p>
+    </div>
+    <div class="lg:col-span-7 grid sm:grid-cols-2 gap-4 reveal d1">
+      <div class="card card-pad">
+        <h3 class="eyebrow mb-3">Who they are</h3>
+        <ul><li class="list-row">Senior, respected experts in their field</li><li class="list-row">Financial advisers &amp; FA team leaders</li>
+          <li class="list-row">Property agency leaders &amp; consultants</li><li class="list-row">Coaches, consultants &amp; founders</li>
+          <li class="list-row">Healthcare &amp; professional-services leaders</li></ul>
+      </div>
+      <div class="card card-pad">
+        <h3 class="eyebrow mb-3">What they value</h3>
+        <ul><li class="list-row">Brand as an investment, not a cost</li><li class="list-row">Quality worth paying for</li>
+          <li class="list-row">A partner who removes the burden</li><li class="list-row">Looking like the authority they are</li>
+          <li class="list-row">The long game over chasing trends</li></ul>
       </div>
     </div>
-  </section>
+  </div>
+  <div class="wrap mt-8 reveal">
+    <div class="hint font-semibold mb-3">Industries we serve</div>
+    <div class="flex flex-wrap gap-2">
+      <span class="tag">Financial Advisory</span><span class="tag">Real Estate</span><span class="tag">Business Consulting</span><span class="tag">Healthcare</span>
+      <span class="tag">Coaching &amp; Mentorship</span><span class="tag">Professional Services</span><span class="tag">Entrepreneurship</span><span class="tag">Personal Branding</span>
+    </div>
+  </div>
+</section>
 
-  <!-- ============ TRUST MARQUEE ============ -->
-  <section class="bg-paper2 border-b border-line">
-    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-6 flex flex-col lg:flex-row items-center gap-6">
-      <span class="eyebrow no-line whitespace-nowrap shrink-0">Trusted across industries</span>
-      <div class="marquee w-full">
-        <div class="marquee-track text-muted font-display" style="font-size:19px;">
-          <span>Financial Advisory</span><span>Real Estate</span><span>Business Consulting</span>
-          <span>Healthcare</span><span>Coaching &amp; Mentorship</span><span>Professional Services</span>
-          <span>Entrepreneurship</span><span>Personal Branding</span>
-          <!-- duplicate for seamless loop -->
-          <span aria-hidden="true">Financial Advisory</span><span aria-hidden="true">Real Estate</span><span aria-hidden="true">Business Consulting</span>
-          <span aria-hidden="true">Healthcare</span><span aria-hidden="true">Coaching &amp; Mentorship</span><span aria-hidden="true">Professional Services</span>
-          <span aria-hidden="true">Entrepreneurship</span><span aria-hidden="true">Personal Branding</span>
-        </div>
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="pt-24 md:pt-32 pb-20 md:pb-28">
+  <div class="wrap">
+    <div class="card glow card-pad md:!p-14 text-center reveal">
+      <div class="eyebrow">Let's build your authority</div>
+      <h2 class="t-hero mt-4 mx-auto max-w-[820px]">Premium, creative, and built for the <span class="hl">long game.</span></h2>
+      <p class="lead mt-5 mx-auto max-w-[56ch]">Book a discovery call and we'll map exactly how Win Media Studios can make you the go-to expert in your industry.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="#contact" data-book class="btn btn-primary">Book a discovery call <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="mailto:raymond@winmediastudios.com" class="btn btn-ghost">Email the studio</a>
       </div>
     </div>
-  </section>
-
-  <!-- ============ WHO WE ARE / INTRO ============ -->
-  <section id="about" class="bg-paper">
-    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
-      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-        <div class="lg:col-span-4 reveal">
-          <div class="eyebrow">Who we are</div>
-          <p class="text-muted text-[13.5px] leading-[1.7] mt-6 max-w-[34ch]">
-            Win Media Studios is a Singapore-based content production and personal branding studio. We
-            partner with founders and professionals to grow their influence through strategic,
-            done-for-you content systems.
-          </p>
-          <a href="#services" class="inline-flex items-center gap-2 mt-7 text-[13px] text-ink border-b border-accent pb-1 hover:gap-3 transition-all">
-            See how we work <span>→</span>
-          </a>
-        </div>
-
-        <div class="lg:col-span-8 reveal">
-          <h2 class="display-lg" style="font-size:clamp(28px,3.6vw,46px);">
-            We lead with <span class="it accent-text">strategy</span>, not just cameras. We carry the
-            weight so you can stay focused on <span class="it">your message.</span>
-          </h2>
-          <div class="hairline mt-10"></div>
-          <div class="grid sm:grid-cols-2 gap-x-12 gap-y-7 mt-8">
-            <div>
-              <h3 class="font-display text-[19px]">A partner, not a vendor</h3>
-              <p class="text-muted text-[13.5px] leading-[1.7] mt-2">
-                We understand your industry and bring the thinking: positioning, funnels and authority
-                systems, not only the production.
-              </p>
-            </div>
-            <div>
-              <h3 class="font-display text-[19px]">Premium &amp; built for the long game</h3>
-              <p class="text-muted text-[13.5px] leading-[1.7] mt-2">
-                Brand is an investment, not a cost. We make credible offline experts look like the
-                authority they already are, online.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SERVICES ============ -->
-  <section id="services" class="bg-paper2 border-y border-line">
-    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
-      <div class="max-w-[640px] reveal">
-        <div class="eyebrow">What we do</div>
-        <h2 class="display-lg mt-5" style="font-size:clamp(30px,4vw,48px);">
-          One studio for your whole <span class="it accent-text">authority engine.</span>
-        </h2>
-        <p class="body-lead mt-6">
-          From the first strategy call to the published post, we own the craft end-to-end, so the only
-          thing on your plate is showing up.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
-        <!-- card -->
-        <article class="surface p-7 flex flex-col reveal">
-          <div class="flex items-center justify-between">
-            <span class="svc-num">01</span>
-            <span class="text-accent text-xl">◷</span>
-          </div>
-          <h3 class="font-display text-[22px] mt-6">Brand &amp; Content Strategy</h3>
-          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
-            Positioning, messaging and a content engine designed around how your buyers actually decide.
-            The plan before the camera ever rolls.
-          </p>
-          <hr class="hairline my-5" />
-          <span class="text-[11.5px] text-muted">Positioning · Funnels · Content pillars</span>
-        </article>
-
-        <article class="surface p-7 flex flex-col reveal">
-          <div class="flex items-center justify-between">
-            <span class="svc-num">02</span>
-            <span class="text-accent text-xl">▷</span>
-          </div>
-          <h3 class="font-display text-[22px] mt-6">Video Content Production</h3>
-          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
-            Cinematic, intentional, well-lit shoots, turned into a month of short-form and long-form
-            content in a single, painless session.
-          </p>
-          <hr class="hairline my-5" />
-          <span class="text-[11.5px] text-muted">Shoots · Editing · Short-form</span>
-        </article>
-
-        <article class="surface p-7 flex flex-col reveal">
-          <div class="flex items-center justify-between">
-            <span class="svc-num">03</span>
-            <span class="text-accent text-xl">◆</span>
-          </div>
-          <h3 class="font-display text-[22px] mt-6">Paid Ads &amp; Distribution</h3>
-          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
-            We put spend behind the content that performs, turning attention into qualified leads and real,
-            measurable revenue.
-          </p>
-          <hr class="hairline my-5" />
-          <span class="text-[11.5px] text-muted">Meta · YouTube · Lead gen</span>
-        </article>
-
-        <article class="surface p-7 flex flex-col reveal">
-          <div class="flex items-center justify-between">
-            <span class="svc-num">04</span>
-            <span class="text-accent text-xl">❖</span>
-          </div>
-          <h3 class="font-display text-[22px] mt-6">Done-for-You Systems</h3>
-          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
-            Scheduling, captions, publishing and reporting: the full operating system for your personal
-            brand, run for you each month.
-          </p>
-          <hr class="hairline my-5" />
-          <span class="text-[11.5px] text-muted">Management · Captions · Reporting</span>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ APPROACH / PROCESS (CINEMATIC) ============ -->
-  <section id="approach" class="cinematic grain relative overflow-hidden">
-    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
-      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
-        <div class="lg:col-span-4 reveal">
-          <div class="eyebrow soft">How we work</div>
-          <h2 class="display-lg text-paper mt-5" style="font-size:clamp(30px,4vw,46px);">
-            A calm, four-step <span class="it" style="color:var(--accent-soft);">partnership.</span>
-          </h2>
-          <p class="body-lead on-dark mt-6 max-w-[40ch]">
-            Done-for-you is a promise of care. We take the weight off your shoulders and handle the entire
-            journey from strategy to results.
-          </p>
-        </div>
-
-        <div class="lg:col-span-8">
-          <div class="grid sm:grid-cols-2 gap-px bg-lineDark border border-lineDark rounded-[3px] overflow-hidden">
-            <div class="bg-dark p-8 reveal">
-              <div class="font-display text-accentSoft text-[15px]">01</div>
-              <h3 class="font-display text-paper text-[22px] mt-3">Discovery &amp; Strategy</h3>
-              <p class="text-mutedDark text-[13px] leading-[1.7] mt-3">
-                We learn your business, your goals and your audience, then map the positioning and content
-                plan that will build your authority.
-              </p>
-            </div>
-            <div class="bg-dark p-8 reveal">
-              <div class="font-display text-accentSoft text-[15px]">02</div>
-              <h3 class="font-display text-paper text-[22px] mt-3">Production Day</h3>
-              <p class="text-mutedDark text-[13px] leading-[1.7] mt-3">
-                One relaxed, well-directed shoot. You show up and speak, and we handle lighting, sound,
-                direction and the entire set.
-              </p>
-            </div>
-            <div class="bg-dark p-8 reveal">
-              <div class="font-display text-accentSoft text-[15px]">03</div>
-              <h3 class="font-display text-paper text-[22px] mt-3">Edit &amp; Publish</h3>
-              <p class="text-mutedDark text-[13px] leading-[1.7] mt-3">
-                We craft, caption and schedule a full month of content, published consistently across the
-                platforms that matter.
-              </p>
-            </div>
-            <div class="bg-dark p-8 reveal">
-              <div class="font-display text-accentSoft text-[15px]">04</div>
-              <h3 class="font-display text-paper text-[22px] mt-3">Amplify &amp; Report</h3>
-              <p class="text-mutedDark text-[13px] leading-[1.7] mt-3">
-                We put ad spend behind what works and report on the numbers that matter: reach, leads and
-                revenue, not vanity metrics.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PODCAST STUDIO ============ -->
-  <section id="studio" class="bg-paper border-y border-line">
-    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
-      <div class="max-w-[640px] reveal">
-        <div class="eyebrow">The studio</div>
-        <h2 class="display-lg mt-5" style="font-size:clamp(30px,4vw,48px);">
-          Just show up and <span class="it accent-text">talk.</span>
-        </h2>
-        <p class="body-lead mt-6">
-          Our own fully rigged podcast studio, with an engineer on site, three dressed camera sets and
-          your raw footage back within 24 hours. You're not booking a room. You're hiring a production
-          department.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
-        <article class="surface p-7 flex flex-col reveal">
-          <div class="flex items-center justify-between">
-            <span class="svc-num">01</span>
-            <span class="text-accent text-xl">◷</span>
-          </div>
-          <h3 class="font-display text-[22px] mt-6">Pre-prepped studio</h3>
-          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
-            Lighting, camera angles and sets are rigged and ready before you walk through the door.
-          </p>
-        </article>
-
-        <article class="surface p-7 flex flex-col reveal">
-          <div class="flex items-center justify-between">
-            <span class="svc-num">02</span>
-            <span class="text-accent text-xl">▷</span>
-          </div>
-          <h3 class="font-display text-[22px] mt-6">Pro-grade gear</h3>
-          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
-            Top-tier audio and multi-camera video equipment, in a room built to look and sound premium.
-          </p>
-        </article>
-
-        <article class="surface p-7 flex flex-col reveal">
-          <div class="flex items-center justify-between">
-            <span class="svc-num">03</span>
-            <span class="text-accent text-xl">◆</span>
-          </div>
-          <h3 class="font-display text-[22px] mt-6">On-site engineer</h3>
-          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
-            A professional runs the whole session, so the recording is clean the first time.
-          </p>
-        </article>
-
-        <article class="surface p-7 flex flex-col reveal">
-          <div class="flex items-center justify-between">
-            <span class="svc-num">04</span>
-            <span class="text-accent text-xl">❖</span>
-          </div>
-          <h3 class="font-display text-[22px] mt-6">Zero stress</h3>
-          <p class="text-muted text-[13px] leading-[1.7] mt-3 flex-1">
-            Sit down and speak. We handle every technical detail from setup to delivery.
-          </p>
-        </article>
-      </div>
-
-      <div class="mt-20 reveal">
-        <div class="flex flex-wrap items-end justify-between gap-6">
-          <h3 class="font-display text-[26px] lg:text-[30px] max-w-[420px]">
-            Three sets, <span class="it accent-text">one booking.</span>
-          </h3>
-          <p class="text-muted text-[14px] leading-[1.7] max-w-[38ch]">
-            Switch the look to match the episode. All three are dressed and lit before your session
-            starts.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-5 mt-10">
-          <figure class="reveal">
-            <div class="set-shot">
-              <img src="assets/studio-set-a.jpg" loading="lazy"
-                   alt="Set A — warm shelving and greenery, used for interview formats" />
-            </div>
-            <figcaption class="text-muted text-[13px] leading-[1.7] mt-4">
-              Warm shelving and greenery. Our most-used look for interview formats and two-hander
-              conversations.
-            </figcaption>
-          </figure>
-          <figure class="reveal">
-            <div class="set-shot">
-              <img src="assets/studio-set-b.jpg" loading="lazy"
-                   alt="Set B — soft, bright and minimal, used for lifestyle and founder storytelling" />
-            </div>
-            <figcaption class="text-muted text-[13px] leading-[1.7] mt-4">
-              Soft, bright and minimal. Reads well for lifestyle, wellness and founder storytelling.
-            </figcaption>
-          </figure>
-          <figure class="reveal">
-            <div class="set-shot">
-              <img src="assets/studio-set-c.jpg" loading="lazy"
-                   alt="Set C — moody low-key lighting against dark wood, used for solo pieces and ads" />
-            </div>
-            <figcaption class="text-muted text-[13px] leading-[1.7] mt-4">
-              Moody low-key lighting against dark wood. Built for solo pieces to camera and ads.
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div class="mt-14 reveal">
-        <div class="flex flex-wrap gap-3">
-          <a href="studio.html" class="btn btn-primary">See the studio &amp; rates <span class="arrow">→</span></a>
-          <a href="#contact" class="btn btn-ghost-light">Enquire about the studio</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ WORK / SHOWREEL (CINEMATIC) ============ -->
-  <section id="work" class="cinematic grain relative overflow-hidden border-t border-lineDark">
-    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
-      <div class="flex flex-wrap items-end justify-between gap-6 reveal">
-        <div class="max-w-[560px]">
-          <div class="eyebrow soft">Selected work</div>
-          <h2 class="display-lg text-paper mt-5" style="font-size:clamp(30px,4vw,48px);">
-            Real people. <span class="it" style="color:var(--accent-soft);">Real authority.</span>
-          </h2>
-        </div>
-        <p class="body-lead on-dark max-w-[34ch]">
-          A glimpse of the founders and experts we've helped step into the spotlight.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-11 mt-14">
-        <a href="https://www.youtube.com/watch?v=j4MD41WDV_Y" target="_blank" rel="noopener"
-           class="workcard reveal" data-video="j4MD41WDV_Y"
-           data-cat="Financial Advisory" data-title="6 Bible investment principles that made me millions" data-client="Gabriel Wong">
-          <div class="thumb aspect-video">
-            <img src="https://i.ytimg.com/vi/j4MD41WDV_Y/maxresdefault.jpg" loading="lazy" alt="Gabriel Wong — 6 Bible investment principles that made me millions" />
-            <span class="color-treat"></span>
-            <span class="play">▶</span>
-            <span class="dur">25:30</span>
-          </div>
-          <div class="mt-4">
-            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Financial Advisory</div>
-            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">6 investment principles that made me millions</div>
-            <div class="text-[13px] text-mutedDark mt-1.5">Gabriel Wong</div>
-          </div>
-        </a>
-        <a href="https://www.youtube.com/watch?v=dgEGrvfpmI4" target="_blank" rel="noopener"
-           class="workcard reveal" data-video="dgEGrvfpmI4"
-           data-cat="Real Estate" data-title="Spotting undervalued properties: the 3P framework" data-client="Jared Tan">
-          <div class="thumb aspect-video">
-            <img src="https://i.ytimg.com/vi/dgEGrvfpmI4/maxresdefault.jpg" loading="lazy" alt="Jared Tan — Spotting undervalued properties: the 3P framework" />
-            <span class="color-treat"></span>
-            <span class="play">▶</span>
-            <span class="dur">56:46</span>
-          </div>
-          <div class="mt-4">
-            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Real Estate</div>
-            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">Spotting undervalued properties</div>
-            <div class="text-[13px] text-mutedDark mt-1.5">Jared Tan</div>
-          </div>
-        </a>
-        <a href="https://www.youtube.com/watch?v=NErF6z-9KiE" target="_blank" rel="noopener"
-           class="workcard reveal" data-video="NErF6z-9KiE"
-           data-cat="Coaching" data-title="From ambition to addiction: the dopamine trap of our generation" data-client="Melvin Soh">
-          <div class="thumb aspect-video">
-            <img src="https://i.ytimg.com/vi/NErF6z-9KiE/maxresdefault.jpg" loading="lazy" alt="Melvin Soh — From ambition to addiction: the dopamine trap of our generation" />
-            <span class="color-treat"></span>
-            <span class="play">▶</span>
-            <span class="dur">1:26:11</span>
-          </div>
-          <div class="mt-4">
-            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Coaching</div>
-            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">From ambition to addiction</div>
-            <div class="text-[13px] text-mutedDark mt-1.5">Melvin Soh</div>
-          </div>
-        </a>
-        <a href="https://www.youtube.com/watch?v=tnjE323SlxM" target="_blank" rel="noopener"
-           class="workcard reveal" data-video="tnjE323SlxM"
-           data-cat="Legal" data-title="Being good at your job doesn't always save you" data-client="Jonathan Wong &amp; Ivan Lee">
-          <div class="thumb aspect-video">
-            <img src="https://i.ytimg.com/vi/tnjE323SlxM/maxresdefault.jpg" loading="lazy" alt="Jonathan Wong and Ivan Lee — Being good at your job doesn't always save you" />
-            <span class="color-treat"></span>
-            <span class="play">▶</span>
-            <span class="dur">32:51</span>
-          </div>
-          <div class="mt-4">
-            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Legal</div>
-            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">Being good at your job isn't enough</div>
-            <div class="text-[13px] text-mutedDark mt-1.5">Jonathan Wong &amp; Ivan Lee</div>
-          </div>
-        </a>
-        <a href="https://www.youtube.com/watch?v=dpDb4x9lorc" target="_blank" rel="noopener"
-           class="workcard reveal" data-video="dpDb4x9lorc"
-           data-cat="Entrepreneurship" data-title="Turning 8 failures into an 8-figure empire" data-client="Ma Yi Duo">
-          <div class="thumb aspect-video">
-            <img src="https://i.ytimg.com/vi/dpDb4x9lorc/maxresdefault.jpg" loading="lazy" alt="Ma Yi Duo — Turning 8 failures into an 8-figure empire" />
-            <span class="color-treat"></span>
-            <span class="play">▶</span>
-            <span class="dur">53:38</span>
-          </div>
-          <div class="mt-4">
-            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Entrepreneurship</div>
-            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">8 failures into an 8-figure empire</div>
-            <div class="text-[13px] text-mutedDark mt-1.5">Ma Yi Duo</div>
-          </div>
-        </a>
-        <a href="https://www.youtube.com/watch?v=TtGYEGLVZAQ" target="_blank" rel="noopener"
-           class="workcard reveal" data-video="TtGYEGLVZAQ"
-           data-cat="Tax &amp; Property" data-title="The tax mistake almost every commercial property buyer makes" data-client="Tina Tan">
-          <div class="thumb aspect-video">
-            <img src="https://i.ytimg.com/vi/TtGYEGLVZAQ/maxresdefault.jpg" loading="lazy" alt="Tina Tan — The tax mistake almost every commercial property buyer makes" />
-            <span class="color-treat"></span>
-            <span class="play">▶</span>
-            <span class="dur">27:41</span>
-          </div>
-          <div class="mt-4">
-            <div class="text-[11px] tracking-[.22em] uppercase text-accentSoft">Tax &amp; Property</div>
-            <div class="wc-title font-display text-paper text-[19px] leading-snug mt-1.5">The tax mistake buyers keep making</div>
-            <div class="text-[13px] text-mutedDark mt-1.5">Tina Tan</div>
-          </div>
-        </a>
-      </div>
-
-      <div class="mt-12 reveal">
-        <a href="#showreel" class="btn btn-ghost-dark">See the full showreel <span class="arrow">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ TESTIMONIAL / PULL QUOTE ============ -->
-  <section class="bg-paper2 border-y border-line">
-    <div class="max-w-[1000px] mx-auto px-6 lg:px-10 py-24 lg:py-32 text-center reveal">
-      <div class="font-display accent-text text-[56px] leading-none">“</div>
-      <blockquote class="display-lg mt-2" style="font-size:clamp(24px,3.2vw,38px); font-weight:300; line-height:1.3;">
-        They didn't just hand us files. They handed us a system. For the first time our brand online
-        looks like the authority we are <span class="it accent-text">offline.</span>
-      </blockquote>
-      <div class="mt-9 flex items-center justify-center gap-3">
-        <span class="w-9 h-px bg-line"></span>
-        <span class="text-[12px] tracking-[.22em] uppercase text-muted">A Win Media Studios client</span>
-        <span class="w-9 h-px bg-line"></span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ WHO WE SERVE ============ -->
-  <section class="bg-paper">
-    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
-      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
-        <div class="lg:col-span-5 reveal">
-          <div class="eyebrow">Who we serve</div>
-          <h2 class="display-lg mt-5" style="font-size:clamp(28px,3.6vw,42px);">
-            Credible offline, <span class="it accent-text">underbuilt online</span>, and ready to invest in
-            done-for-you.
-          </h2>
-          <p class="body-lead mt-6 max-w-[42ch]">
-            Established service-based business owners and team leaders who'd rather partner with experts
-            than DIY their brand.
-          </p>
-        </div>
-
-        <div class="lg:col-span-7 grid sm:grid-cols-2 gap-x-12 gap-y-10 reveal">
-          <div>
-            <h3 class="eyebrow no-line mb-4">Who they are</h3>
-            <ul class="space-y-0">
-              <li class="text-[13.5px] text-muted py-3 border-t border-line">Senior, respected experts in their field</li>
-              <li class="text-[13.5px] text-muted py-3 border-t border-line">Financial advisers &amp; FA team leaders</li>
-              <li class="text-[13.5px] text-muted py-3 border-t border-line">Property agency leaders &amp; consultants</li>
-              <li class="text-[13.5px] text-muted py-3 border-t border-line">Coaches, consultants &amp; founders</li>
-              <li class="text-[13.5px] text-muted py-3 border-t border-line">Healthcare &amp; professional-services leaders</li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="eyebrow no-line mb-4">What they value</h3>
-            <ul class="space-y-0">
-              <li class="text-[13.5px] text-muted py-3 border-t border-line">Brand as an investment, not a cost</li>
-              <li class="text-[13.5px] text-muted py-3 border-t border-line">Quality enough to pay for done-for-you</li>
-              <li class="text-[13.5px] text-muted py-3 border-t border-line">A partner who removes the burden</li>
-              <li class="text-[13.5px] text-muted py-3 border-t border-line">Being made to look like the authority they are</li>
-              <li class="text-[13.5px] text-muted py-3 border-t border-line">The long game over chasing trends</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-16 reveal">
-        <h3 class="eyebrow no-line mb-5">Industries we serve</h3>
-        <div class="flex flex-wrap gap-2.5">
-          <span class="pill">Financial Advisory</span>
-          <span class="pill">Real Estate</span>
-          <span class="pill">Business Consulting</span>
-          <span class="pill">Healthcare</span>
-          <span class="pill">Coaching &amp; Mentorship</span>
-          <span class="pill">Professional Services</span>
-          <span class="pill">Entrepreneurship</span>
-          <span class="pill">Personal Branding</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CTA (CINEMATIC) ============ -->
-  <section id="contact" class="cinematic grain relative overflow-hidden border-t border-lineDark">
-    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-28 lg:py-36 text-center">
-      <div class="eyebrow soft center reveal">Let's build your authority</div>
-      <h2 class="display-xl text-paper mt-7 mx-auto max-w-[16ch] reveal" style="font-size:clamp(38px,6vw,72px);">
-        Premium, creative, and built for the <span class="it" style="color:var(--accent-soft);">long game.</span>
-      </h2>
-      <p class="body-lead on-dark mt-7 mx-auto max-w-[52ch] reveal">
-        Book a discovery call and we'll map exactly how Win Media Studios can make you the go-to expert in
-        your industry.
-      </p>
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-4 reveal">
-        <a href="#contact" data-book class="btn btn-primary">Book a discovery call <span class="arrow">→</span></a>
-        <a href="mailto:raymond@winmediastudios.com" class="btn btn-ghost-dark">Email the studio</a>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 </main>
 
-<!-- ============ FOOTER ============ -->
-<footer class="bg-dark text-paper">
-  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 pt-20 pb-10">
-    <div class="grid md:grid-cols-12 gap-12">
-      <div class="md:col-span-5">
-        <img src="assets/wms-logo-white.png" alt="Win Media Studios" class="h-9 w-auto" />
-        <p class="text-mutedDark text-[13.5px] leading-[1.7] mt-6 max-w-[40ch]">
-          A Singapore-based content production and personal branding studio. We help founders and
-          professionals become the go-to expert in their industry.
-        </p>
-        <p class="text-mutedDark text-[11px] tracking-[.22em] uppercase mt-7">Est. 2022 · Singapore</p>
-      </div>
-
-      <div class="md:col-span-3 md:col-start-7">
-        <h4 class="eyebrow soft no-line mb-5">Explore</h4>
-        <ul class="space-y-3">
-          <li><a href="#work" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Work</a></li>
-          <li><a href="#services" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Services</a></li>
-          <li><a href="studio.html" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Studio</a></li>
-          <li><a href="#approach" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Approach</a></li>
-          <li><a href="#about" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">About</a></li>
-        </ul>
-      </div>
-
-      <div class="md:col-span-3">
-        <h4 class="eyebrow soft no-line mb-5">Get in touch</h4>
-        <ul class="space-y-3">
-          <li><a href="mailto:raymond@winmediastudios.com" class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">raymond@winmediastudios.com</a></li>
-          <li><a href="#contact" data-book class="text-mutedDark hover:text-paper transition-colors text-[13.5px]">Book a discovery call</a></li>
-        </ul>
-        <a href="#contact" data-book class="btn btn-primary mt-6">Start a project <span class="arrow">→</span></a>
-      </div>
+<footer class="border-t border-[var(--hair)]">
+  <div class="wrap py-12 grid md:grid-cols-12 gap-8">
+    <div class="md:col-span-5">
+      <img src="assets/brand/logo-white.png" alt="Win Media Studios" class="logo !h-[26px]" width="70" height="26" />
+      <p class="body mt-4 max-w-[42ch]">A Singapore-based content production and personal branding studio. We help founders and professionals become the go-to expert in their industry.</p>
+      <p class="hint mt-4 uppercase tracking-[.08em] font-semibold">Est. 2022 · Singapore</p>
     </div>
-
-    <hr class="hairline-dark mt-16 mb-7" />
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-mutedDark text-[11.5px]">
-      <span>© <span id="year">2026</span> Win Media Studios. All rights reserved.</span>
-      <span class="tracking-[.22em] uppercase">Become the go-to expert in your industry</span>
+    <div class="md:col-span-3">
+      <div class="eyebrow mb-3">Explore</div>
+      <ul class="space-y-2 text-[15px]">
+        <li><a href="#work" class="nav-link">Work</a></li><li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="studio.html" class="nav-link">Studio</a></li><li><a href="#approach" class="nav-link">Approach</a></li><li><a href="#about" class="nav-link">About</a></li>
+      </ul>
     </div>
+    <div class="md:col-span-4">
+      <div class="eyebrow mb-3">Get in touch</div>
+      <ul class="space-y-2 text-[15px]">
+        <li><a href="mailto:raymond@winmediastudios.com" class="nav-link">raymond@winmediastudios.com</a></li>
+        <li><a href="#contact" data-book class="nav-link">Book a discovery call</a></li>
+      </ul>
+      <a href="#contact" data-book class="btn btn-primary mt-5">Start a project <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <div class="wrap pb-10 hint flex flex-wrap justify-between gap-2">
+    <span>© <span id="year">2026</span> Win Media Studios. All rights reserved.</span><span>Become the go-to expert in your industry</span>
   </div>
 </footer>
 
@@ -1142,9 +719,9 @@
   <div class="vbox-dialog">
     <button class="vbox-x" data-vclose type="button" aria-label="Close video">✕</button>
     <div class="vbox-frame"><div id="vboxMount"></div></div>
-    <div class="vbox-cap">
-      <div id="vboxCat" class="text-[11px] tracking-[.22em] uppercase text-accentSoft"></div>
-      <div id="vboxTitle" class="font-display text-paper text-[19px] mt-1"></div>
+    <div class="mt-4">
+      <div id="vboxCat" class="eyebrow"></div>
+      <div id="vboxTitle" class="text-[19px] font-semibold tracking-[-.02em] mt-1"></div>
     </div>
   </div>
 </div>
