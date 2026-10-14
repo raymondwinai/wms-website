@@ -662,18 +662,21 @@ function mailClient_(to, subject, heading, rows, note, linkHref) {
   const esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
   const text = [heading, ''].concat(rows.map(function (x) { return x[0] + ': ' + x[1]; }))
     .concat(['', note, linkHref ? 'Directions: ' + linkHref : '', '', CFG.STUDIO_NAME + ' · ' + CFG.ADDRESS]).join('\n');
+  const SANS = '-apple-system,BlinkMacSystemFont,SF Pro Text,Helvetica Neue,Helvetica,Arial,sans-serif';   // no quotes: it sits inside style="…"
   const html =
-    '<div style="font-family:Georgia,serif;max-width:560px;margin:0 auto;color:#1A1A1C">' +
-    '<div style="font:600 11px/1 Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#C8862F;margin:8px 0 18px">' + CFG.STUDIO_NAME + '</div>' +
-    '<div style="font-size:26px;line-height:1.25;margin:0 0 22px">' + esc(heading) + '</div>' +
-    '<table style="width:100%;border-collapse:collapse;font:14px/1.6 Arial,sans-serif">' +
+    '<div style="background:#f5f5f7;padding:24px 12px;font-family:' + SANS + ';color:#1d1d1f">' +
+    '<div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:22px;padding:28px 24px">' +
+    '<div style="font-size:13px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:#8e8e93;margin:0 0 10px">' + CFG.STUDIO_NAME + '</div>' +
+    '<div style="font-size:26px;line-height:1.2;font-weight:700;letter-spacing:-.6px;margin:0 0 18px">' + esc(heading) + '</div>' +
+    '<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.45">' +
     rows.map(function (x) {
-      return '<tr><td style="padding:9px 0;border-top:1px solid #E6E1D8;color:#6B665E;width:42%">' + esc(x[0]) +
-             '</td><td style="padding:9px 0;border-top:1px solid #E6E1D8">' + esc(x[1]) + '</td></tr>';
+      return '<tr><td style="padding:11px 0;border-top:1px solid #e8e8ed;color:#6e6e73;width:42%;vertical-align:top">' + esc(x[0]) +
+             '</td><td style="padding:11px 0;border-top:1px solid #e8e8ed;font-weight:500;text-align:right">' + esc(x[1]) + '</td></tr>';
     }).join('') + '</table>' +
-    '<p style="font:14px/1.7 Arial,sans-serif;color:#3A3832;margin:22px 0">' + esc(note) + '</p>' +
-    (linkHref ? '<p style="margin:0 0 22px"><a href="' + linkHref + '" style="font:600 13px Arial,sans-serif;color:#14120d;background:#C8862F;padding:12px 18px;text-decoration:none;border-radius:2px">Get directions</a></p>' : '') +
-    '<p style="font:12px/1.6 Arial,sans-serif;color:#8A857C;border-top:1px solid #E6E1D8;padding-top:14px">' + esc(CFG.ADDRESS) +
+    '<p style="font-size:15px;line-height:1.5;color:#6e6e73;margin:20px 0">' + esc(note) + '</p>' +
+    (linkHref ? '<p style="margin:0 0 6px"><a href="' + linkHref + '" style="display:inline-block;font-size:15px;font-weight:600;color:#ffffff;background:#0071e3;padding:12px 20px;text-decoration:none;border-radius:980px">Get directions</a></p>' : '') +
+    '</div>' +
+    '<p style="max-width:560px;margin:14px auto 0;font-size:12px;line-height:1.5;color:#8e8e93;text-align:center">' + esc(CFG.ADDRESS) +
     '<br>WhatsApp ' + esc(CFG.WHATSAPP_DISPLAY) + '</p></div>';
   MailApp.sendEmail({ to: to, subject: subject, body: text, htmlBody: html, name: CFG.STUDIO_NAME, replyTo: ownerEmail_() });
 }
