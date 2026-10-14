@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Podcast Studio in Kallang, Singapore | WMS Studio by Win Media Studios</title>
+<meta name="description" content="A fully rigged podcast studio in Kallang, Singapore. Three dressed sets, three-camera live switching and an engineer on every session. From $250/hr, no GST. Editing, clips and ads under one roof." />
+<meta property="og:title" content="WMS Studio | Podcast studio in Kallang, Singapore" />
+<meta property="og:description" content="Most studios hand you files. We hand you clients. From $250/hr, no GST." />
+<meta property="og:image" content="https://winmediastudios.com/assets/studio/hero-mic.jpg" />
+<meta property="og:type" content="website" />
+
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="assets/studio/hero-mic.jpg" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          gold: "#C8862F", goldSoft: "#E7C58A",
+          bone: "#F4F1EA", ash: "#A39E94", dim: "#6F6B64",
+          void: "#0B0B0D", ink1: "#111114", ink2: "#16161A", ink3: "#1E1E23",
+        },
+        fontFamily: {
+          serif: ['Fraunces', 'Georgia', 'serif'],
+          sans:  ['Inter', 'system-ui', 'sans-serif'],
+        },
+      }
+    }
+  };
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "WMS Studio by Win Media Studios",
+  "image": "https://winmediastudios.com/assets/studio/hero-mic.jpg",
+  "url": "https://winmediastudios.com/studio.html",
+  "telephone": "+6589397426",
+  "priceRange": "$250-$850",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "47 Kallang Pudding Rd, #09-13, Crescent @ Kallang",
+    "addressLocality": "Singapore",
+    "postalCode": "349318",
+    "addressCountry": "SG"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "09:00", "closes": "21:00"
+  }]
+}
+</script>
+
+<style>
+  :root{
+    --void:#0B0B0D; --ink-1:#111114; --ink-2:#16161A; --ink-3:#1E1E23;
+    --line:rgba(244,241,234,.09); --line-2:rgba(244,241,234,.17);
+    --bone:#F4F1EA; --ash:#A39E94; --dim:#6F6B64;
+    --gold:#C8862F; --gold-soft:#E7C58A;
+    --spring:cubic-bezier(.16,1,.3,1);
+    --shadow-1:0 1px 0 rgba(255,255,255,.03) inset, 0 1px 2px rgba(0,0,0,.4), 0 18px 40px -24px rgba(0,0,0,.8);
+    --shadow-2:0 1px 0 rgba(255,255,255,.04) inset, 0 2px 4px rgba(0,0,0,.45), 0 34px 70px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(200,134,47,.06);
+  }
+  html{ scroll-behavior:smooth; background:var(--void); }
+  body{ background:var(--void); color:var(--bone); font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  ::selection{ background:var(--gold); color:#14120d; }
+
+  /* ---------- TYPE ---------- */
+  .display{ font-family:'Fraunces',Georgia,serif; font-weight:300; letter-spacing:-0.03em; line-height:1.02; }
+  .display-md{ font-family:'Fraunces',Georgia,serif; font-weight:300; letter-spacing:-0.025em; line-height:1.08; }
+  .serif{ font-family:'Fraunces',Georgia,serif; }
+  .it{ font-style:italic; }
+  .gold-text{ color:var(--gold-soft); }
+  .lead{ font-size:clamp(16px,1.35vw,18px); line-height:1.7; color:var(--ash); }
+  .body{ font-size:14px; line-height:1.7; color:var(--ash); }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:12px;
+    font-size:10.5px; letter-spacing:.32em; text-transform:uppercase; font-weight:600; color:var(--gold-soft);
+  }
+  .eyebrow::before{ content:""; width:28px; height:1px; background:currentColor; opacity:.8; }
+  .eyebrow.bare::before{ display:none; }
+  .num{ font-variant-numeric:tabular-nums; }
+
+  /* ---------- SURFACES & TEXTURE ---------- */
+  .stage{ position:relative; isolation:isolate; }
+  .stage::before{
+    content:""; position:absolute; inset:0; z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(60% 50% at 15% 0%, rgba(200,134,47,.07), transparent 70%),
+      radial-gradient(50% 60% at 100% 100%, rgba(231,197,138,.05), transparent 70%),
+      radial-gradient(90% 70% at 50% 120%, rgba(30,30,35,.9), transparent 60%);
+  }
+  .grain::after{
+    content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:.09; mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .card{ background:linear-gradient(180deg, rgba(244,241,234,.035), rgba(244,241,234,.015)); border:1px solid var(--line); border-radius:4px; box-shadow:var(--shadow-1); }
+  .card-raised{ background:linear-gradient(180deg, #1A1A1F, #141418); border:1px solid var(--line-2); border-radius:4px; box-shadow:var(--shadow-2); }
+  .rule{ height:1px; background:var(--line); border:0; }
+
+  /* framed photography: gradient + colour treatment */
+  .frame{ position:relative; overflow:hidden; border-radius:3px; border:1px solid var(--line); background:var(--ink-1); }
+  .frame img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform 1.1s var(--spring); }
+  .frame::before{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none; mix-blend-mode:multiply;
+    background:linear-gradient(150deg, rgba(200,134,47,.16), rgba(11,11,13,.12)); }
+  .frame::after{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(to top, rgba(11,11,13,.62), rgba(11,11,13,0) 55%); }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    position:relative; display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    font-size:13px; font-weight:500; letter-spacing:.02em; padding:15px 26px; border-radius:2px; cursor:pointer;
+    transition:transform .5s var(--spring), box-shadow .5s var(--spring), background-color .3s ease, color .3s ease, border-color .3s ease;
+  }
+  .btn:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:3px; }
+  .btn .arrow{ transition:transform .5s var(--spring); }
+  .btn:hover .arrow{ transform:translateX(4px); }
+  .btn:active{ transform:translateY(0) scale(.985); }
+  .btn-gold{ background:var(--gold); color:#14120d;
+    box-shadow:0 1px 0 rgba(255,255,255,.18) inset, 0 10px 26px -10px rgba(200,134,47,.6), 0 2px 6px -2px rgba(0,0,0,.5); }
+  .btn-gold:hover{ transform:translateY(-2px); background:#D3913A;
+    box-shadow:0 1px 0 rgba(255,255,255,.22) inset, 0 20px 40px -14px rgba(200,134,47,.7), 0 4px 10px -4px rgba(0,0,0,.5); }
+  .btn-line{ color:var(--bone); border:1px solid var(--line-2); background:rgba(244,241,234,.02); }
+  .btn-line:hover{ transform:translateY(-2px); border-color:rgba(231,197,138,.55); background:rgba(244,241,234,.05); }
+  .btn-sm{ padding:11px 18px; font-size:12px; }
+  .link-u{ position:relative; color:var(--bone); transition:color .3s ease; }
+  .link-u::after{ content:""; position:absolute; left:0; right:0; bottom:-3px; height:1px; background:currentColor; transform:scaleX(.35); transform-origin:left; opacity:.6; transition:transform .5s var(--spring), opacity .3s ease; }
+  .link-u:hover{ color:var(--gold-soft); }
+  .link-u:hover::after{ transform:scaleX(1); opacity:1; }
+  .link-u:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:4px; border-radius:2px; }
+  .link-u:active{ opacity:.75; }
+
+  /* ---------- TOP BAR + NAV ---------- */
+  .slots-bar{ background:linear-gradient(90deg, rgba(200,134,47,.14), rgba(200,134,47,.06) 50%, rgba(200,134,47,.14)); border-bottom:1px solid rgba(200,134,47,.22); }
+  .pulse{ width:6px; height:6px; border-radius:50%; background:var(--gold-soft); animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.35; transform:scale(.8); } }
+  .nav{ transition:background-color .4s ease, border-color .4s ease; border-bottom:1px solid transparent; }
+  .nav.scrolled{ background:rgba(11,11,13,.82); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-color:var(--line); }
+  .nav-link{ font-size:13px; color:var(--ash); transition:color .3s ease; position:relative; }
+  .nav-link:hover{ color:var(--bone); }
+  .nav-link:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:6px; border-radius:2px; }
+  .nav-link:active{ opacity:.7; }
+
+  /* ---------- HERO ---------- */
+  .hero{ min-height:min(100svh, 980px); }
+  .hero-media{ position:absolute; inset:0; z-index:-3; overflow:hidden; }
+  .hero-media img{ width:100%; height:100%; object-fit:cover; object-position:62% 50%; transform:scale(1.06); animation:drift 22s ease-out forwards; }
+  @keyframes drift{ to{ transform:scale(1); } }
+  .hero-shade{ position:absolute; inset:0; z-index:-2;
+    background:
+      linear-gradient(90deg, rgba(11,11,13,.96) 0%, rgba(11,11,13,.86) 34%, rgba(11,11,13,.35) 70%, rgba(11,11,13,.55) 100%),
+      linear-gradient(to top, rgba(11,11,13,1) 0%, rgba(11,11,13,0) 38%),
+      radial-gradient(50% 60% at 78% 40%, rgba(200,134,47,.16), transparent 70%); }
+  @media (max-width:767px){
+    .hero-shade{ background:
+      linear-gradient(to top, rgba(11,11,13,1) 8%, rgba(11,11,13,.82) 55%, rgba(11,11,13,.5) 100%),
+      radial-gradient(70% 50% at 70% 20%, rgba(200,134,47,.14), transparent 70%); }
+  }
+  .facts{ border-top:1px solid var(--line); }
+  .fact + .fact{ border-left:1px solid var(--line); }
+  @media (max-width:767px){ .fact:nth-child(odd){ border-left:0; } .fact:nth-child(n+3){ border-top:1px solid var(--line); } }
+
+  /* ---------- LADDER (the difference) ---------- */
+  .ladder{ counter-reset:step; }
+  .step{ position:relative; padding:26px 0 26px 64px; border-top:1px solid var(--line); }
+  .step .n{ position:absolute; left:0; top:26px; font-family:'Fraunces',serif; font-size:15px; color:var(--dim); }
+  .step.lit .n{ color:var(--gold-soft); }
+  .step.lit h3{ color:var(--gold-soft); }
+  .step h3{ transition:color .4s ease; }
+  .step-tag{ font-size:11px; letter-spacing:.06em; color:var(--dim); }
+  .stopline{ position:relative; display:flex; align-items:center; gap:14px; padding:14px 0; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--dim); }
+  .stopline::before, .stopline::after{ content:""; height:1px; flex:1; background:repeating-linear-gradient(90deg, rgba(244,241,234,.25) 0 6px, transparent 6px 12px); }
+  .stopline.go{ color:var(--gold-soft); }
+  .stopline.go::before, .stopline.go::after{ background:linear-gradient(90deg, transparent, rgba(231,197,138,.6)); }
+  .stopline.go::after{ background:linear-gradient(90deg, rgba(231,197,138,.6), transparent); }
+
+  /* ---------- SETS ---------- */
+  .set-card{ display:flex; flex-direction:column; }
+  .set-card .frame{ aspect-ratio:4/3; }
+  .set-card:hover .frame img{ transform:scale(1.045); }
+  .set-badge{ position:absolute; z-index:2; top:14px; left:14px; font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--bone);
+    padding:6px 10px; border-radius:2px; background:rgba(11,11,13,.55); border:1px solid rgba(244,241,234,.2); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+  .chip{ display:inline-flex; font-size:11px; color:var(--ash); padding:5px 10px; border:1px solid var(--line); border-radius:999px; }
+
+  /* ---------- INCLUDED ---------- */
+  .inc{ padding:26px; border-top:1px solid var(--line); }
+  .inc svg{ width:22px; height:22px; color:var(--gold-soft); }
+
+  /* ---------- RATES ---------- */
+  .rate-row{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:18px 0; border-top:1px solid var(--line); }
+  .rate-row:first-child{ border-top:0; }
+  .rate-price{ font-family:'Fraunces',serif; font-weight:300; font-size:30px; letter-spacing:-0.02em; color:var(--bone); }
+  .rate-sm{ font-family:'Fraunces',serif; font-weight:400; font-size:21px; letter-spacing:-0.01em; color:var(--bone); }
+  .was{ text-decoration:line-through; text-decoration-color:rgba(163,158,148,.6); color:var(--dim); }
+  .ribbon{ font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#14120d; background:var(--gold-soft); padding:5px 9px; border-radius:2px; }
+  .bundle{ transition:transform .6s var(--spring), border-color .4s ease, box-shadow .6s var(--spring); }
+  .bundle:hover{ transform:translateY(-4px); border-color:rgba(231,197,138,.35); }
+  .gst-band{ border:1px solid rgba(200,134,47,.3); background:
+      radial-gradient(80% 140% at 0% 50%, rgba(200,134,47,.16), transparent 60%),
+      linear-gradient(180deg, rgba(244,241,234,.03), rgba(244,241,234,.01)); border-radius:4px; }
+
+  /* ---------- BOOKING ---------- */
+  .opt{ position:relative; display:flex; flex-direction:column; gap:4px; text-align:left; padding:16px 16px 14px; border-radius:3px; cursor:pointer;
+    border:1px solid var(--line-2); background:rgba(244,241,234,.02);
+    transition:border-color .3s ease, background-color .3s ease, transform .45s var(--spring), box-shadow .45s var(--spring); }
+  .opt:hover{ border-color:rgba(231,197,138,.45); transform:translateY(-2px); }
+  .opt:active{ transform:translateY(0) scale(.985); }
+  .opt:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:3px; }
+  .opt[aria-checked="true"]{ border-color:var(--gold); background:rgba(200,134,47,.1); box-shadow:0 0 0 1px var(--gold) inset, 0 14px 30px -18px rgba(200,134,47,.6); }
+  .opt[aria-checked="true"] .opt-dot{ background:var(--gold-soft); border-color:var(--gold-soft); box-shadow:0 0 0 3px rgba(200,134,47,.25); }
+  .opt-dot{ position:absolute; top:14px; right:14px; width:10px; height:10px; border-radius:50%; border:1px solid var(--line-2); transition:background-color .3s ease, border-color .3s ease, box-shadow .3s ease; }
+  .opt-k{ font-size:12px; color:var(--ash); }
+  .opt-v{ font-family:'Fraunces',serif; font-size:22px; font-weight:300; letter-spacing:-0.01em; color:var(--bone); }
+  .opt-sub{ font-size:11px; color:var(--dim); }
+  .summary{ border-top:1px solid var(--line); }
+
+  /* ---------- EPISODES + LIGHTBOX ---------- */
+  .ep{ display:block; cursor:pointer; transition:transform .5s var(--spring); }
+  .ep:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:4px; border-radius:3px; }
+  .ep:active{ transform:scale(.99); }
+  .ep .frame{ aspect-ratio:16/9; }
+  .ep .frame::after{ background:linear-gradient(to top, rgba(11,11,13,.45), rgba(11,11,13,0) 50%); }
+  .ep:hover .frame img{ transform:scale(1.05); }
+  .ep .t{ transition:color .35s ease; }
+  .ep:hover .t{ color:var(--gold-soft); }
+  .play{ position:absolute; z-index:2; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--bone);
+    background:rgba(244,241,234,.1); border:1px solid rgba(244,241,234,.45); backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px);
+    transition:transform .5s var(--spring), background-color .35s ease, border-color .35s ease; }
+  .ep:hover .play, .reel:hover .play{ transform:translate(-50%,-50%) scale(1.08); background:rgba(200,134,47,.92); border-color:transparent; color:#14120d; }
+  .play-lg{ width:84px; height:84px; font-size:18px; }
+  .dur{ position:absolute; z-index:2; top:11px; right:11px; font-size:10px; letter-spacing:.1em; font-variant-numeric:tabular-nums; color:var(--bone);
+    padding:4px 7px; border-radius:2px; background:rgba(11,11,13,.6); border:1px solid rgba(244,241,234,.2); }
+  .reel{ display:block; cursor:pointer; }
+  .reel .frame{ aspect-ratio:16/9; border-color:var(--line-2); box-shadow:var(--shadow-2); }
+  .reel:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:5px; border-radius:3px; }
+  .reel:active .frame{ transform:scale(.995); }
+  .reel:hover .frame img{ transform:scale(1.03); }
+
+  .vbox{ position:fixed; inset:0; z-index:120; display:none; }
+  .vbox.open{ display:block; }
+  .vbox-backdrop{ position:absolute; inset:0; background:rgba(6,6,8,.9); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); opacity:0; transition:opacity .4s ease; }
+  .vbox.open .vbox-backdrop{ opacity:1; }
+  .vbox-dialog{ position:absolute; top:50%; left:50%; width:min(1080px, calc(100% - 36px)); transform:translate(-50%,-46%) scale(.986); opacity:0;
+    transition:transform .55s var(--spring), opacity .4s ease; }
+  .vbox.open .vbox-dialog{ transform:translate(-50%,-50%); opacity:1; }
+  .vbox-frame{ position:relative; aspect-ratio:16/9; background:#000; border:1px solid var(--line-2); border-radius:4px; overflow:hidden; box-shadow:0 60px 120px -40px rgba(0,0,0,.95); }
+  .vbox-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .vbox-empty{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; text-align:center; padding:24px; }
+  .vbox-x{ position:absolute; top:-46px; right:0; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px;
+    color:var(--bone); background:rgba(244,241,234,.08); border:1px solid rgba(244,241,234,.3); cursor:pointer;
+    transition:transform .45s var(--spring), background-color .3s ease, border-color .3s ease; }
+  .vbox-x:hover{ transform:rotate(90deg); background:var(--gold); border-color:transparent; color:#14120d; }
+  .vbox-x:focus-visible{ outline:2px solid var(--gold-soft); outline-offset:3px; }
+  .vbox-x:active{ transform:rotate(90deg) scale(.92); }
+  body.locked{ overflow:hidden; }
+
+  /* ---------- MAP ---------- */
+  .map{ aspect-ratio:4/3; }
+  .map iframe{ width:100%; height:100%; border:0; filter:grayscale(1) invert(.9) contrast(.85) brightness(.95); }
+
+  /* ---------- MOBILE BOOK BAR ---------- */
+  .mbar{ position:fixed; left:12px; right:12px; bottom:12px; z-index:90; transform:translateY(140%); transition:transform .6s var(--spring);
+    background:rgba(20,20,24,.9); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid var(--line-2); border-radius:6px; box-shadow:var(--shadow-2); }
+  .mbar.show{ transform:none; }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .9s var(--spring), transform .9s var(--spring); }
+  .reveal.in{ opacity:1; transform:none; }
+  .d1{ transition-delay:.08s; } .d2{ transition-delay:.16s; } .d3{ transition-delay:.24s; }
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .hero-media img{ animation:none; transform:none; }
+    .pulse{ animation:none; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ============ LIMITED SLOTS BAR ============ -->
+<div class="slots-bar relative z-[60]">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-2.5 flex items-center justify-center gap-3 text-[12px] text-bone/90">
+    <span class="pulse" aria-hidden="true"></span>
+    <span>Limited studio slots available this month.</span>
+    <a href="#book" class="link-u text-goldSoft hidden sm:inline">Book yours</a>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header id="nav" class="nav sticky top-0 z-50">
+  <nav class="max-w-[1240px] mx-auto px-6 lg:px-10 h-[72px] flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 group" aria-label="Win Media Studios home">
+      <img src="assets/wms-logo-white.png" alt="Win Media Studios" class="h-8 w-auto" />
+      <span class="hidden sm:inline text-[10.5px] tracking-[.3em] uppercase text-ash border-l border-white/15 pl-3">Studio</span>
+    </a>
+    <div class="hidden md:flex items-center gap-9">
+      <a href="#sets" class="nav-link">Sets</a>
+      <a href="#difference" class="nav-link">The difference</a>
+      <a href="#rates" class="nav-link">Rates</a>
+      <a href="#terms" class="nav-link">Terms</a>
+      <a href="#visit" class="nav-link">Visit</a>
+    </div>
+    <a href="#book" class="btn btn-gold btn-sm">Book a session <span class="arrow">→</span></a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="hero stage grain relative -mt-[72px] pt-[72px] flex flex-col">
+  <div class="hero-media" aria-hidden="true">
+    <img src="assets/studio/hero-mic.jpg" alt="" />
+  </div>
+  <div class="hero-shade" aria-hidden="true"></div>
+
+  <div class="flex-1 flex items-center">
+    <div class="max-w-[1240px] w-full mx-auto px-6 lg:px-10 pt-24 pb-16 lg:pt-28 lg:pb-24">
+      <div class="max-w-[760px]">
+        <div class="eyebrow reveal">WMS Studio · Kallang, Singapore</div>
+        <h1 class="display mt-7 reveal d1" style="font-size:clamp(44px,7vw,96px);">
+          Most studios<br />hand you files.<br />
+          <span class="it gold-text">We hand you clients.</span>
+        </h1>
+        <p class="lead mt-8 max-w-[56ch] reveal d2">
+          A fully rigged podcast studio with an engineer on every session, run by the team that also edits
+          your episode, cuts your clips and puts ad spend behind what works. Book an hour, or hand us the
+          whole show.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3 reveal d3">
+          <a href="#book" class="btn btn-gold">Book a session <span class="arrow">→</span></a>
+          <button type="button" class="btn btn-line" data-tour>Book a free studio tour</button>
+        </div>
+        <p class="mt-6 text-[12.5px] text-ash/90 tracking-[.02em] reveal d3">
+          From <span class="text-bone">$250/hr</span>
+          <span class="mx-2 text-dim">·</span> No GST
+          <span class="mx-2 text-dim">·</span> Free reschedule up to 48 hrs before
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="facts">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4">
+      <div class="fact py-7 md:py-8 pr-4 md:px-6 md:first:pl-0">
+        <div class="serif text-[26px] lg:text-[30px] font-light">3 sets</div>
+        <div class="text-[12px] text-ash mt-1">Dressed and lit before you arrive</div>
+      </div>
+      <div class="fact py-7 md:py-8 pl-4 md:px-6">
+        <div class="serif text-[26px] lg:text-[30px] font-light">3 cameras</div>
+        <div class="text-[12px] text-ash mt-1">With live switching</div>
+      </div>
+      <div class="fact py-7 md:py-8 pr-4 md:px-6">
+        <div class="serif text-[26px] lg:text-[30px] font-light">1 engineer</div>
+        <div class="text-[12px] text-ash mt-1">On every session, start to finish</div>
+      </div>
+      <div class="fact py-7 md:py-8 pl-4 md:px-6">
+        <div class="serif text-[26px] lg:text-[30px] font-light">24 hrs</div>
+        <div class="text-[12px] text-ash mt-1">Raw footage in your inbox</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REEL ============ -->
+<section id="reel" class="stage relative border-t border-white/[.06]">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-end">
+      <div class="lg:col-span-5 reveal">
+        <div class="eyebrow">Inside the studio</div>
+        <h2 class="display-md mt-6" style="font-size:clamp(32px,4.2vw,54px);">
+          One minute.<br /><span class="it gold-text">The whole pipeline.</span>
+        </h2>
+        <p class="lead mt-6 max-w-[42ch]">
+          From the room to the recording, the episode, the thumbnails and the clips. This is what a session
+          at WMS turns into.
+        </p>
+        <ol class="mt-8 flex flex-wrap gap-2" aria-label="Reel chapters">
+          <li class="chip">The Studio</li>
+          <li class="chip">The Production</li>
+          <li class="chip">The Episode</li>
+          <li class="chip">The Thumbnails</li>
+          <li class="chip">The Snippets</li>
+        </ol>
+      </div>
+      <div class="lg:col-span-7 reveal d1">
+        <button type="button" class="reel w-full text-left" data-video="REEL" data-title="Inside WMS Studio" data-cat="Studio reel · 1:06" aria-label="Play the WMS Studio reel">
+          <div class="frame">
+            <img src="assets/studio/reel-poster.jpg" alt="A recording session in progress at WMS Studio" />
+            <span class="play play-lg" aria-hidden="true">▶</span>
+            <span class="dur">1:06</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SETS ============ -->
+<section id="sets" class="stage grain relative border-t border-white/[.06]">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="flex flex-wrap items-end justify-between gap-8 reveal">
+      <div class="max-w-[620px]">
+        <div class="eyebrow">The sets</div>
+        <h2 class="display-md mt-6" style="font-size:clamp(32px,4.2vw,54px);">
+          Three sets. <span class="it gold-text">One booking.</span>
+        </h2>
+      </div>
+      <p class="body max-w-[38ch]">
+        Switch the look to match the episode. Every set is dressed and lit before your session starts, so
+        you sit down and speak.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 lg:gap-7 mt-14">
+      <article class="set-card reveal">
+        <div class="frame">
+          <img src="assets/studio/set-a.jpg" loading="lazy" alt="Set A: white library shelving with two black leather armchairs and microphones" />
+          <span class="set-badge">Set A</span>
+        </div>
+        <h3 class="serif text-[26px] font-light mt-6">The Library</h3>
+        <p class="body mt-2 flex-1">Warm shelving and greenery. Our most-used look for interviews and two-person conversations.</p>
+        <div class="flex flex-wrap gap-2 mt-5"><span class="chip">Interviews</span><span class="chip">Two-handers</span></div>
+        <button type="button" class="btn btn-line btn-sm mt-6 self-start" data-pick-set="The Library">Book this set <span class="arrow">→</span></button>
+      </article>
+
+      <article class="set-card reveal d1">
+        <div class="frame">
+          <img src="assets/studio/set-b.jpg" loading="lazy" alt="Set B: a cream boucle armchair beside an arched mirror and tall plants" />
+          <span class="set-badge">Set B</span>
+        </div>
+        <h3 class="serif text-[26px] font-light mt-6">The Lounge</h3>
+        <p class="body mt-2 flex-1">Soft, bright and minimal. Reads beautifully for lifestyle, wellness and founder storytelling.</p>
+        <div class="flex flex-wrap gap-2 mt-5"><span class="chip">Founder stories</span><span class="chip">Wellness</span></div>
+        <button type="button" class="btn btn-line btn-sm mt-6 self-start" data-pick-set="The Lounge">Book this set <span class="arrow">→</span></button>
+      </article>
+
+      <article class="set-card reveal d2">
+        <div class="frame">
+          <img src="assets/studio/set-c.jpg" loading="lazy" alt="Set C: a guest on a leather chesterfield against dark wood panelling, with a podcast microphone" />
+          <span class="set-badge">Set C</span>
+        </div>
+        <h3 class="serif text-[26px] font-light mt-6">The Den</h3>
+        <p class="body mt-2 flex-1">Moody low-key light against dark wood. Built for solo pieces to camera, ads and late-night energy.</p>
+        <div class="flex flex-wrap gap-2 mt-5"><span class="chip">Solo to camera</span><span class="chip">Ads</span></div>
+        <button type="button" class="btn btn-line btn-sm mt-6 self-start" data-pick-set="The Den">Book this set <span class="arrow">→</span></button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INCLUDED ============ -->
+<section class="stage relative border-t border-white/[.06]">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-28">
+    <div class="grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-4 reveal">
+        <div class="eyebrow">In every session</div>
+        <h2 class="display-md mt-6" style="font-size:clamp(30px,3.6vw,46px);">
+          You're not booking a room. <span class="it gold-text">You're hiring a crew.</span>
+        </h2>
+        <div class="frame mt-10 aspect-[4/3] hidden lg:block">
+          <img src="assets/studio/bts-camera.jpg" loading="lazy" alt="A WMS engineer monitoring a camera during a session" />
+        </div>
+      </div>
+      <div class="lg:col-span-8 grid sm:grid-cols-2 card reveal d1">
+        <div class="inc sm:border-r border-white/[.09] !border-t-0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.9-3.4 3.5-5.2 6.5-5.2s5.6 1.8 6.5 5.2"/></svg>
+          <h3 class="serif text-[20px] mt-5">An engineer, the whole time</h3>
+          <p class="body mt-2">They run cameras, audio and lighting, and adjust as you go. You only think about the conversation.</p>
+        </div>
+        <div class="inc !border-t-0 sm:!border-t-0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="6.5" width="13" height="11" rx="1.5"/><path d="M16 10.5l5-3v9l-5-3"/></svg>
+          <h3 class="serif text-[20px] mt-5">Three cameras, live switched</h3>
+          <p class="body mt-2">Multi-angle coverage, switched live, so you leave with a usable cut as well as every raw angle.</p>
+        </div>
+        <div class="inc sm:border-r border-white/[.09]">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg>
+          <h3 class="serif text-[20px] mt-5">Broadcast microphones</h3>
+          <p class="body mt-2">Shure broadcast mics with a clean track for every voice in the room.</p>
+        </div>
+        <div class="inc">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/><circle cx="12" cy="12" r="3.5"/></svg>
+          <h3 class="serif text-[20px] mt-5">Pro lighting, pre-set</h3>
+          <p class="body mt-2">Every set is lit for camera before you walk in. No fiddling, no waiting.</p>
+        </div>
+        <div class="inc sm:border-r border-white/[.09]">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+          <h3 class="serif text-[20px] mt-5">Raw footage in 24 hours</h3>
+          <p class="body mt-2">Every angle and every track, delivered within a day of your session.</p>
+        </div>
+        <div class="inc">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 19.5h16M6.5 19.5V9.5l5.5-5 5.5 5v10"/><path d="M10 19.5v-5h4v5"/></svg>
+          <h3 class="serif text-[20px] mt-5">A set that's yours</h3>
+          <p class="body mt-2">Bring your props or branding and we'll style the set around your show.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE DIFFERENCE ============ -->
+<section id="difference" class="stage grain relative border-t border-white/[.06]">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+      <div class="lg:col-span-5 reveal">
+        <div class="eyebrow">The difference</div>
+        <h2 class="display-md mt-6" style="font-size:clamp(32px,4.2vw,54px);">
+          The recording is where we <span class="it gold-text">start.</span>
+        </h2>
+        <p class="lead mt-6 max-w-[44ch]">
+          Most studios hand over raw files and wish you luck. We're a content studio first: the same team that
+          records your episode can edit it, package it, cut it into clips and run ads behind the ones that
+          work, then report back on leads and revenue.
+        </p>
+        <div class="frame mt-10 aspect-[4/3]">
+          <img src="assets/studio/bts-shoot.jpg" loading="lazy" alt="A two-person interview being filmed on the Library set" />
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 reveal d1">
+        <div class="ladder">
+          <div class="step">
+            <span class="n">01</span>
+            <h3 class="serif text-[24px] font-light">Record</h3>
+            <p class="body mt-1.5">Studio, crew and three cameras. You show up and talk.</p>
+          </div>
+          <div class="stopline" aria-hidden="true">Most studios stop here</div>
+          <div class="step">
+            <span class="n">02</span>
+            <h3 class="serif text-[24px] font-light">Edit</h3>
+            <p class="body mt-1.5">A tight, publish-ready episode with clean audio, your logo and your music.</p>
+          </div>
+          <div class="step">
+            <span class="n">03</span>
+            <h3 class="serif text-[24px] font-light">Package</h3>
+            <p class="body mt-1.5">Titles and thumbnails built to get the click.</p>
+          </div>
+          <div class="step">
+            <span class="n">04</span>
+            <h3 class="serif text-[24px] font-light">Clip</h3>
+            <p class="body mt-1.5">Subtitled short-form cut from every episode, ready for Reels, TikTok and Shorts.</p>
+          </div>
+          <div class="stopline" aria-hidden="true">The good ones stop here</div>
+          <div class="step lit">
+            <span class="n">05</span>
+            <h3 class="serif text-[24px] font-light">Amplify</h3>
+            <p class="body mt-1.5">We put ad spend behind the content that performs and turn attention into qualified leads.</p>
+          </div>
+          <div class="step lit">
+            <span class="n">06</span>
+            <h3 class="serif text-[24px] font-light">Report</h3>
+            <p class="body mt-1.5">Reach, leads and revenue. Not vanity metrics.</p>
+          </div>
+          <div class="stopline go" aria-hidden="true">We keep going</div>
+        </div>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="index.html#contact" class="btn btn-gold">Talk to us about done-for-you <span class="arrow">→</span></a>
+          <a href="#rates" class="btn btn-line">Just the studio, thanks</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RATES ============ -->
+<section id="rates" class="stage relative border-t border-white/[.06]">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="flex flex-wrap items-end justify-between gap-8 reveal">
+      <div class="max-w-[640px]">
+        <div class="eyebrow">Rates</div>
+        <h2 class="display-md mt-6" style="font-size:clamp(32px,4.2vw,54px);">
+          Clear rates. <span class="it gold-text">No surprises.</span>
+        </h2>
+      </div>
+      <p class="body max-w-[40ch]">
+        One rate whether it's you alone or a panel of three. Every hour includes the engineer, the set, the
+        gear and raw footage within 24 hours.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-6 mt-14">
+      <!-- studio time -->
+      <div class="lg:col-span-7 card-raised p-8 lg:p-10 reveal">
+        <div class="flex items-center justify-between gap-4">
+          <h3 class="serif text-[26px] font-light">Studio time</h3>
+          <span class="text-[11px] tracking-[.2em] uppercase text-goldSoft">1 to 3 people</span>
+        </div>
+        <p class="body mt-2">$250 for the first hour, then $200 for each hour after.</p>
+        <div class="mt-6">
+          <div class="rate-row"><span class="text-[14px] text-bone">1 hour</span><span class="rate-price num">$250</span></div>
+          <div class="rate-row"><span class="text-[14px] text-bone">2 hours <span class="text-dim text-[12px] ml-1">most common</span></span><span class="rate-price num">$450</span></div>
+          <div class="rate-row"><span class="text-[14px] text-bone">3 hours</span><span class="rate-price num">$650</span></div>
+          <div class="rate-row"><span class="text-[14px] text-bone">4 hours</span><span class="rate-price num">$850</span></div>
+        </div>
+        <hr class="rule mt-2" />
+        <p class="text-[12.5px] text-dim mt-5">Sessions run up to 4 hours. Need a full production day? <a href="#book" class="link-u text-ash" data-wa="Hi WMS, I'd like to ask about a session longer than 4 hours.">Ask us</a>.</p>
+        <a href="#book" class="btn btn-gold mt-7">Book studio time <span class="arrow">→</span></a>
+      </div>
+
+      <!-- post-production -->
+      <div class="lg:col-span-5 card p-8 lg:p-10 reveal d1">
+        <h3 class="serif text-[26px] font-light">Post-production</h3>
+        <p class="body mt-2">Edited by the team that filmed it. Two rounds of revisions included.</p>
+        <div class="mt-6">
+          <div class="rate-row"><div><div class="text-[14px] text-bone">Full episode edit</div><div class="text-[12px] text-dim mt-0.5">Up to 60 min. Pacing, cuts, audio clean-up, logo and music.</div></div><span class="rate-sm num">$350</span></div>
+          <div class="rate-row"><div><div class="text-[14px] text-bone">3 short-form clips</div><div class="text-[12px] text-dim mt-0.5">Subtitled, up to 90 sec, vertical or horizontal.</div></div><span class="rate-sm num">$270</span></div>
+          <div class="rate-row"><div><div class="text-[14px] text-bone">5 short-form clips</div><div class="text-[12px] text-dim mt-0.5">$80 each. A weekly posting rhythm.</div></div><span class="rate-sm num">$400</span></div>
+          <div class="rate-row"><div><div class="text-[14px] text-bone">10 short-form clips</div><div class="text-[12px] text-dim mt-0.5">$70 each. A month across two platforms.</div></div><span class="rate-sm num">$700</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- bundles -->
+    <div class="mt-20 reveal">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <div class="eyebrow bare">Season bundles · Save 7 to 14%</div>
+          <h3 class="display-md mt-4" style="font-size:clamp(26px,3vw,38px);">Book a season, <span class="it gold-text">not an episode.</span></h3>
+        </div>
+        <p class="body max-w-[44ch]">Each session includes 2 hours of filming, a full episode edit and 3 clips. Podcasts compound. One episode rarely does.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5 mt-10">
+        <div class="bundle card p-7 flex flex-col">
+          <div class="h-6 flex items-center text-[12px] tracking-[.2em] uppercase text-ash">3 sessions</div>
+          <div class="mt-5 flex items-baseline gap-3"><span class="rate-price num">$2,990</span><span class="was num text-[14px]">$3,210</span></div>
+          <div class="text-[12.5px] text-goldSoft mt-1">You save $220</div>
+          <hr class="rule my-6" />
+          <ul class="space-y-2.5 text-[13px] text-ash flex-1">
+            <li>6 hours of filming</li><li>3 full edited episodes</li><li>9 short-form clips</li>
+          </ul>
+          <button type="button" class="btn btn-line btn-sm mt-7" data-wa="Hi WMS, I'm interested in the 3-session season bundle ($2,990).">Enquire about this bundle</button>
+        </div>
+        <div class="bundle card p-7 flex flex-col">
+          <div class="h-6 flex items-center text-[12px] tracking-[.2em] uppercase text-ash">5 sessions</div>
+          <div class="mt-5 flex items-baseline gap-3"><span class="rate-price num">$4,800</span><span class="was num text-[14px]">$5,350</span></div>
+          <div class="text-[12.5px] text-goldSoft mt-1">You save $550</div>
+          <hr class="rule my-6" />
+          <ul class="space-y-2.5 text-[13px] text-ash flex-1">
+            <li>10 hours of filming</li><li>5 full edited episodes</li><li>15 short-form clips</li>
+          </ul>
+          <button type="button" class="btn btn-line btn-sm mt-7" data-wa="Hi WMS, I'm interested in the 5-session season bundle ($4,800).">Enquire about this bundle</button>
+        </div>
+        <div class="bundle card-raised p-7 flex flex-col relative" style="border-color:rgba(200,134,47,.38);">
+          <div class="h-6 flex items-center justify-between">
+            <div class="text-[12px] tracking-[.2em] uppercase text-ash">10 sessions</div>
+            <span class="ribbon">Best value</span>
+          </div>
+          <div class="mt-5 flex items-baseline gap-3"><span class="rate-price num">$9,200</span><span class="was num text-[14px]">$10,700</span></div>
+          <div class="text-[12.5px] text-goldSoft mt-1">You save $1,500</div>
+          <hr class="rule my-6" />
+          <ul class="space-y-2.5 text-[13px] text-ash flex-1">
+            <li>20 hours of filming</li><li>10 full edited episodes</li><li>30 short-form clips</li>
+          </ul>
+          <button type="button" class="btn btn-gold btn-sm mt-7" data-wa="Hi WMS, I'm interested in the 10-session season bundle ($9,200).">Enquire about this bundle <span class="arrow">→</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- add-ons -->
+    <div class="mt-16 grid md:grid-cols-12 gap-6 items-start reveal">
+      <div class="md:col-span-4">
+        <h3 class="serif text-[24px] font-light">Add to any session</h3>
+        <p class="body mt-2">Mention them when you book.</p>
+      </div>
+      <div class="md:col-span-8 grid sm:grid-cols-2 gap-x-10">
+        <div class="rate-row !border-t-0 sm:!border-t-0"><span class="text-[14px] text-bone">Behind-the-scenes clips &amp; photos</span><span class="rate-sm num">$120</span></div>
+        <div class="rate-row !border-t sm:!border-t-0"><span class="text-[14px] text-bone">Hair &amp; makeup <span class="text-dim text-[12px]">per person</span></span><span class="rate-sm num">$200</span></div>
+        <div class="rate-row"><span class="text-[14px] text-bone">Teleprompter</span><span class="rate-sm num">$50</span></div>
+        <div class="rate-row"><span class="text-[14px] text-bone">Extra revision round</span><span class="rate-sm num">$100</span></div>
+      </div>
+    </div>
+
+    <div class="gst-band mt-16 p-7 lg:p-9 flex flex-wrap items-center justify-between gap-6 reveal">
+      <div>
+        <div class="serif text-[26px] lg:text-[30px] font-light">No GST. <span class="it gold-text">The price you see is the price you pay.</span></div>
+        <p class="body mt-1.5">Every rate on this page is final. Nothing gets added at checkout.</p>
+      </div>
+      <a href="#book" class="btn btn-gold">Book a session <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK ============ -->
+<section id="book" class="stage grain relative border-t border-white/[.06]">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-8">
+      <div class="lg:col-span-7 card-raised p-7 sm:p-9 lg:p-11 reveal">
+        <div class="eyebrow">Book a session</div>
+        <h2 class="display-md mt-5" style="font-size:clamp(28px,3.4vw,42px);">Pick your time and your set.</h2>
+
+        <fieldset class="mt-9">
+          <legend class="text-[12px] tracking-[.18em] uppercase text-ash">1 · How long?</legend>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4" role="radiogroup" aria-label="Session length" id="optHours">
+            <button type="button" class="opt" role="radio" aria-checked="false" data-hours="1"><span class="opt-dot"></span><span class="opt-k">1 hour</span><span class="opt-v num">$250</span></button>
+            <button type="button" class="opt" role="radio" aria-checked="true"  data-hours="2"><span class="opt-dot"></span><span class="opt-k">2 hours</span><span class="opt-v num">$450</span><span class="opt-sub">Most common</span></button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-hours="3"><span class="opt-dot"></span><span class="opt-k">3 hours</span><span class="opt-v num">$650</span></button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-hours="4"><span class="opt-dot"></span><span class="opt-k">4 hours</span><span class="opt-v num">$850</span></button>
+          </div>
+        </fieldset>
+
+        <fieldset class="mt-8">
+          <legend class="text-[12px] tracking-[.18em] uppercase text-ash">2 · Which set?</legend>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4" role="radiogroup" aria-label="Set" id="optSet">
+            <button type="button" class="opt" role="radio" aria-checked="false" data-set="The Library"><span class="opt-dot"></span><span class="opt-k">Set A</span><span class="text-[15px] text-bone">The Library</span></button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-set="The Lounge"><span class="opt-dot"></span><span class="opt-k">Set B</span><span class="text-[15px] text-bone">The Lounge</span></button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-set="The Den"><span class="opt-dot"></span><span class="opt-k">Set C</span><span class="text-[15px] text-bone">The Den</span></button>
+            <button type="button" class="opt" role="radio" aria-checked="true"  data-set="Not sure yet"><span class="opt-dot"></span><span class="opt-k">Undecided</span><span class="text-[15px] text-bone">Help me choose</span></button>
+          </div>
+        </fieldset>
+
+        <div class="summary mt-9 pt-7 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <div class="text-[12px] text-ash" id="sumLabel">2 hours · Help me choose</div>
+            <div class="flex items-baseline gap-2 mt-1"><span class="serif text-[40px] font-light num" id="sumPrice">$450</span><span class="text-[12px] text-dim">No GST</span></div>
+          </div>
+          <button type="button" class="btn btn-gold" id="bookGo"><span id="bookGoLabel">Continue</span> <span class="arrow">→</span></button>
+        </div>
+        <p class="text-[12px] text-dim mt-5 leading-[1.7]" id="bookNote">Full payment confirms your slot. Free reschedule or cancellation up to 48 hours before.</p>
+      </div>
+
+      <div class="lg:col-span-5 flex flex-col gap-8">
+        <div class="card p-7 sm:p-9 reveal d1">
+          <div class="eyebrow bare">Not sure yet?</div>
+          <h3 class="serif text-[26px] font-light mt-4">See the studio first.</h3>
+          <p class="body mt-3">Book a free 15-minute tour. Walk the sets, meet the team, and ask anything before you commit.</p>
+          <button type="button" class="btn btn-line mt-7" data-tour>Book a free studio tour <span class="arrow">→</span></button>
+        </div>
+        <div class="card p-7 sm:p-9 reveal d2">
+          <div class="eyebrow bare">Want the whole show done?</div>
+          <h3 class="serif text-[26px] font-light mt-4">Hand us the series.</h3>
+          <p class="body mt-3">Strategy, recording, editing, clips, ads and reporting, run for you every month.</p>
+          <a href="index.html#contact" class="link-u inline-block mt-6 text-[13px]">Book a discovery call</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TERMS ============ -->
+<section id="terms" class="stage relative border-t border-white/[.06]">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-28">
+    <div class="reveal">
+      <div class="eyebrow">Booking terms</div>
+      <h2 class="display-md mt-6" style="font-size:clamp(30px,3.6vw,46px);">Simple, and <span class="it gold-text">in writing.</span></h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 mt-12">
+      <div class="card p-7 lg:p-8 reveal">
+        <div class="serif text-goldSoft text-[15px]">01</div>
+        <h3 class="serif text-[22px] font-light mt-4">Payment</h3>
+        <ul class="body mt-4 space-y-3">
+          <li>Your booking is confirmed once it's paid in full.</li>
+          <li>Pay online by card when you book.</li>
+          <li>No GST. The rate you see is the rate you pay.</li>
+        </ul>
+      </div>
+      <div class="card p-7 lg:p-8 reveal d1">
+        <div class="serif text-goldSoft text-[15px]">02</div>
+        <h3 class="serif text-[22px] font-light mt-4">Reschedule &amp; cancellation</h3>
+        <ul class="body mt-4 space-y-3">
+          <li>Reschedule or cancel for free up to 48 hours before your start time.</li>
+          <li>Inside 48 hours, or if you don't show, the payment is forfeited.</li>
+        </ul>
+      </div>
+      <div class="card p-7 lg:p-8 reveal d2">
+        <div class="serif text-goldSoft text-[15px]">03</div>
+        <h3 class="serif text-[22px] font-light mt-4">Your session</h3>
+        <ul class="body mt-4 space-y-3">
+          <li>Sessions run 1 to 4 hours, 9am to 9pm, seven days a week.</li>
+          <li>We reset the studio for an hour between bookings, so your set is dressed and lit when you arrive.</li>
+          <li>Raw footage within 24 hours. Two rounds of revisions on every edit.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECORDED HERE ============ -->
+<section id="episodes" class="stage grain relative border-t border-white/[.06]">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="flex flex-wrap items-end justify-between gap-8 reveal">
+      <div class="max-w-[620px]">
+        <div class="eyebrow">Recorded here</div>
+        <h2 class="display-md mt-6" style="font-size:clamp(32px,4.2vw,54px);">
+          Lawyers, founders, advisers <span class="it gold-text">and coaches.</span>
+        </h2>
+      </div>
+      <p class="body max-w-[36ch]">Every one of these episodes was filmed in this room. Tap any of them to watch.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10 mt-14" id="epGrid">
+      <a class="ep reveal" href="https://www.youtube.com/watch?v=NErF6z-9KiE" target="_blank" rel="noopener" data-video="NErF6z-9KiE" data-cat="Melvin Soh" data-title="From ambition to addiction">
+        <div class="frame"><img src="https://i.ytimg.com/vi/NErF6z-9KiE/maxresdefault.jpg" loading="lazy" alt="Melvin Soh — From ambition to addiction" /><span class="play" aria-hidden="true">▶</span><span class="dur">1:26:11</span></div>
+        <div class="t serif text-[17px] leading-snug mt-4">From ambition to addiction</div><div class="text-[12.5px] text-dim mt-1">Melvin Soh</div>
+      </a>
+      <a class="ep reveal d1" href="https://www.youtube.com/watch?v=dpDb4x9lorc" target="_blank" rel="noopener" data-video="dpDb4x9lorc" data-cat="Ma Yi Duo" data-title="8 failures into an 8-figure empire">
+        <div class="frame"><img src="https://i.ytimg.com/vi/dpDb4x9lorc/maxresdefault.jpg" loading="lazy" alt="Ma Yi Duo — 8 failures into an 8-figure empire" /><span class="play" aria-hidden="true">▶</span><span class="dur">53:38</span></div>
+        <div class="t serif text-[17px] leading-snug mt-4">8 failures into an 8-figure empire</div><div class="text-[12.5px] text-dim mt-1">Ma Yi Duo</div>
+      </a>
+      <a class="ep reveal d2" href="https://www.youtube.com/watch?v=tnjE323SlxM" target="_blank" rel="noopener" data-video="tnjE323SlxM" data-cat="Jonathan Wong &amp; Ivan Lee" data-title="Being good at your job doesn't always save you">
+        <div class="frame"><img src="https://i.ytimg.com/vi/tnjE323SlxM/maxresdefault.jpg" loading="lazy" alt="Jonathan Wong and Ivan Lee — Being good at your job doesn't always save you" /><span class="play" aria-hidden="true">▶</span><span class="dur">32:51</span></div>
+        <div class="t serif text-[17px] leading-snug mt-4">Being good at your job doesn't always save you</div><div class="text-[12.5px] text-dim mt-1">Jonathan Wong &amp; Ivan Lee</div>
+      </a>
+      <a class="ep reveal d3" href="https://www.youtube.com/watch?v=TtGYEGLVZAQ" target="_blank" rel="noopener" data-video="TtGYEGLVZAQ" data-cat="Tina Tan" data-title="The tax mistake commercial property buyers make">
+        <div class="frame"><img src="https://i.ytimg.com/vi/TtGYEGLVZAQ/maxresdefault.jpg" loading="lazy" alt="Tina Tan — The tax mistake commercial property buyers make" /><span class="play" aria-hidden="true">▶</span><span class="dur">27:41</span></div>
+        <div class="t serif text-[17px] leading-snug mt-4">The tax mistake commercial property buyers make</div><div class="text-[12.5px] text-dim mt-1">Tina Tan</div>
+      </a>
+      <a class="ep reveal" href="https://www.youtube.com/watch?v=pebbIArzgOQ" target="_blank" rel="noopener" data-video="pebbIArzgOQ" data-cat="Master Yan" data-title="Feng shui mistakes that break a home">
+        <div class="frame"><img src="https://i.ytimg.com/vi/pebbIArzgOQ/maxresdefault.jpg" loading="lazy" alt="Master Yan — Feng shui mistakes that break a home" /><span class="play" aria-hidden="true">▶</span><span class="dur">29:21</span></div>
+        <div class="t serif text-[17px] leading-snug mt-4">Feng shui mistakes that break a home</div><div class="text-[12.5px] text-dim mt-1">Master Yan</div>
+      </a>
+      <a class="ep reveal d1" href="https://www.youtube.com/watch?v=FAEsgDdbRVQ" target="_blank" rel="noopener" data-video="FAEsgDdbRVQ" data-cat="Janice Tee" data-title="From homeschool to business owner">
+        <div class="frame"><img src="https://i.ytimg.com/vi/FAEsgDdbRVQ/maxresdefault.jpg" loading="lazy" alt="Janice Tee — From homeschool to business owner" /><span class="play" aria-hidden="true">▶</span><span class="dur">51:37</span></div>
+        <div class="t serif text-[17px] leading-snug mt-4">From homeschool to business owner</div><div class="text-[12.5px] text-dim mt-1">Janice Tee</div>
+      </a>
+      <a class="ep reveal d2" href="https://www.youtube.com/watch?v=kf0Y6w16OcM" target="_blank" rel="noopener" data-video="kf0Y6w16OcM" data-cat="Melvin Lim" data-title="Leadership &amp; business growth">
+        <div class="frame"><img src="https://i.ytimg.com/vi/kf0Y6w16OcM/maxresdefault.jpg" loading="lazy" alt="Melvin Lim — Leadership and business growth" /><span class="play" aria-hidden="true">▶</span><span class="dur">40:49</span></div>
+        <div class="t serif text-[17px] leading-snug mt-4">Leadership &amp; business growth</div><div class="text-[12.5px] text-dim mt-1">Melvin Lim</div>
+      </a>
+      <a class="ep reveal d3" href="https://www.youtube.com/watch?v=4sl2vD9NNAs" target="_blank" rel="noopener" data-video="4sl2vD9NNAs" data-cat="Jiale" data-title="How he built success without selling">
+        <div class="frame"><img src="https://i.ytimg.com/vi/4sl2vD9NNAs/maxresdefault.jpg" loading="lazy" alt="Jiale — How he built success without selling" /><span class="play" aria-hidden="true">▶</span><span class="dur">54:45</span></div>
+        <div class="t serif text-[17px] leading-snug mt-4">How he built success without selling</div><div class="text-[12.5px] text-dim mt-1">Jiale</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEW ============ -->
+<section class="stage relative border-t border-white/[.06]">
+  <div class="max-w-[960px] mx-auto px-6 lg:px-10 py-24 lg:py-28 text-center reveal">
+    <div class="flex items-center justify-center gap-1.5 text-goldSoft text-[15px]" aria-label="5 out of 5 stars">★★★★★</div>
+    <blockquote class="display-md mt-8" style="font-size:clamp(28px,3.6vw,46px);">
+      &ldquo;Amazing space to record your videos with <span class="it gold-text">great service.</span>&rdquo;
+    </blockquote>
+    <div class="mt-8 text-[13px] text-ash">Bryan Ching <span class="text-dim mx-2">·</span> Google review</div>
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=Win%20Media%20Studios%2C%2047%20Kallang%20Pudding%20Rd" target="_blank" rel="noopener" class="link-u inline-block mt-5 text-[12.5px] text-ash">Rated 5.0 on Google · Read reviews</a>
+  </div>
+</section>
+
+<!-- ============ VISIT ============ -->
+<section id="visit" class="stage grain relative border-t border-white/[.06]">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+      <div class="lg:col-span-5 reveal">
+        <div class="eyebrow">Visit</div>
+        <h2 class="display-md mt-6" style="font-size:clamp(32px,4.2vw,54px);">Find us in <span class="it gold-text">Kallang.</span></h2>
+        <address class="not-italic mt-8 text-[15px] leading-[1.8] text-bone">
+          47 Kallang Pudding Rd, #09-13<br />Crescent @ Kallang<br />Singapore 349318
+        </address>
+        <dl class="mt-8 grid grid-cols-[110px_1fr] gap-y-4 text-[13.5px]">
+          <dt class="text-dim">Hours</dt><dd class="text-ash">9am to 9pm, seven days. By booking only.</dd>
+          <dt class="text-dim">MRT</dt><dd class="text-ash">Mattar (DT25), about a 10-minute walk</dd>
+          <dt class="text-dim">Parking</dt><dd class="text-ash">Covered parking in the building</dd>
+          <dt class="text-dim">WhatsApp</dt><dd><a href="https://wa.me/6589397426" target="_blank" rel="noopener" class="link-u">+65 8939 7426</a></dd>
+        </dl>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Win%20Media%20Studios%2C%2047%20Kallang%20Pudding%20Rd%2C%20Singapore%20349318" target="_blank" rel="noopener" class="btn btn-line">Get directions <span class="arrow">→</span></a>
+          <button type="button" class="btn btn-line" data-tour>Book a free tour</button>
+        </div>
+      </div>
+      <div class="lg:col-span-7 reveal d1">
+        <div class="frame map">
+          <iframe title="Map showing WMS Studio at 47 Kallang Pudding Road" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Win%20Media%20Studios%2C%2047%20Kallang%20Pudding%20Rd%2C%20Singapore%20349318&amp;z=16&amp;output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="stage relative border-t border-white/[.06] overflow-hidden">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-28 lg:py-36 text-center reveal">
+    <div class="eyebrow justify-center">Ready when you are</div>
+    <h2 class="display mt-7 mx-auto max-w-[900px]" style="font-size:clamp(38px,5.8vw,80px);">
+      Book the room. <span class="it gold-text">Or hand us the whole show.</span>
+    </h2>
+    <div class="mt-12 flex flex-wrap justify-center gap-3">
+      <a href="#book" class="btn btn-gold">Book a session <span class="arrow">→</span></a>
+      <a href="index.html#contact" class="btn btn-line">Talk to us about done-for-you</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-white/[.08] bg-void">
+  <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-14 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <img src="assets/wms-logo-white.png" alt="Win Media Studios" class="h-9 w-auto" />
+      <p class="body mt-5 max-w-[40ch]">WMS Studio is the recording home of Win Media Studios, a Singapore content and personal branding studio.</p>
+    </div>
+    <div class="md:col-span-3">
+      <div class="text-[11px] tracking-[.24em] uppercase text-goldSoft mb-5">Studio</div>
+      <ul class="space-y-3 text-[13.5px]">
+        <li><a href="#sets" class="link-u text-ash">Sets</a></li>
+        <li><a href="#rates" class="link-u text-ash">Rates</a></li>
+        <li><a href="#terms" class="link-u text-ash">Booking terms</a></li>
+        <li><a href="#visit" class="link-u text-ash">Visit</a></li>
+      </ul>
+    </div>
+    <div class="md:col-span-4">
+      <div class="text-[11px] tracking-[.24em] uppercase text-goldSoft mb-5">Win Media Studios</div>
+      <ul class="space-y-3 text-[13.5px]">
+        <li><a href="index.html" class="link-u text-ash">Done-for-you content</a></li>
+        <li><a href="index.html#work" class="link-u text-ash">Our work</a></li>
+        <li><a href="mailto:raymond@winmediastudios.com" class="link-u text-ash">raymond@winmediastudios.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/[.06]">
+    <div class="max-w-[1240px] mx-auto px-6 lg:px-10 py-6 text-[11.5px] text-dim flex flex-wrap justify-between gap-3">
+      <span>© <span id="year"></span> Win Media Studios · Singapore</span>
+      <span>Rates in SGD. No GST.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MOBILE BOOK BAR ============ -->
+<div class="mbar md:hidden p-3 pl-5 flex items-center justify-between gap-3" id="mbar" aria-hidden="true">
+  <div>
+    <div class="text-[11px] text-ash">Studio from</div>
+    <div class="serif text-[20px] leading-none mt-0.5">$250<span class="text-[12px] text-dim font-sans">/hr · No GST</span></div>
+  </div>
+  <a href="#book" class="btn btn-gold btn-sm" tabindex="-1">Book <span class="arrow">→</span></a>
+</div>
+
+<!-- ============ VIDEO LIGHTBOX ============ -->
+<div id="videoBox" class="vbox" role="dialog" aria-modal="true" aria-labelledby="vboxTitle">
+  <div class="vbox-backdrop" data-vclose></div>
+  <div class="vbox-dialog">
+    <button class="vbox-x" data-vclose type="button" aria-label="Close video">✕</button>
+    <div class="vbox-frame" id="vboxMount"></div>
+    <div class="mt-4">
+      <div id="vboxCat" class="text-[11px] tracking-[.22em] uppercase text-goldSoft"></div>
+      <div id="vboxTitle" class="serif text-[19px] mt-1"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* =========================================================
+     BOOKING CONFIG
+     Paste each Cal.com event link here once your Cal.com
+     account is set up. While a link is empty, that button
+     falls back to a pre-filled WhatsApp message instead.
+     ========================================================= */
+  const BOOKING = {
+    cal: {
+      1: '',      // e.g. 'https://cal.com/winmediastudios/studio-1hr'
+      2: '',      // e.g. 'https://cal.com/winmediastudios/studio-2hr'
+      3: '',
+      4: '',
+      tour: ''    // e.g. 'https://cal.com/winmediastudios/studio-tour'
+    },
+    whatsapp: '6589397426'
+  };
+  /* YouTube ID for the studio reel (the part after watch?v=). */
+  const REEL_YOUTUBE_ID = '';
+
+  const RATES = { 1: 250, 2: 450, 3: 650, 4: 850 };
+
+  function waLink(text){ return 'https://wa.me/' + BOOKING.whatsapp + '?text=' + encodeURIComponent(text); }
+  function go(url){ window.open(url, '_blank', 'noopener'); }
+
+  /* ---------- year ---------- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ---------- nav background on scroll + mobile bar ---------- */
+  (function(){
+    const nav = document.getElementById('nav');
+    const bar = document.getElementById('mbar');
+    const book = document.getElementById('book');
+    let bookVisible = false;
+    function onScroll(){
+      const y = window.scrollY;
+      nav.classList.toggle('scrolled', y > 40);
+      bar.classList.toggle('show', y > window.innerHeight * 0.8 && !bookVisible);
+    }
+    if ('IntersectionObserver' in window){
+      new IntersectionObserver(es => { bookVisible = es[0].isIntersecting; onScroll(); }, { threshold: 0.15 }).observe(book);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  /* ---------- reveal ---------- */
+  (function(){
+    const els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    els.forEach(e => io.observe(e));
+  })();
+
+  /* ---------- booking widget ---------- */
+  (function(){
+    const state = { hours: 2, set: 'Not sure yet' };
+    const hoursEls = document.querySelectorAll('#optHours .opt');
+    const setEls = document.querySelectorAll('#optSet .opt');
+    const sumLabel = document.getElementById('sumLabel');
+    const sumPrice = document.getElementById('sumPrice');
+    const goLabel = document.getElementById('bookGoLabel');
+    const note = document.getElementById('bookNote');
+
+    function setLabel(){ return state.set === 'Not sure yet' ? 'Help me choose' : state.set; }
+    function render(){
+      hoursEls.forEach(b => b.setAttribute('aria-checked', String(Number(b.dataset.hours) === state.hours)));
+      setEls.forEach(b => b.setAttribute('aria-checked', String(b.dataset.set === state.set)));
+      sumLabel.textContent = state.hours + (state.hours === 1 ? ' hour' : ' hours') + ' · ' + setLabel();
+      sumPrice.textContent = '$' + RATES[state.hours];
+      const live = !!BOOKING.cal[state.hours];
+      goLabel.textContent = live ? 'Choose a date & pay' : 'Request this slot on WhatsApp';
+      note.textContent = live
+        ? 'Full payment confirms your slot. Free reschedule or cancellation up to 48 hours before.'
+        : "Online booking is launching soon. For now, send us your preferred date on WhatsApp and we'll confirm your slot. Full payment confirms it. Free reschedule or cancellation up to 48 hours before.";
+    }
+    function radioKeys(group, attr, parse){
+      group.forEach((b, i) => b.addEventListener('keydown', e => {
+        if (!['ArrowRight','ArrowDown','ArrowLeft','ArrowUp'].includes(e.key)) return;
+        e.preventDefault();
+        const dir = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : -1;
+        const next = group[(i + dir + group.length) % group.length];
+        state[attr] = parse(next); render(); next.focus();
+      }));
+    }
+    hoursEls.forEach(b => b.addEventListener('click', () => { state.hours = Number(b.dataset.hours); render(); }));
+    setEls.forEach(b => b.addEventListener('click', () => { state.set = b.dataset.set; render(); }));
+    radioKeys([...hoursEls], 'hours', b => Number(b.dataset.hours));
+    radioKeys([...setEls], 'set', b => b.dataset.set);
+
+    document.querySelectorAll('[data-pick-set]').forEach(b => b.addEventListener('click', () => {
+      state.set = b.dataset.pickSet; render();
+      document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }));
+
+    document.getElementById('bookGo').addEventListener('click', () => {
+      const link = BOOKING.cal[state.hours];
+      if (link){ go(link + (link.indexOf('?') < 0 ? '?' : '&') + 'notes=' + encodeURIComponent('Set: ' + state.set)); return; }
+      go(waLink('Hi WMS, I\'d like to book the studio.\n\nLength: ' + state.hours + (state.hours === 1 ? ' hour' : ' hours') +
+        ' ($' + RATES[state.hours] + ')\nSet: ' + setLabel() + '\nPreferred date & time: '));
+    });
+
+    document.querySelectorAll('[data-tour]').forEach(b => b.addEventListener('click', () => {
+      go(BOOKING.cal.tour || waLink('Hi WMS, I\'d like to book a free 15-minute studio tour. Preferred date & time: '));
+    }));
+    document.querySelectorAll('[data-wa]').forEach(b => b.addEventListener('click', e => {
+      e.preventDefault(); go(waLink(b.dataset.wa));
+    }));
+
+    render();
+  })();
+
+  /* ---------- video lightbox ---------- */
+  (function(){
+    const box = document.getElementById('videoBox');
+    const mount = document.getElementById('vboxMount');
+    const catEl = document.getElementById('vboxCat');
+    const titEl = document.getElementById('vboxTitle');
+    let lastFocus = null;
+
+    function open(el){
+      let id = el.dataset.video;
+      if (id === 'REEL') id = REEL_YOUTUBE_ID;
+      lastFocus = el;
+      catEl.textContent = el.dataset.cat || '';
+      titEl.textContent = el.dataset.title || '';
+      if (id){
+        const f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+        f.title = titEl.textContent || 'WMS Studio video';
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.setAttribute('allowfullscreen', '');
+        mount.replaceChildren(f);
+      } else {
+        const d = document.createElement('div');
+        d.className = 'vbox-empty';
+        d.innerHTML = '<div class="serif text-[24px] font-light">The full reel is on its way.</div>' +
+                      '<div class="text-[13px] text-ash">In the meantime, book a free tour and see the studio in person.</div>';
+        mount.replaceChildren(d);
+      }
+      box.classList.add('open'); document.body.classList.add('locked');
+      box.querySelector('.vbox-x').focus();
+    }
+    function close(){
+      if (!box.classList.contains('open')) return;
+      box.classList.remove('open'); document.body.classList.remove('locked');
+      mount.replaceChildren();
+      if (lastFocus){ lastFocus.focus(); lastFocus = null; }
+    }
+    document.querySelectorAll('[data-video]').forEach(el => el.addEventListener('click', e => {
+      if (el.tagName === 'A' && (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0)) return;
+      e.preventDefault(); open(el);
+    }));
+    box.addEventListener('click', e => { if (e.target.hasAttribute('data-vclose')) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  })();
+</script>
+</body>
+</html>
