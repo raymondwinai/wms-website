@@ -9,15 +9,14 @@
 <meta property="og:description" content="Most studios hand you files. We hand you clients. From $250 an hour, no GST." />
 <meta property="og:image" content="https://winmediastudios.com/assets/studio/hero-mic.jpg" />
 <meta property="og:type" content="website" />
-<meta name="color-scheme" content="light dark" />
-<meta name="theme-color" content="#f6f4f0" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#0a0a0a" />
 
 <link rel="icon" type="image/png" href="assets/brand/icon-192.png" />
 <link rel="apple-touch-icon" href="assets/brand/icon-192.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..800&display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="assets/studio/hero-mic.jpg" />
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -60,41 +59,27 @@
 </script>
 
 <style>
-  /* ---------- TOKENS (WMS design guidelines, 15 Oct 2026) ---------- */
+  /* ---------- TOKENS: dark only (WMS bronze, Outfit headlines, glass cards) ---------- */
   :root{
-    --page:#f6f4f0;  --card:#ffffff; --group:#f3f0ea; --fill:#e8e3da; --hair:rgba(40,30,15,.09);
-    --ink:#1c1a17;   --mute:#6b665e; --dim:#8c867b;
-    --accent:#C8862F; --accent-hover:#D3913A; --accent-ink:#8F5A14; --on-accent:#1a1206; --accent-soft:rgba(200,134,47,.13);
-    --grad:linear-gradient(135deg,#8F5A14,#C8862F 55%,#DDA14C);
-    --green:#1f8a3b; --green-bright:#34c759; --green-soft:rgba(52,199,89,.14);
-    --rose:#e3304f;  --rose-soft:rgba(255,55,95,.12);
-    --amber:#b25000; --amber-soft:rgba(255,159,10,.14);
-    --red:#d70015;
-    --shadow:0 1px 1px rgba(0,0,0,.03), 0 4px 18px rgba(0,0,0,.05);
-    --shadow-lift:0 2px 4px rgba(0,0,0,.04), 0 12px 32px rgba(0,0,0,.09);
-    --glow:none;
-    --serif:'Playfair Display', Georgia, 'Times New Roman', serif;
+    color-scheme:dark;
+    --page:#0a0a0a; --card:rgba(255,255,255,.045); --group:rgba(255,255,255,.06); --fill:rgba(255,255,255,.1); --hair:rgba(255,255,255,.1);
+    --ink:#f6f2ea; --mute:#aaa397; --dim:#857f75;
+    --accent:#E0913A; --accent-hover:#EAA04E; --accent-ink:#EDB266; --on-accent:#1a1206; --accent-soft:rgba(224,145,58,.15);
+    --grad:linear-gradient(135deg,#C8862F,#EDB266 55%,#F6DCA8);
+    --green:#30d158; --green-bright:#30d158; --green-soft:rgba(48,209,88,.15);
+    --rose:#ff6482; --rose-soft:rgba(255,55,95,.16);
+    --amber:#ffb340; --amber-soft:rgba(255,179,64,.15);
+    --red:#ff6b5e;
+    --shadow:none;
+    --shadow-lift:0 18px 44px -18px rgba(0,0,0,.8);
+    --glow:radial-gradient(120% 90% at 100% 0%, rgba(224,145,58,.17), transparent 55%);
+    --display:'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --sans:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui, "Segoe UI", Roboto, sans-serif;
     --ease:cubic-bezier(.2,.8,.2,1);
     --r:22px; --r-cover:14px;
-    --glass:rgba(246,244,240,.8);
-    --map-filter:none;
+    --glass:rgba(10,10,10,.72);
+    --map-filter:invert(.9) hue-rotate(180deg) saturate(.5) brightness(.85);
   }
-  @media (prefers-color-scheme: dark){ :root{
-    --page:#0c0b0a; --card:#1c1a18; --group:#2a2724; --fill:#3a3632; --hair:rgba(255,245,230,.09);
-    --ink:#f6f2ea;  --mute:#a9a296; --dim:#8c867b;
-    --accent:#D9963A; --accent-hover:#E3A44D; --accent-ink:#E7B56A; --on-accent:#1a1206; --accent-soft:rgba(217,150,58,.18);
-    --grad:linear-gradient(135deg,#C8862F,#E7B56A 60%,#F3D9A4);
-    --green:#30d158; --green-bright:#30d158; --green-soft:rgba(48,209,88,.16);
-    --rose:#ff6482; --rose-soft:rgba(255,55,95,.18);
-    --amber:#ffb340; --amber-soft:rgba(255,179,64,.16);
-    --red:#ff453a;
-    --shadow:0 0 0 1px rgba(255,255,255,.06);
-    --shadow-lift:0 0 0 1px rgba(255,255,255,.1), 0 12px 32px rgba(0,0,0,.5);
-    --glow:radial-gradient(120% 80% at 100% 0%, rgba(217,150,58,.16), transparent 55%);
-    --glass:rgba(12,11,10,.74);
-    --map-filter:invert(.9) hue-rotate(180deg) saturate(.6) brightness(.9);
-  }}
 
   html{ scroll-behavior:smooth; background:var(--page); }
   body{ background:var(--page); color:var(--ink); font:400 17px/1.4 var(--sans); letter-spacing:-.01em;
@@ -106,19 +91,19 @@
   section{ scroll-margin-top:64px; }
 
   /* ---------- TYPE ---------- */
-  .t-hero{ text-wrap:balance; font-family:var(--serif); font-size:clamp(42px,6.6vw,72px); font-weight:600; letter-spacing:-.02em; line-height:1.04; }
-  .t-big{ font-family:var(--serif); font-size:64px; font-weight:600; letter-spacing:-.02em; line-height:1; font-variant-numeric:lining-nums tabular-nums; }
-  .t-large{ text-wrap:balance; font-family:var(--serif); font-size:clamp(30px,4vw,40px); font-weight:600; letter-spacing:-.015em; line-height:1.12; }
-  .t-section{ text-wrap:balance; font-family:var(--serif); font-size:24px; font-weight:600; letter-spacing:-.01em; line-height:1.2; }
+  .t-hero{ text-wrap:balance; font-family:var(--display); font-size:clamp(42px,6.6vw,72px); font-weight:700; letter-spacing:-.035em; line-height:1.02; }
+  .t-big{ font-family:var(--display); font-size:64px; font-weight:700; letter-spacing:-.04em; line-height:1; font-variant-numeric:lining-nums tabular-nums; }
+  .t-large{ text-wrap:balance; font-family:var(--display); font-size:clamp(30px,4vw,40px); font-weight:700; letter-spacing:-.03em; line-height:1.1; }
+  .t-section{ text-wrap:balance; font-family:var(--display); font-size:24px; font-weight:600; letter-spacing:-.02em; line-height:1.2; }
   .t-card{ font-size:19px; font-weight:600; letter-spacing:-.02em; line-height:1.25; }
-  .t-figure{ font-family:var(--serif); font-size:48px; font-weight:600; letter-spacing:-.02em; line-height:1; font-variant-numeric:lining-nums tabular-nums; }
+  .t-figure{ font-family:var(--display); font-size:48px; font-weight:700; letter-spacing:-.04em; line-height:1; font-variant-numeric:lining-nums tabular-nums; }
   .lead{ font-size:clamp(17px,1.6vw,19px); line-height:1.5; color:var(--mute); }
   .body{ font-size:15px; line-height:1.5; color:var(--mute); letter-spacing:-.005em; }
   .hint{ font-size:13px; line-height:1.45; color:var(--dim); letter-spacing:0; }
   .eyebrow{ font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); }
   .soft{ color:var(--mute); }
-  .t-hero .soft, .t-large .soft, .t-section .soft, .t-head .soft{ font-style:italic; font-weight:400; }
-  .hl{ color:var(--accent-ink); font-style:italic; }
+  .t-hero .soft, .t-large .soft, .t-section .soft, .t-head .soft{ font-weight:400; }
+  .hl{ color:var(--accent-ink); }
   .grad{ background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
   .lnk{ color:var(--accent-ink); border-radius:4px; transition:opacity .2s ease; }
   .lnk:hover{ text-decoration:underline; text-underline-offset:3px; }
@@ -126,11 +111,10 @@
   .lnk:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:3px; }
 
   /* ---------- SURFACES ---------- */
-  .card{ background:var(--card); border-radius:var(--r); box-shadow:var(--shadow); }
+  .card{ background:var(--card); border:1px solid var(--hair); border-radius:var(--r); }
   .card-pad{ padding:20px; }
   @media (min-width:768px){ .card-pad{ padding:26px; } }
-  .glow{ background:var(--glow), var(--card); }
-  @media (prefers-color-scheme: dark){ .glow{ box-shadow:0 0 0 .5px rgba(217,150,58,.3), 0 20px 60px -20px rgba(217,150,58,.25); } }
+  .glow{ background:var(--glow), var(--card); border-color:rgba(224,145,58,.28); }
   .hair{ border:0; height:.5px; background:var(--hair); }
   .media{ position:relative; overflow:hidden; border-radius:var(--r); background:var(--fill); }
   .media img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .9s var(--ease); }
@@ -207,7 +191,7 @@
   .set-card .ph{ aspect-ratio:4/3; overflow:hidden; background:var(--fill); }
   .set-card .ph img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .9s var(--ease); }
   .set-card:hover .ph img{ transform:scale(1.04); }
-  .set-card:hover{ box-shadow:var(--shadow-lift); }
+  .set-card:hover{ border-color:rgba(255,255,255,.18); box-shadow:var(--shadow-lift); }
   .set-card{ transition:box-shadow .3s ease; }
 
   /* ---------- STEPS (the difference) ---------- */
@@ -233,7 +217,7 @@
   .row .sub{ font-size:13px; color:var(--mute); margin-top:2px; }
   .was{ text-decoration:line-through; color:var(--dim); }
   .bundle{ transition:transform .4s var(--ease), box-shadow .3s ease; }
-  .bundle:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lift); }
+  .bundle:hover{ transform:translateY(-3px); border-color:rgba(255,255,255,.18); }
 
   /* ---------- BOOKING ---------- */
   .seg{ display:inline-flex; gap:2px; padding:3px; border-radius:980px; background:var(--fill); }
@@ -244,7 +228,7 @@
   .seg button:hover{ color:var(--ink); }
   .seg button:active{ transform:scale(.96); }
   .seg button:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:2px; }
-  .seg button[aria-selected="true"]{ background:var(--card); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.12); }
+  .seg button[aria-selected="true"]{ background:#2a2724; color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.5); }
   #bookHead[hidden], #bookHeading[hidden]{ display:none; }
 
   .steps{ counter-reset:step; }
@@ -303,7 +287,7 @@
               border:0; box-shadow:inset 0 0 0 1px transparent; transition:box-shadow .2s ease, background-color .2s ease; }
   .fld input::placeholder{ color:var(--dim); }
   .fld input:hover{ box-shadow:inset 0 0 0 1px var(--fill); }
-  .fld input:focus{ outline:none; background:var(--card); box-shadow:inset 0 0 0 2px var(--accent), 0 0 0 4px var(--accent-soft); }
+  .fld input:focus{ outline:none; background:rgba(255,255,255,.08); box-shadow:inset 0 0 0 2px var(--accent), 0 0 0 4px var(--accent-soft); }
   .fld.bad input{ box-shadow:inset 0 0 0 2px var(--red); }
   .hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
 
@@ -361,6 +345,41 @@
   .vbox-x:focus-visible{ outline:2px solid #D9963A; outline-offset:3px; }
   body.locked{ overflow:hidden; }
 
+  /* ---------- DARK GLASS ADDITIONS (Podcast HQ reference) ---------- */
+  .hero-x{ position:relative; isolation:isolate; overflow:hidden; }
+  .hero-bg{ position:absolute; inset:0; z-index:-1; }
+  .hero-bg img{ width:100%; height:100%; object-fit:cover; object-position:62% 45%; opacity:.85; }
+  .hero-bg::after{ content:""; position:absolute; inset:0;
+    background:radial-gradient(60% 55% at 50% 38%, rgba(10,10,10,.62), rgba(10,10,10,.3) 70%, rgba(10,10,10,.55)),
+               linear-gradient(to bottom, rgba(10,10,10,.5), rgba(10,10,10,.1) 30%, rgba(10,10,10,.35) 70%, #0a0a0a 98%); }
+  .chip-glass{ display:inline-flex; align-items:center; gap:9px; padding:8px 16px; border-radius:980px; font-size:13px; color:var(--mute);
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+  .dotb{ width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft); }
+  .btn-ghost{ background:rgba(255,255,255,.06); color:var(--ink); border:1px solid rgba(255,255,255,.2); }
+  .btn-ghost:hover{ background:rgba(255,255,255,.11); border-color:rgba(255,255,255,.3); }
+  .btn-primary{ box-shadow:0 10px 30px -10px rgba(224,145,58,.55); }
+  .hero-stats{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px 12px; max-width:860px; margin-left:auto; margin-right:auto;
+    padding-top:26px; border-top:1px solid var(--hair); }
+  @media (min-width:768px){ .hero-stats{ grid-template-columns:repeat(4,1fr); } }
+  .glance{ display:grid; grid-template-columns:1fr; border-top:1px solid var(--hair); }
+  @media (min-width:640px){ .glance{ grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:1024px){ .glance{ grid-template-columns:repeat(3,1fr); } }
+  .glance > div{ padding:14px 0; border-bottom:1px solid var(--hair); }
+  @media (min-width:640px){ .glance > div{ padding-right:20px; } }
+  .glance dt{ font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); }
+  .glance dd{ margin-top:4px; font-size:15px; color:var(--ink); }
+  .icon-tile{ display:grid; place-items:center; width:46px; height:46px; border-radius:13px; color:var(--accent-ink);
+    background:linear-gradient(180deg, rgba(224,145,58,.22), rgba(224,145,58,.07)); border:1px solid rgba(224,145,58,.26); }
+  .icon-tile svg{ width:21px; height:21px; }
+  .step-card{ position:relative; overflow:hidden; }
+  .step-card .icon-tile{ margin-top:18px; }
+  .step-no{ position:absolute; top:18px; right:22px; font-family:var(--display); font-size:46px; font-weight:800; color:rgba(255,255,255,.07); line-height:1; }
+  .step-foot{ display:flex; align-items:center; gap:8px; margin-top:18px; padding-top:14px; border-top:1px solid var(--hair); font-size:13px; color:var(--mute); }
+  .step-foot svg{ width:15px; height:15px; color:var(--accent-ink); flex:none; }
+  .mood{ font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-ink); }
+  .set-badge{ position:absolute; top:12px; left:12px; padding:5px 10px; border-radius:980px; font-size:12px; font-weight:600; color:#fff;
+    background:rgba(10,10,10,.55); border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+
   /* ---------- MOTION: rise 14px and fade in, once ---------- */
   .reveal{ opacity:0; transform:translateY(14px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
   .reveal.in{ opacity:1; transform:none; }
@@ -387,10 +406,7 @@
 <header id="nav" class="nav">
   <nav class="wrap h-[56px] flex items-center justify-between gap-6">
     <a href="index.html" class="flex items-center gap-3 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]" aria-label="Win Media Studios home">
-      <picture>
-        <source srcset="assets/brand/logo-white.png" media="(prefers-color-scheme: dark)" />
-        <img src="assets/brand/logo-black.png" alt="Win Media Studios" class="logo" width="60" height="22" />
-      </picture>
+      <img src="assets/brand/logo-white.png" alt="Win Media Studios" class="logo" width="60" height="22" />
       <span class="hidden sm:inline text-[14px] font-semibold text-mute border-l border-[var(--hair)] pl-3">Studio</span>
     </a>
     <div class="hidden md:flex items-center gap-7">
@@ -407,31 +423,43 @@
 <main>
 
 <!-- ============ HERO ============ -->
-<section id="top" class="pt-12 md:pt-20">
+<section id="top" class="hero-x">
+  <div class="hero-bg" aria-hidden="true"><img src="assets/studio/hero-mic.jpg" alt="" /></div>
+  <div class="wrap relative text-center pt-20 md:pt-32 pb-10 md:pb-14">
+    <div class="chip-glass reveal"><span class="dotb" aria-hidden="true"></span>Podcast studio · Content production · Kallang, Singapore</div>
+    <h1 class="t-hero mt-6 mx-auto max-w-[920px] reveal d1"><span class="soft">Most studios hand you files.</span><br />We hand you <span class="hl">clients.</span></h1>
+    <p class="lead mt-5 mx-auto max-w-[620px] reveal d2">
+      A fully rigged podcast studio with an engineer on every session, run by the team that also edits your episode,
+      cuts your clips and puts ad spend behind what works.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3 reveal d3">
+      <a href="#book" class="btn btn-primary">Book a session <span class="arrow" aria-hidden="true">→</span></a>
+      <button type="button" class="btn btn-ghost" data-tour><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>Book a free studio tour</button>
+    </div>
+    <p class="hint mt-4 reveal d3">From $250 an hour · No GST · Free reschedule up to 48 hours before</p>
+    <div class="hero-stats mt-14 md:mt-20 reveal d3">
+      <div><div class="t-figure">3</div><div class="hint mt-1.5">Dressed sets</div></div>
+      <div><div class="t-figure">3</div><div class="hint mt-1.5">Cameras, switched live</div></div>
+      <div><div class="t-figure">1</div><div class="hint mt-1.5">Engineer, every session</div></div>
+      <div><div class="t-figure">24h</div><div class="hint mt-1.5">To your raw footage</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AT A GLANCE ============ -->
+<section class="pt-16 md:pt-20">
   <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">WMS Studio · Kallang, Singapore</div>
-      <h1 class="t-hero mt-3 max-w-[960px]" style="text-wrap:balance"><span class="soft">Most studios hand you files.</span><br />We hand you <span class="hl">clients.</span></h1>
-      <p class="lead mt-5 max-w-[600px]">
-        A fully rigged podcast studio with an engineer on every session, run by the team that also edits your
-        episode, cuts your clips and puts ad spend behind what works. Book an hour, or hand us the whole show.
-      </p>
-      <div class="mt-7 flex flex-wrap gap-3">
-        <a href="#book" class="btn btn-primary">Book a session</a>
-        <button type="button" class="btn btn-link" data-tour>Book a free studio tour</button>
-      </div>
-      <p class="hint mt-4">From $250 an hour · No GST · Free reschedule up to 48 hours before</p>
-    </div>
-
-    <div class="media mt-10 md:mt-14 aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] reveal d1">
-      <img src="assets/studio/hero-mic.jpg" alt="A Shure broadcast microphone on the Library set at WMS Studio" style="object-position:62% 50%" />
-    </div>
-
-    <div class="card facts mt-4 reveal d2">
-      <div><div class="t-figure">3</div><div class="body mt-1.5">sets, dressed and lit before you arrive</div></div>
-      <div><div class="t-figure">3</div><div class="body mt-1.5">cameras, switched live</div></div>
-      <div><div class="t-figure">1</div><div class="body mt-1.5">engineer on every session</div></div>
-      <div><div class="t-figure">24h</div><div class="body mt-1.5">to your raw footage</div></div>
+    <div class="card card-pad md:!p-8 reveal">
+      <div class="eyebrow">WMS Studio at a glance</div>
+      <h2 class="t-section mt-2">A podcast studio, crew and growth team in Kallang.</h2>
+      <dl class="glance mt-6">
+        <div><dt>Location</dt><dd>Kallang, Singapore, near Mattar MRT</dd></div>
+        <div><dt>Sessions</dt><dd>1 to 4 hours, 9am to 9pm, seven days</dd></div>
+        <div><dt>Production</dt><dd>Three cameras switched live, broadcast audio</dd></div>
+        <div><dt>Options</dt><dd>Recording only, or edits, clips and ads</dd></div>
+        <div><dt>Best for</dt><dd>Founders, advisers, lawyers and coaches</dd></div>
+        <div><dt>Price</dt><dd>From $250 an hour, no GST</dd></div>
+      </dl>
     </div>
   </div>
 </section>
@@ -468,39 +496,42 @@
   <div class="wrap">
     <div class="measure reveal">
       <div class="eyebrow">The sets</div>
-      <h2 class="t-large mt-2">Three sets. <span class="soft">One booking.</span></h2>
+      <h2 class="t-large mt-2">Choose your set. <span class="soft">Three looks, one booking.</span></h2>
       <p class="body mt-3 max-w-[52ch]">Switch the look to match the episode. Every set is dressed and lit before your session starts, so you sit down and speak.</p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-4 mt-8">
       <article class="card set-card reveal">
-        <div class="ph"><img src="assets/studio/set-a.jpg" loading="lazy" alt="Set A: white library shelving with two black leather armchairs and microphones" /></div>
+        <div class="ph relative"><img src="assets/studio/set-a.jpg" loading="lazy" alt="Set A: white library shelving with two black leather armchairs and microphones" /><span class="set-badge">Set A</span></div>
         <div class="card-pad flex flex-col flex-1">
-          <div class="hint font-semibold">Set A</div>
-          <h3 class="t-card mt-0.5">The Library</h3>
-          <p class="body mt-2 flex-1">Warm shelving and greenery. Our most-used look for interviews and two-person conversations.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4"><span class="tag">Interviews</span><span class="tag">Two-handers</span></div>
-          <button type="button" class="btn btn-link btn-sm mt-5 self-start" data-pick-set="The Library">Book this set</button>
+          <div class="mood">Warm · Classic · Conversational</div>
+          <h3 class="t-section mt-1.5">The Library</h3>
+          <p class="body mt-2">Warm shelving and greenery. Our most-used look for interviews and two-person conversations.</p>
+          <div class="hint mt-4 font-semibold">Best for</div>
+          <div class="flex flex-wrap gap-1.5 mt-2 flex-1 content-start"><span class="tag">Interviews</span><span class="tag">Two-handers</span><span class="tag">Talk shows</span></div>
+          <button type="button" class="btn btn-primary btn-sm mt-6 self-start" data-pick-set="The Library">Book this set <span class="arrow" aria-hidden="true">→</span></button>
         </div>
       </article>
       <article class="card set-card reveal d1">
-        <div class="ph"><img src="assets/studio/set-b.jpg" loading="lazy" alt="Set B: a cream boucle armchair beside an arched mirror and tall plants" /></div>
+        <div class="ph relative"><img src="assets/studio/set-b.jpg" loading="lazy" alt="Set B: a cream boucle armchair beside an arched mirror and tall plants" /><span class="set-badge">Set B</span></div>
         <div class="card-pad flex flex-col flex-1">
-          <div class="hint font-semibold">Set B</div>
-          <h3 class="t-card mt-0.5">The Lounge</h3>
-          <p class="body mt-2 flex-1">Soft, bright and minimal. Reads beautifully for lifestyle, wellness and founder storytelling.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4"><span class="tag">Founder stories</span><span class="tag">Wellness</span></div>
-          <button type="button" class="btn btn-link btn-sm mt-5 self-start" data-pick-set="The Lounge">Book this set</button>
+          <div class="mood">Soft · Bright · Minimal</div>
+          <h3 class="t-section mt-1.5">The Lounge</h3>
+          <p class="body mt-2">Soft, bright and minimal. Reads beautifully for lifestyle, wellness and founder storytelling.</p>
+          <div class="hint mt-4 font-semibold">Best for</div>
+          <div class="flex flex-wrap gap-1.5 mt-2 flex-1 content-start"><span class="tag">Founder stories</span><span class="tag">Wellness</span><span class="tag">Lifestyle</span></div>
+          <button type="button" class="btn btn-primary btn-sm mt-6 self-start" data-pick-set="The Lounge">Book this set <span class="arrow" aria-hidden="true">→</span></button>
         </div>
       </article>
       <article class="card set-card reveal d2">
-        <div class="ph"><img src="assets/studio/set-c.jpg" loading="lazy" alt="Set C: a guest on a leather chesterfield against dark wood panelling, with a podcast microphone" /></div>
+        <div class="ph relative"><img src="assets/studio/set-c.jpg" loading="lazy" alt="Set C: a guest on a leather chesterfield against dark wood panelling, with a podcast microphone" /><span class="set-badge">Set C</span></div>
         <div class="card-pad flex flex-col flex-1">
-          <div class="hint font-semibold">Set C</div>
-          <h3 class="t-card mt-0.5">The Den</h3>
-          <p class="body mt-2 flex-1">Low-key light against dark wood. Built for solo pieces to camera and ads.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4"><span class="tag">Solo to camera</span><span class="tag">Ads</span></div>
-          <button type="button" class="btn btn-link btn-sm mt-5 self-start" data-pick-set="The Den">Book this set</button>
+          <div class="mood">Dark · Moody · Cinematic</div>
+          <h3 class="t-section mt-1.5">The Den</h3>
+          <p class="body mt-2">Low-key light against dark wood. Built for solo pieces to camera, ads and late-night energy.</p>
+          <div class="hint mt-4 font-semibold">Best for</div>
+          <div class="flex flex-wrap gap-1.5 mt-2 flex-1 content-start"><span class="tag">Solo to camera</span><span class="tag">Ads</span><span class="tag">Courses</span></div>
+          <button type="button" class="btn btn-primary btn-sm mt-6 self-start" data-pick-set="The Den">Book this set <span class="arrow" aria-hidden="true">→</span></button>
         </div>
       </article>
     </div>
@@ -514,20 +545,34 @@
       <div class="eyebrow">In every session</div>
       <h2 class="t-large mt-2">You're not booking a room. <span class="soft">You're hiring a crew.</span></h2>
     </div>
-    <div class="grid lg:grid-cols-12 gap-4 mt-8">
-      <div class="lg:col-span-5 media aspect-[4/3] lg:aspect-auto reveal">
-        <img src="assets/studio/bts-camera.jpg" loading="lazy" alt="A WMS engineer monitoring a camera during a session" />
-      </div>
-      <div class="lg:col-span-7 card card-pad reveal d1">
-        <div class="grid sm:grid-cols-2 gap-x-8">
-          <div class="row !items-start flex-col !justify-start !gap-1 !border-t-0"><div class="t-card !text-[17px]">An engineer, the whole time</div><p class="body">Cameras, audio and lighting, adjusted as you go. You only think about the conversation.</p></div>
-          <div class="row !items-start flex-col !justify-start !gap-1 sm:!border-t-0"><div class="t-card !text-[17px]">Three cameras, switched live</div><p class="body">Multi-angle coverage, so you leave with a usable cut as well as every raw angle.</p></div>
-          <div class="row !items-start flex-col !justify-start !gap-1"><div class="t-card !text-[17px]">Broadcast microphones</div><p class="body">Shure broadcast mics, with a clean track for every voice in the room.</p></div>
-          <div class="row !items-start flex-col !justify-start !gap-1"><div class="t-card !text-[17px]">Lighting, already set</div><p class="body">Every set is lit for camera before you walk in. No fiddling, no waiting.</p></div>
-          <div class="row !items-start flex-col !justify-start !gap-1"><div class="t-card !text-[17px]">Raw footage in 24 hours</div><p class="body">Every angle and every track, delivered within a day of your session.</p></div>
-          <div class="row !items-start flex-col !justify-start !gap-1"><div class="t-card !text-[17px]">A set that's yours</div><p class="body">Bring props or branding and we'll style the set around your show.</p></div>
-        </div>
-      </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+      <div class="card card-pad reveal"><span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c.9-3.6 3.5-5.4 6.5-5.4s5.6 1.8 6.5 5.4"/></svg></span><h3 class="t-card mt-5">An engineer, the whole time</h3><p class="body mt-1.5">Cameras, audio and lighting, adjusted as you go. You only think about the conversation.</p></div>
+      <div class="card card-pad reveal d1"><span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6.5" width="13" height="11" rx="2"/><path d="M16 10.5l5-3v9l-5-3"/></svg></span><h3 class="t-card mt-5">Three cameras, switched live</h3><p class="body mt-1.5">Multi-angle coverage, so you leave with a usable cut as well as every raw angle.</p></div>
+      <div class="card card-pad reveal d2"><span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></span><h3 class="t-card mt-5">Broadcast microphones</h3><p class="body mt-1.5">Shure broadcast mics, with a clean track for every voice in the room.</p></div>
+      <div class="card card-pad reveal"><span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.6"/><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M5.6 18.4l1.6-1.6M16.8 7.2l1.6-1.6"/></svg></span><h3 class="t-card mt-5">Lighting, already set</h3><p class="body mt-1.5">Every set is lit for camera before you walk in. No fiddling, no waiting.</p></div>
+      <div class="card card-pad reveal d1"><span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><h3 class="t-card mt-5">Raw footage in 24 hours</h3><p class="body mt-1.5">Every angle and every track, delivered within a day of your session.</p></div>
+      <div class="card card-pad reveal d2"><span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5h16M6.5 19.5V10l5.5-5 5.5 5v9.5"/><path d="M10 19.5v-5h4v5"/></svg></span><h3 class="t-card mt-5">A set that's yours</h3><p class="body mt-1.5">Bring props or branding and we'll style the set around your show.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="pt-20 md:pt-28">
+  <div class="wrap">
+    <div class="measure reveal">
+      <div class="eyebrow">How it works</div>
+      <h2 class="t-large mt-2">Book, record, publish. <span class="soft">We handle the rest.</span></h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4 mt-8">
+      <div class="card card-pad md:!p-7 step-card reveal"><div class="eyebrow">Step one</div><span class="step-no" aria-hidden="true">01</span><span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></span>
+        <h3 class="t-section mt-5">Book</h3><p class="body mt-2">Pick your length, set and time, then pay by PayNow or card. Clear rates, no surprises.</p>
+        <div class="step-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Takes about two minutes</div></div>
+      <div class="card card-pad md:!p-7 step-card reveal d1"><div class="eyebrow">Step two</div><span class="step-no" aria-hidden="true">02</span><span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></span>
+        <h3 class="t-section mt-5">Record</h3><p class="body mt-2">Walk in, sit down and talk. Your engineer runs the cameras, sound and lighting.</p>
+        <div class="step-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Engineer on every session</div></div>
+      <div class="card card-pad md:!p-7 step-card reveal d2"><div class="eyebrow">Step three</div><span class="step-no" aria-hidden="true">03</span><span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-2.5-6.5z"/><path d="M11.5 13.5L20 4"/></svg></span>
+        <h3 class="t-section mt-5">Publish</h3><p class="body mt-2">Raw footage within 24 hours, or let us edit, clip and run ads behind it.</p>
+        <div class="step-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Raw files the next day</div></div>
     </div>
   </div>
 </section>
@@ -924,10 +969,7 @@
 <footer class="border-t border-[var(--hair)]">
   <div class="wrap py-10 grid md:grid-cols-12 gap-8">
     <div class="md:col-span-5">
-      <picture>
-        <source srcset="assets/brand/logo-white.png" media="(prefers-color-scheme: dark)" />
-        <img src="assets/brand/logo-black.png" alt="Win Media Studios" class="logo" width="60" height="22" />
-      </picture>
+      <img src="assets/brand/logo-white.png" alt="Win Media Studios" class="logo" width="60" height="22" />
       <p class="body mt-4 max-w-[42ch]">WMS Studio is the recording home of Win Media Studios, a Singapore content and personal branding studio.</p>
     </div>
     <div class="md:col-span-3">

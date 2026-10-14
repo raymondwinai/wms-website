@@ -667,7 +667,7 @@ function mailClient_(to, subject, heading, rows, note, linkHref) {
     '<div style="background:#f6f4f0;padding:24px 12px;font-family:' + SANS + ';color:#1c1a17">' +
     '<div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:22px;padding:28px 24px">' +
     '<div style="font-size:13px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:#8F5A14;margin:0 0 10px">' + CFG.STUDIO_NAME + '</div>' +
-    '<div style="font-family:Georgia,Times New Roman,serif;font-size:28px;line-height:1.2;font-weight:700;margin:0 0 18px">' + esc(heading) + '</div>' +
+    '<div style="font-size:26px;line-height:1.2;font-weight:700;letter-spacing:-.5px;margin:0 0 18px">' + esc(heading) + '</div>' +
     '<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.45">' +
     rows.map(function (x) {
       return '<tr><td style="padding:11px 0;border-top:1px solid #e8e3da;color:#6b665e;width:42%;vertical-align:top">' + esc(x[0]) +
