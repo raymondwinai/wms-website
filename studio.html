@@ -42,7 +42,7 @@
   "name": "WMS Studio by Win Media Studios",
   "image": "https://winmediastudios.com/assets/studio/hero-mic.jpg",
   "url": "https://winmediastudios.com/studio.html",
-  "telephone": "+6589397426",
+  "telephone": "+6582644989",
   "priceRange": "$250-$850",
   "address": {
     "@type": "PostalAddress",
@@ -939,7 +939,7 @@
           <div class="row"><span class="text-mute">Hours</span><span class="text-right">9am to 9pm, seven days</span></div>
           <div class="row"><span class="text-mute">MRT</span><span class="text-right">Mattar (DT25), about 10 min walk</span></div>
           <div class="row"><span class="text-mute">Parking</span><span class="text-right">Covered, in the building</span></div>
-          <div class="row"><span class="text-mute">WhatsApp</span><a href="https://wa.me/6589397426" target="_blank" rel="noopener" class="lnk">+65 8939 7426</a></div>
+          <div class="row"><span class="text-mute">WhatsApp</span><a href="https://wa.me/6582644989" target="_blank" rel="noopener" class="lnk">+65 8264 4989</a></div>
         </div>
         <div class="mt-6 flex flex-wrap gap-3">
           <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Win%20Media%20Studios%2C%2047%20Kallang%20Pudding%20Rd%2C%20Singapore%20349318" target="_blank" rel="noopener" class="btn btn-primary">Get directions ↗</a>
@@ -1022,15 +1022,16 @@
      can't be reached, booking falls back to a pre-filled WhatsApp
      message so the page never breaks.
      ========================================================= */
-  const STUDIO_API = '';
-  const WHATSAPP = '6589397426';
+  const STUDIO_API = 'https://script.google.com/macros/s/AKfycbzEgz4RkezlZbA4drL2L14eQMDJq6R3BvtNsDRw6eIQnGZ_NfX6BFU5FHqRo1jePjhZ/exec';
+  const WHATSAPP = '6582644989';
   /* YouTube ID for the studio reel (the part after watch?v=). */
   const REEL_YOUTUBE_ID = '';
 
   const RATES = { 1: 250, 2: 450, 3: 650, 4: 850 };
 
   function waLink(text){ return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text); }
-  function go(url){ window.open(url, '_blank', 'noopener'); }
+  // Open in a new tab; if a pop-up blocker or an in-app browser (Instagram, Facebook) refuses, go there directly.
+  function go(url){ const w = window.open(url, '_blank'); if (w) { try { w.opener = null; } catch (_) {} } else { location.href = url; } }
 
   /* ---------- year ---------- */
   document.getElementById('year').textContent = new Date().getFullYear();

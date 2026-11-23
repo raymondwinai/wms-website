@@ -437,32 +437,13 @@
     </p>
     <div class="mt-8 flex flex-wrap justify-center gap-3 reveal">
       <a href="#contact" data-book class="btn btn-primary">Book a discovery call <span class="arrow" aria-hidden="true">→</span></a>
-      <a href="#showreel" class="btn btn-ghost"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Watch the showreel</a>
+      <a href="#work" class="btn btn-ghost"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>See our work</a>
     </div>
     <div class="hero-stats mt-14 md:mt-20 reveal">
       <div><div class="t-figure">2022</div><div class="hint mt-1.5">Founded in Singapore</div></div>
       <div><div class="t-figure">50+</div><div class="hint mt-1.5">Clients served</div></div>
       <div><div class="t-figure">10</div><div class="hint mt-1.5">Person team, two countries</div></div>
       <div><div class="t-figure">1</div><div class="hint mt-1.5">Podcast studio of our own</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SHOWREEL ============ -->
-<section id="showreel" class="pt-16 md:pt-24">
-  <div class="wrap">
-    <div class="flex flex-wrap items-end justify-between gap-4 reveal">
-      <div>
-        <div class="eyebrow">Our work in motion</div>
-        <h2 class="t-large mt-2">See the studio at work.</h2>
-      </div>
-      <p class="body max-w-[38ch]">A look at the kind of cinematic content we make for the experts we partner with.</p>
-    </div>
-    <div class="video-frame mt-8 reveal">
-      <div id="ytplayer" class="yt-player"></div>
-      <button id="videoCover" class="video-cover" type="button" aria-label="Play the showreel">
-        <span class="video-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span>
-      </button>
     </div>
   </div>
 </section>
@@ -621,7 +602,6 @@
         <div class="hint mt-0.5">Tina Tan</div>
       </a>
     </div>
-    <div class="mt-10 reveal"><a href="#showreel" class="btn btn-ghost">See the full showreel <span class="arrow" aria-hidden="true">→</span></a></div>
   </div>
 </section>
 
@@ -877,9 +857,11 @@
 
   // ---- Showreel: custom YouTube player with no clickable YouTube chrome ----
   (function () {
+    // To bring a showreel back: paste its YouTube ID here and restore the #showreel section.
+    const SHOWREEL_ID = '';
     const mount = document.getElementById('ytplayer');
     const cover = document.getElementById('videoCover');
-    if (!mount || !cover) return;
+    if (!SHOWREEL_ID || !mount || !cover) return;
 
     let player = null, ready = false;
 
@@ -889,7 +871,7 @@
 
     window.onYouTubeIframeAPIReady = function () {
       player = new YT.Player('ytplayer', {
-        videoId: 'Xq7CMPAdjws',
+        videoId: SHOWREEL_ID,
         host: 'https://www.youtube-nocookie.com',
         playerVars: {
           rel: 0, controls: 0, modestbranding: 1, playsinline: 1,
