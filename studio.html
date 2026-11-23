@@ -337,7 +337,7 @@
                 transition:transform .5s var(--ease), opacity .35s ease; color:#f5f5f7; }
   .vbox.open .vbox-dialog{ transform:translate(-50%,-50%); opacity:1; }
   .vbox-frame{ position:relative; aspect-ratio:16/9; background:#000; border-radius:var(--r); overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.6); }
-  .vbox-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .vbox-frame iframe, .vbox-frame video{ position:absolute; inset:0; width:100%; height:100%; border:0; background:#000; }
   .vbox-empty{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; padding:24px; }
   .vbox-x{ position:absolute; top:-48px; right:0; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; font-size:15px; color:#fff;
            background:rgba(255,255,255,.16); cursor:pointer; transition:background-color .2s ease, transform .12s ease; }
@@ -1026,6 +1026,8 @@
   const WHATSAPP = '6582644989';
   /* YouTube ID for the studio reel (the part after watch?v=). */
   const REEL_YOUTUBE_ID = '';
+  /* Self-hosted studio reel. Used when REEL_YOUTUBE_ID is empty. */
+  const REEL_VIDEO_SRC = 'assets/studio/reel.mp4';
 
   const RATES = { 1: 250, 2: 450, 3: 650, 4: 850 };
 
@@ -1495,11 +1497,21 @@
 
     function open(el){
       let id = el.dataset.video;
+      const local = id === 'REEL' && !REEL_YOUTUBE_ID && REEL_VIDEO_SRC;
       if (id === 'REEL') id = REEL_YOUTUBE_ID;
       lastFocus = el;
       catEl.textContent = el.dataset.cat || '';
       titEl.textContent = el.dataset.title || '';
-      if (id){
+      if (local){
+        const v = document.createElement('video');
+        v.src = REEL_VIDEO_SRC;
+        v.poster = 'assets/studio/reel-poster.jpg';
+        v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'auto';
+        v.setAttribute('playsinline', '');
+        v.title = titEl.textContent || 'WMS Studio reel';
+        mount.replaceChildren(v);
+        const p = v.play(); if (p && p.catch) p.catch(function(){});
+      } else if (id){
         const f = document.createElement('iframe');
         f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
         f.title = titEl.textContent || 'WMS Studio video';
