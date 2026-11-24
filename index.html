@@ -386,6 +386,11 @@
   .field-error{ color:var(--red); font-size:12.5px; margin-top:6px; display:none; }
   .field.invalid input{ border-color:var(--red); }
   .field.invalid .field-error, .question.invalid .field-error{ display:block; }
+  .booking-dialog [hidden]{ display:none !important; }
+  .question-first{ margin-top:18px; padding-top:0; border-top:0; }
+  .call-fields{ margin-top:18px; padding-top:16px; border-top:1px solid var(--hair); }
+  .field label .optional{ font-weight:400; color:var(--dim); }
+  .studio-note{ margin-top:16px; font-size:14px; line-height:1.55; color:var(--mute); }
   .booking-done{ text-align:center; padding:18px 6px 8px; }
   .booking-done .tick{ width:64px; height:64px; border-radius:50%; background:var(--green-soft); color:var(--green); display:grid; place-items:center; font-size:28px; margin:0 auto 18px; }
   @media (max-width:480px){ .booking-dialog{ padding:24px 18px 20px; } .slots{ grid-template-columns:repeat(2,1fr); } }
@@ -751,68 +756,50 @@
 
     <!-- STEP 2: DETAILS -->
     <form class="booking-step hidden" data-step="2" id="bookingForm" novalidate>
-      <div class="booking-title">Tell us where to reach you.</div>
+      <div class="booking-title" id="interestTitle">What are you looking for?</div>
       <div class="booking-sub" id="step2Summary"></div>
 
-      <div style="margin-top:20px;">
+      <div class="question question-first" data-q="interest" role="radiogroup" aria-labelledby="interestTitle">
+        <div class="opts">
+          <label class="opt"><input type="radio" name="interest" value="Done-for-you content" required><span class="dot"></span>Done-for-you content</label>
+          <label class="opt"><input type="radio" name="interest" value="Studio hire"><span class="dot"></span>Studio hire</label>
+          <label class="opt"><input type="radio" name="interest" value="Event or corporate filming"><span class="dot"></span>Event or corporate filming</label>
+          <label class="opt"><input type="radio" name="interest" value="Not sure yet"><span class="dot"></span>Not sure yet</label>
+        </div>
+        <div class="field-error">Please choose an option.</div>
+      </div>
+
+      <!-- Studio hire books on the studio page, not through a call -->
+      <p class="studio-note" id="studioNote" hidden>Studio sessions book directly on our studio page, with live times and rates.</p>
+
+      <div class="call-fields" id="callFields">
+        <div class="qtext">Where can we reach you?</div>
         <div class="field">
           <label for="bkName">Name</label>
           <input type="text" id="bkName" name="name" autocomplete="name" placeholder="Your full name" required>
           <div class="field-error">Please enter your name.</div>
         </div>
         <div class="field">
-          <label for="bkPhone">Phone</label>
+          <label for="bkPhone">WhatsApp number</label>
           <input type="tel" id="bkPhone" name="phone" autocomplete="tel" placeholder="+65 0000 0000" required>
-          <div class="field-error">Please enter your phone number.</div>
-        </div>
-        <div class="field">
-          <label for="bkWhats">WhatsApp</label>
-          <input type="tel" id="bkWhats" name="whatsapp" placeholder="+65 0000 0000 (if different)">
-          <div class="field-error">Please enter a WhatsApp number.</div>
+          <div class="field-error">Please enter your WhatsApp number.</div>
         </div>
         <div class="field">
           <label for="bkEmail">Email</label>
           <input type="email" id="bkEmail" name="email" autocomplete="email" placeholder="you@company.com" required>
           <div class="field-error">Please enter a valid email.</div>
         </div>
-      </div>
-
-      <!-- Q1 -->
-      <div class="question" data-q="commitment">
-        <div class="qtext">I agree to show up at the time I've booked. I respect the value of my time and others, and will give at least 24 hours notice if I need to reschedule.</div>
-        <div class="opts">
-          <label class="opt"><input type="radio" name="commitment" value="Yes, I value my time &amp; others" required><span class="dot"></span>Yes, I value my time &amp; others</label>
-          <label class="opt"><input type="radio" name="commitment" value="No, I can't commit to that right now"><span class="dot"></span>No, I can't commit to that right now</label>
+        <div class="field">
+          <label for="bkBiz">Business or Instagram <span class="optional">(optional)</span></label>
+          <input type="text" id="bkBiz" name="business" autocomplete="organization" placeholder="Business name or @handle">
         </div>
-        <div class="field-error">Please choose an option.</div>
-      </div>
-
-      <!-- Q2 -->
-      <div class="question" data-q="revenue">
-        <div class="qtext">What is your monthly revenue?</div>
-        <div class="opts">
-          <label class="opt"><input type="radio" name="revenue" value="< $10k / month" required><span class="dot"></span>&lt; $10k / month</label>
-          <label class="opt"><input type="radio" name="revenue" value="$10k to $49k / month"><span class="dot"></span>$10k to $49k / month</label>
-          <label class="opt"><input type="radio" name="revenue" value="$50k to $100k / month"><span class="dot"></span>$50k to $100k / month</label>
-          <label class="opt"><input type="radio" name="revenue" value="> $100k / month"><span class="dot"></span>&gt; $100k / month</label>
-        </div>
-        <div class="field-error">Please choose an option.</div>
-      </div>
-
-      <!-- Q3 -->
-      <div class="question" data-q="ads">
-        <div class="qtext">Are you currently running paid ads?</div>
-        <div class="opts">
-          <label class="opt"><input type="radio" name="ads" value="No, I'm not currently running paid ads" required><span class="dot"></span>No, I'm not currently running paid ads</label>
-          <label class="opt"><input type="radio" name="ads" value="Yes, I'm currently running paid ads"><span class="dot"></span>Yes, I'm currently running paid ads</label>
-        </div>
-        <div class="field-error">Please choose an option.</div>
       </div>
 
       <p class="booking-err" id="bkErr" role="alert" hidden></p>
       <div class="booking-actions">
         <button class="booking-back" id="toStep1" type="button">← Back</button>
         <button class="btn btn-primary" type="submit" id="bkSubmit">Confirm booking <span class="arrow">→</span></button>
+        <a class="btn btn-primary" id="bkStudio" href="studio.html#book" hidden>Book the studio <span class="arrow">→</span></a>
       </div>
     </form>
 
@@ -1088,8 +1075,19 @@
       inp.addEventListener('change', ()=>{
         form.querySelectorAll('input[name="'+inp.name+'"]').forEach(r=> r.closest('.opt').classList.toggle('checked', r.checked));
         inp.closest('.question').classList.remove('invalid');
+        if (inp.name === 'interest') showRoute();
       });
     });
+    // "Studio hire" goes to the studio page's own booking calendar instead of a call.
+    const isStudio = () => { const c = form.querySelector('input[name="interest"]:checked'); return !!c && c.value === 'Studio hire'; };
+    function showRoute(){
+      const studio = isStudio();
+      document.getElementById('studioNote').hidden = !studio;
+      document.getElementById('callFields').hidden = studio;
+      document.getElementById('bkStudio').hidden = !studio;
+      bkSubmit.hidden = studio;
+      bkErr.hidden = true;
+    }
     form.querySelectorAll('.field input').forEach(inp=>{
       inp.addEventListener('input', ()=> inp.closest('.field').classList.remove('invalid'));
     });
@@ -1103,12 +1101,9 @@
           f.closest('.field').classList.toggle('invalid', !valid);
           if (!valid) ok = false;
         });
-      ['commitment','revenue','ads'].forEach(q=>{
-        const checked = form.querySelector('input[name="'+q+'"]:checked');
-        const block = form.querySelector('.question[data-q="'+q+'"]');
-        block.classList.toggle('invalid', !checked);
-        if (!checked) ok = false;
-      });
+      const picked = form.querySelector('input[name="interest"]:checked');
+      form.querySelector('.question[data-q="interest"]').classList.toggle('invalid', !picked);
+      if (!picked) ok = false;
       return ok;
     }
 
@@ -1134,7 +1129,7 @@
 
     form.addEventListener('submit', function(e){
       e.preventDefault();
-      if (busy) return;
+      if (busy || isStudio()) return;
       if (!validate()){
         const firstBad = form.querySelector('.field.invalid, .question.invalid');
         if (firstBad) firstBad.scrollIntoView({behavior:'smooth', block:'center'});
@@ -1147,12 +1142,16 @@
         durationMins: 30,
         name: form.bkName.value.trim(),
         phone: form.bkPhone.value.trim(),
-        whatsapp: form.bkWhats.value.trim() || '(same as phone)',
+        whatsapp: '(same as phone)',
         email: form.bkEmail.value.trim(),
-        commitment: form.querySelector('input[name="commitment"]:checked').value,
-        revenue: form.querySelector('input[name="revenue"]:checked').value,
-        ads: form.querySelector('input[name="ads"]:checked').value
+        interest: form.querySelector('input[name="interest"]:checked').value,
+        business: form.bkBiz.value.trim()
       };
+      // The live Lead Tracker script only saves its three old answer slots (sheet columns H–J),
+      // so the new answers ride in them: H "Looking for", I "Business / Instagram".
+      lead.commitment = lead.interest;
+      lead.revenue = lead.business || '-';
+      lead.ads = '';
       const summary = lead.date + ' at ' + lead.time;
       bkErr.hidden = true;
 
@@ -1163,8 +1162,8 @@
       fetch(BOOKING_API, {
         method: 'POST', signal: ctl.signal,
         body: JSON.stringify({ action: 'call', date: keyOf(selectedDate), time: selectedTime,
-          name: lead.name, email: lead.email, phone: lead.phone, whatsapp: form.bkWhats.value.trim(),
-          revenue: lead.revenue, ads: lead.ads, commitment: lead.commitment })
+          name: lead.name, email: lead.email, phone: lead.phone,
+          interest: lead.interest, business: lead.business })
       }).then(r => r.json()).then(res => {
         if (res && res.ok){
           // The booking script has already created the event and sent the invites, so the
