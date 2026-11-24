@@ -13,3 +13,6 @@ CLAUDE.md
 
 # Apps Script deploy copy that contains secrets (token) — never commit
 apps-script/Code.deploy.gs
+
+# Internal planning docs (this repo is public)
+docs/
