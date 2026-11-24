@@ -378,6 +378,8 @@
   .opt.checked .dot::after{ transform:scale(1); }
   .booking-actions{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:20px; }
   .booking-sel{ font-size:13px; color:var(--mute); }
+  .booking-err{ margin-top:14px; font-size:13px; color:var(--red); }
+  .booking-err a{ color:var(--accent-ink); text-decoration:underline; }
   .booking-back{ background:none; border:0; color:var(--mute); font-size:14px; cursor:pointer; min-height:44px; padding:0 4px; border-radius:8px; transition:color .2s ease; }
   .booking-back:hover{ color:var(--ink); }
   .booking-back:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:2px; }
@@ -537,7 +539,7 @@
     <div class="card glow overflow-hidden grid lg:grid-cols-12 reveal">
       <div class="lg:col-span-6 card-pad md:!p-10 flex flex-col justify-center">
         <div class="eyebrow">WMS Studio · Kallang</div>
-        <h2 class="t-large mt-3">Our own podcast studio. <span class="soft">Just show up and talk.</span></h2>
+        <h2 class="t-large mt-3">Our own podcast studio. <span class="soft">You bring the conversation. Our crew runs everything else.</span></h2>
         <p class="body mt-4 max-w-[48ch]">Three dressed sets, three cameras switched live and an engineer on every session, with raw footage back within 24 hours. Book an hour, or hand us the whole show.</p>
         <div class="flex flex-wrap gap-1.5 mt-5"><span class="tag">The Library</span><span class="tag">The Lounge</span><span class="tag">The Den</span></div>
         <div class="mt-7 flex flex-wrap gap-3">
@@ -807,18 +809,19 @@
         <div class="field-error">Please choose an option.</div>
       </div>
 
+      <p class="booking-err" id="bkErr" role="alert" hidden></p>
       <div class="booking-actions">
         <button class="booking-back" id="toStep1" type="button">← Back</button>
-        <button class="btn btn-primary" type="submit">Confirm booking <span class="arrow">→</span></button>
+        <button class="btn btn-primary" type="submit" id="bkSubmit">Confirm booking <span class="arrow">→</span></button>
       </div>
     </form>
 
     <!-- DONE -->
     <div class="booking-step hidden booking-done" data-step="done">
       <div class="tick">✓</div>
-      <div class="booking-title">You're booked in.</div>
+      <div class="booking-title" id="doneTitle">You're booked in.</div>
       <p class="booking-sub" id="doneSummary" style="max-width:42ch;margin:10px auto 0;"></p>
-      <p class="booking-sub" style="margin-top:14px;">Thanks — we've got your details and the team will be in touch shortly to confirm your call.</p>
+      <p class="booking-sub" id="doneNote" style="margin-top:14px;max-width:42ch;margin-left:auto;margin-right:auto;">A calendar invite is on its way to your email. We'll call you on WhatsApp at that time.</p>
       <div style="margin-top:22px;"><button class="btn btn-ghost-light" data-close type="button">Close</button></div>
     </div>
 
@@ -919,33 +922,64 @@
     const form     = document.getElementById('bookingForm');
     const doneSummary = document.getElementById('doneSummary');
 
-    const SLOTS = ['9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'];
+    // Live availability and booking: the WMS Studio Booking Apps Script (apps-script/studio),
+    // which checks Raymond's calendars and creates the calendar invite.
+    const BOOKING_API = 'https://script.google.com/macros/s/AKfycbzEgz4RkezlZbA4drL2L14eQMDJq6R3BvtNsDRw6eIQnGZ_NfX6BFU5FHqRo1jePjhZ/exec';
+    const WHATSAPP = '6582644989';
+    // Used only if the live calendar can't be reached: the visitor sends a request instead.
+    const FALLBACK_SLOTS = ['09:00','10:00','11:00','13:00','14:00','15:00','16:00','17:00'];
     const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const doneTitle = document.getElementById('doneTitle');
+    const doneNote = document.getElementById('doneNote');
+    const bkErr = document.getElementById('bkErr');
+    const bkSubmit = document.getElementById('bkSubmit');
 
     let view = new Date(); view.setDate(1); view.setHours(0,0,0,0);
     const today = new Date(); today.setHours(0,0,0,0);
     const minMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    let selectedDate = null, selectedSlot = null, lastFocus = null;
+    let selectedDate = null, selectedTime = null, lastFocus = null;
+    let avail = null, live = false, loading = null, loadedAt = 0, busy = false;
 
+    const pad2 = n => String(n).padStart(2,'0');
+    const keyOf = d => d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate());
+    function label12(t){ let h = +t.slice(0,2); const m = t.slice(3); const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12; return h + ':' + m + ' ' + ap; }
     function fmtDate(d){
       return d.toLocaleDateString('en-GB',{ weekday:'long', day:'numeric', month:'long', year:'numeric' });
     }
+    function slotsFor(date){
+      if (live) return (avail[keyOf(date)] || []);
+      const isPast = date <= today, isSun = date.getDay() === 0;
+      return (isPast || isSun) ? [] : FALLBACK_SLOTS;
+    }
+    function maxMonth(){
+      if (!live) return new Date(today.getFullYear(), today.getMonth()+2, 1);
+      const keys = Object.keys(avail).filter(k => avail[k].length).sort();
+      if (!keys.length) return minMonth;
+      const last = keys[keys.length-1];
+      return new Date(+last.slice(0,4), +last.slice(5,7)-1, 1);
+    }
 
-    // Build an ISO start time in Singapore time (GMT+8) from the chosen date + slot.
-    function buildStartISO(date, slot){
-      const m = slot.match(/(\d+):(\d+)\s*(AM|PM)/i);
-      if (!m) return '';
-      let h = parseInt(m[1],10); const min = parseInt(m[2],10); const ap = m[3].toUpperCase();
-      if (ap === 'PM' && h !== 12) h += 12;
-      if (ap === 'AM' && h === 12) h = 0;
-      const p = n => String(n).padStart(2,'0');
-      return date.getFullYear() + '-' + p(date.getMonth()+1) + '-' + p(date.getDate())
-        + 'T' + p(h) + ':' + p(min) + ':00+08:00';
+    function load(force){
+      if (loading) return loading;
+      if (!force && avail && Date.now() - loadedAt < 120000) return Promise.resolve();
+      selSummary.textContent = 'Loading available times…';
+      const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 20000);
+      loading = fetch(BOOKING_API + '?action=availability&type=call', { signal: ctl.signal })
+        .then(r => r.json())
+        .then(res => {
+          if (!res || !res.ok || !res.days) throw new Error('unavailable');
+          avail = {}; res.days.forEach(x => { avail[x.d] = x.slots.map(s => s.t); });
+          live = true; loadedAt = Date.now();
+        })
+        .catch(() => { live = false; avail = avail || {}; })
+        .finally(() => { clearTimeout(timer); loading = null; renderCal(); if (selectedDate) renderSlots(); updateStep1(); });
+      return loading;
     }
 
     function renderCal(){
       calMonth.textContent = MONTHS[view.getMonth()] + ' ' + view.getFullYear();
       calPrev.disabled = (view.getFullYear() === minMonth.getFullYear() && view.getMonth() === minMonth.getMonth());
+      calNext.disabled = view >= maxMonth();
       calDays.innerHTML = '';
       // Monday-first offset
       let firstDow = new Date(view.getFullYear(), view.getMonth(), 1).getDay(); // 0=Sun
@@ -958,13 +992,11 @@
         const date = new Date(view.getFullYear(), view.getMonth(), d);
         const btn = document.createElement('button');
         btn.type='button'; btn.className='cal-day'; btn.textContent=d;
-        const isPast = date < today;
-        const isSun = date.getDay() === 0;
         if (date.getTime() === today.getTime()) btn.classList.add('today');
-        if (isPast || isSun){ btn.disabled = true; }
+        if (loading || !slotsFor(date).length){ btn.disabled = true; }
         else {
           btn.addEventListener('click', function(){
-            selectedDate = date; selectedSlot = null;
+            selectedDate = date; selectedTime = null;
             calDays.querySelectorAll('.cal-day.selected').forEach(x=>x.classList.remove('selected'));
             btn.classList.add('selected');
             renderSlots();
@@ -978,12 +1010,14 @@
     function renderSlots(){
       slotsWrap.classList.remove('hidden');
       slotsEl.innerHTML = '';
-      SLOTS.forEach(function(t){
+      const list = selectedDate ? slotsFor(selectedDate) : [];
+      if (!list.length){ slotsEl.innerHTML = '<span class="booking-sel">No times left on this day. Please pick another.</span>'; selectedTime = null; }
+      list.forEach(function(t){
         const b = document.createElement('button');
-        b.type='button'; b.className='slot'; b.textContent=t;
-        if (t === selectedSlot) b.classList.add('selected');
+        b.type='button'; b.className='slot'; b.textContent=label12(t);
+        if (t === selectedTime) b.classList.add('selected');
         b.addEventListener('click', function(){
-          selectedSlot = t;
+          selectedTime = t;
           slotsEl.querySelectorAll('.slot.selected').forEach(x=>x.classList.remove('selected'));
           b.classList.add('selected');
           updateStep1();
@@ -994,14 +1028,15 @@
     }
 
     function updateStep1(){
-      if (selectedDate && selectedSlot){
-        selSummary.textContent = fmtDate(selectedDate) + ' · ' + selectedSlot;
+      if (loading){ selSummary.textContent = 'Loading available times…'; toStep2.disabled = true; return; }
+      if (selectedDate && selectedTime){
+        selSummary.textContent = fmtDate(selectedDate) + ' · ' + label12(selectedTime);
         toStep2.disabled = false;
       } else if (selectedDate){
         selSummary.textContent = 'Now choose a time';
         toStep2.disabled = true;
       } else {
-        selSummary.textContent = 'Select a date to see times';
+        selSummary.textContent = live ? 'Select a date to see times' : 'Pick a preferred time and we\'ll confirm it on WhatsApp';
         toStep2.disabled = true;
       }
     }
@@ -1019,9 +1054,11 @@
     function openModal(){
       lastFocus = document.activeElement;
       if (!selectedDate){ view = new Date(); view.setDate(1); view.setHours(0,0,0,0); }
+      bkErr.hidden = true;
       renderCal(); updateStep1(); showStep('1');
       modal.classList.add('open'); document.body.classList.add('modal-open');
       modal.setAttribute('aria-hidden','false');
+      load(false);
     }
     function closeModal(){
       modal.classList.remove('open'); document.body.classList.remove('modal-open');
@@ -1040,7 +1077,8 @@
     calNext.addEventListener('click', ()=>{ view.setMonth(view.getMonth()+1); renderCal(); });
 
     toStep2.addEventListener('click', ()=>{
-      step2Summary.textContent = fmtDate(selectedDate) + ' · ' + selectedSlot + ' (SGT)';
+      step2Summary.textContent = fmtDate(selectedDate) + ' · ' + label12(selectedTime) + ' (SGT)';
+      bkErr.hidden = true;
       showStep('2');
     });
     toStep1.addEventListener('click', ()=> showStep('1'));
@@ -1058,7 +1096,6 @@
 
     function validate(){
       let ok = true;
-      const name = form.bkName, phone = form.bkPhone, email = form.bkEmail;
       [['bkName',v=>v.trim()],['bkPhone',v=>v.trim()],['bkEmail',v=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.trim())]]
         .forEach(([id,test])=>{
           const f = document.getElementById(id);
@@ -1075,17 +1112,38 @@
       return ok;
     }
 
+    // Lead copy to the Lead Tracker sheet (and its WhatsApp alert), whatever happens with the calendar.
+    function sendLead(payload){
+      if (!SHEETS_ENDPOINT || SHEETS_ENDPOINT.indexOf('PASTE_') !== -1) return;
+      fetch(SHEETS_ENDPOINT, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      }).catch(function () {});
+    }
+    const waLink = text => 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text);
+
+    function finish(confirmed, summary){
+      doneSummary.textContent = summary;
+      doneTitle.textContent = confirmed ? 'You\'re booked in.' : 'Request received.';
+      doneNote.textContent = confirmed
+        ? 'A calendar invite is on its way to your email. We\'ll call you on WhatsApp at that time.'
+        : 'We couldn\'t confirm the time automatically, so we\'ll WhatsApp you shortly to lock it in.';
+      showStep('done');
+    }
+
     form.addEventListener('submit', function(e){
       e.preventDefault();
+      if (busy) return;
       if (!validate()){
         const firstBad = form.querySelector('.field.invalid, .question.invalid');
         if (firstBad) firstBad.scrollIntoView({behavior:'smooth', block:'center'});
         return;
       }
-      const payload = {
+      const lead = {
         date: fmtDate(selectedDate),
-        time: selectedSlot + ' (SGT)',
-        startISO: buildStartISO(selectedDate, selectedSlot),
+        time: label12(selectedTime) + ' (SGT)',
+        startISO: keyOf(selectedDate) + 'T' + selectedTime + ':00+08:00',
         durationMins: 30,
         name: form.bkName.value.trim(),
         phone: form.bkPhone.value.trim(),
@@ -1095,34 +1153,33 @@
         revenue: form.querySelector('input[name="revenue"]:checked').value,
         ads: form.querySelector('input[name="ads"]:checked').value
       };
+      const summary = lead.date + ' at ' + lead.time;
+      bkErr.hidden = true;
 
-      doneSummary.textContent = payload.date + ' at ' + payload.time;
-      showStep('done');
+      if (!live){ sendLead(lead); finish(false, summary); return; }
 
-      const configured = SHEETS_ENDPOINT && SHEETS_ENDPOINT.indexOf('PASTE_') === -1;
-
-      if (configured) {
-        // Send to Google Sheet via Apps Script. Use a "simple request"
-        // (text/plain, no-cors) so the browser doesn't block it.
-        fetch(SHEETS_ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
-        }).catch(function () { /* ignore — opaque response */ });
-      } else {
-        // Fallback until the Sheets endpoint is configured: prefilled email.
-        const labels = {
-          date:'Booking date', time:'Booking time', name:'Name', phone:'Phone',
-          whatsapp:'WhatsApp', email:'Email', commitment:'Commitment',
-          revenue:'Monthly revenue', ads:'Running paid ads'
-        };
-        const subject = 'Discovery Call Booking — ' + payload.name;
-        const body = Object.keys(labels).map(k => labels[k] + ': ' + payload[k]).join('\n');
-        const a = document.createElement('a');
-        a.href = 'mailto:raymond@winmediastudios.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-        document.body.appendChild(a); a.click(); a.remove();
-      }
+      busy = true; bkSubmit.disabled = true; bkSubmit.firstChild.textContent = 'Booking… ';
+      const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 25000);
+      fetch(BOOKING_API, {
+        method: 'POST', signal: ctl.signal,
+        body: JSON.stringify({ action: 'call', date: keyOf(selectedDate), time: selectedTime,
+          name: lead.name, email: lead.email, phone: lead.phone, whatsapp: form.bkWhats.value.trim(),
+          revenue: lead.revenue, ads: lead.ads, commitment: lead.commitment })
+      }).then(r => r.json()).then(res => {
+        if (res && res.ok){ sendLead(lead); finish(true, summary); return; }
+        if (res && (res.code === 'SLOT_TAKEN' || res.code === 'TOO_SOON')){
+          selectedTime = null; avail = null; load(true); showStep('1');
+          selSummary.textContent = (res.message || 'That time has just been taken.') + ' Please pick another.';
+          return;
+        }
+        bkErr.innerHTML = (res && res.message ? res.message.replace(/[<>&]/g,'') : 'Something went wrong.') +
+          ' <a href="' + waLink('Hi WMS team, I\'d like to book a discovery call: ' + summary) + '" target="_blank" rel="noopener">WhatsApp us instead</a>';
+        bkErr.hidden = false;
+      }).catch(() => {
+        sendLead(lead); finish(false, summary);
+      }).finally(() => {
+        clearTimeout(timer); busy = false; bkSubmit.disabled = false; bkSubmit.firstChild.textContent = 'Confirm booking ';
+      });
     });
   })();
 
