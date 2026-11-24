@@ -525,7 +525,7 @@ function call_(p) {
     if (conflicts_(start, end, callBusy_(start, end))) fail_('SLOT_TAKEN', 'That time has just been taken. Please pick another.');
     const reach = r.whatsapp || r.phone;
     const label = fmtRange_(start, end);
-    const guests = [r.email].concat(CFG.CALL.GUESTS || []).join(',');
+    const guests = [r.email].concat(CFG.CALL.GUESTS || []);
     const details = [
       r.interest && 'Looking for: ' + r.interest,
       r.business && 'Business / Instagram: ' + r.business,
@@ -535,12 +535,17 @@ function call_(p) {
       r.ads && 'Running paid ads: ' + r.ads,
       r.commitment && 'Commitment: ' + r.commitment
     ].filter(Boolean).join('\n');
-    CalendarApp.getDefaultCalendar().createEvent('Discovery call · ' + r.name, new Date(start), new Date(end), {
+    // Created through the Calendar API, not CalendarApp: CalendarApp gets a Google Meet link
+    // added automatically when an event has guests, and these calls happen on WhatsApp.
+    Calendar.Events.insert({
+      summary: 'Discovery call · ' + r.name,
       description: 'Discovery call booked on winmediastudios.com\n\n' +
         'We call you on WhatsApp: ' + reach + '\n\n' + details,
       location: 'WhatsApp call to ' + reach,
-      guests: guests, sendInvites: true
-    });
+      start: { dateTime: new Date(start).toISOString(), timeZone: TZ },
+      end: { dateTime: new Date(end).toISOString(), timeZone: TZ },
+      attendees: guests.map(function (email) { return { email: email }; })
+    }, 'primary', { sendUpdates: 'all' });
     bumpAvail_();
     return { ok: true, label: label };
   } finally {
