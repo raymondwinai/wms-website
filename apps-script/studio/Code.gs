@@ -26,13 +26,17 @@ const CFG = {
   STUDIO_NAME: 'WMS Studio',
   ADDRESS: '47 Kallang Pudding Rd, #09-13, Crescent @ Kallang, Singapore 349318',
   MAPS_LINK: 'https://www.google.com/maps/dir/?api=1&destination=Win%20Media%20Studios%2C%2047%20Kallang%20Pudding%20Rd%2C%20Singapore%20349318',
-  WHATSAPP_DISPLAY: '+65 8939 7426',
-  WHATSAPP_LINK: 'https://wa.me/6589397426',
+  WHATSAPP_DISPLAY: '+65 8264 4989',
+  WHATSAPP_LINK: 'https://wa.me/6582644989',
   OWNER_EMAIL: '',                 // '' = the Google account that deploys this script
 
   SPREADSHEET_ID: '1shPEsOPtBZy5FVJLwhZoiKmw0neJ35D4ooxQalSxBlU',   // WMS Lead Tracker
   SHEET_NAME: 'Studio Bookings',
   CALENDAR_NAME: 'WMS Studio',
+  // Other calendars whose busy times also block bookings (free/busy only; event details are never read).
+  // Each must be shared with the account running this script, at least "See only free/busy".
+  BLOCK_CALENDARS: ['raymondwin98@gmail.com'],
+  BLOCK_BUFFER_MIN: 0,             // extra minutes kept clear around those busy times
 
   OPEN_HOUR: 9,                    // first possible start, 24h clock (SGT)
   CLOSE_HOUR: 21,                  // everything must end by this hour
@@ -52,9 +56,23 @@ const CFG = {
   TOUR_MIN_NOTICE_HOURS: 24,
 
   // PayNow details shown to clients. Fill ONE of UEN or MOBILE (mobile like '+6591234567').
-  PAYNOW: { UEN: '', MOBILE: '', NAME: 'Win Media Studios' },
+  PAYNOW: { UEN: '202415793M', MOBILE: '', NAME: 'Win Media Studios' },
 
-  SETS: ['The Library', 'The Lounge', 'The Den', 'Not sure yet']
+  SETS: ['The Library', 'The Lounge', 'The Den', 'Not sure yet'],
+
+  // Discovery calls booked from the home page (winmediastudios.com).
+  CALL: {
+    MINUTES: 30,
+    DAYS: [1, 2, 3, 4, 5, 6],                       // Mon–Sat (0 = Sunday)
+    STARTS: ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+    MIN_NOTICE_HOURS: 12,
+    MAX_DAYS_AHEAD: 30,
+    BUFFER_MIN: 15,                                  // kept clear around anything already in the calendars
+    // Busy times in these calendars hide call slots. '' = the account running this script.
+    BUSY_CALENDARS: ['', 'raymondwin98@gmail.com'],
+    // Also invited to every call, so it shows in that calendar too.
+    GUESTS: ['raymondwin98@gmail.com']
+  }
 };
 
 const TZ = 'Asia/Singapore';
@@ -184,6 +202,7 @@ function setLabel_(set) { return set === 'Not sure yet' ? 'Set to be chosen' : s
 function doGet(e) {
   const p = (e && e.parameter) || {};
   try {
+    if (p.action === 'availability' && p.type === 'call') return json_(callAvailability_());
     if (p.action === 'availability') return json_(availability_(p.type === 'tour' ? 'tour' : 'session', p.from, p.days));
     return json_(status_());
   } catch (err) {
@@ -198,6 +217,7 @@ function doPost(e) {
   try {
     if (p.action === 'hold') return json_(hold_(p));
     if (p.action === 'tour') return json_(tour_(p));
+    if (p.action === 'call') return json_(call_(p));
     if (p.action === 'verify') return json_(verify_(p));
     if (p.action === 'release') return json_(release_(p));
     return json_({ ok: false, code: 'INVALID', message: 'Unknown action.' });
@@ -271,8 +291,52 @@ function availability_(type, fromStr, days) {
 
 function busyBetween_(startMs, endMs) {
   const pad = CFG.TURNOVER_MIN * MIN;
-  return studioCal_().getEvents(new Date(startMs - pad), new Date(endMs + pad)).map(function (ev) {
+  const studio = studioCal_().getEvents(new Date(startMs - pad), new Date(endMs + pad)).map(function (ev) {
     return { s: ev.getStartTime().getTime(), e: ev.getEndTime().getTime(), pad: isTour_(ev.getTitle()) ? 0 : pad };
+  });
+  return studio.concat(blockedBusy_(startMs - pad, endMs + pad));
+}
+
+/* Busy times from CFG.BLOCK_CALENDARS via the Calendar free/busy API. Only start and end
+   times come back. Events marked "Free" (most all-day events) don't block anything.
+   If a calendar can't be read, bookings carry on and the problem is logged, so the site
+   never goes blank; run checkBlockCalendars() to see why. */
+function blockedBusy_(startMs, endMs) {
+  const ids = CFG.BLOCK_CALENDARS || [];
+  if (!ids.length) return [];
+  const buf = (CFG.BLOCK_BUFFER_MIN || 0) * MIN;
+  const res = freeBusy_(ids, startMs, endMs);
+  const out = [];
+  ids.forEach(function (id) {
+    const c = (res.calendars || {})[id] || {};
+    if (c.errors && c.errors.length) { console.error('Free/busy unavailable for ' + id + ': ' + JSON.stringify(c.errors)); return; }
+    (c.busy || []).forEach(function (b) { out.push({ s: Date.parse(b.start), e: Date.parse(b.end), pad: buf }); });
+  });
+  return out;
+}
+
+function freeBusy_(ids, startMs, endMs) {
+  try {
+    const r = UrlFetchApp.fetch('https://www.googleapis.com/calendar/v3/freeBusy', {
+      method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+      headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() },
+      payload: JSON.stringify({ timeMin: new Date(startMs).toISOString(), timeMax: new Date(endMs).toISOString(), timeZone: TZ,
+                                items: ids.map(function (id) { return { id: id }; }) })
+    });
+    if (r.getResponseCode() !== 200) { console.error('Free/busy HTTP ' + r.getResponseCode() + ': ' + r.getContentText().slice(0, 300)); return {}; }
+    return JSON.parse(r.getContentText());
+  } catch (err) { console.error('Free/busy failed: ' + err); return {}; }
+}
+
+/* Run from the editor to confirm each blocking calendar is readable for the next 14 days. */
+function checkBlockCalendars() {
+  const now = Date.now(), end = now + 14 * 24 * HOUR;
+  const res = freeBusy_(CFG.BLOCK_CALENDARS || [], now, end);
+  (CFG.BLOCK_CALENDARS || []).forEach(function (id) {
+    const c = (res.calendars || {})[id];
+    if (!c) Logger.log(id + ': no answer from Google');
+    else if (c.errors && c.errors.length) Logger.log(id + ': NOT READABLE ' + JSON.stringify(c.errors) + '. Share it with ' + Session.getEffectiveUser().getEmail() + ' ("See only free/busy" is enough).');
+    else Logger.log(id + ': OK, ' + (c.busy || []).length + ' busy block(s) in the next 14 days');
   });
 }
 
@@ -377,6 +441,99 @@ function tour_(p) {
     try { mailOwner_('New studio tour · ' + r.name + ' · ' + label,
       ['Ref: ' + ref, 'When: ' + label, 'Name: ' + r.name, 'Email: ' + r.email, 'Phone: ' + r.phone, r.notes ? 'Notes: ' + r.notes : '']); } catch (err) { console.error(err); }
     return { ok: true, ref: ref, label: label };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/* ---------- discovery calls (home page) ---------- */
+
+function callCalendars_() {
+  const me = Session.getEffectiveUser().getEmail();
+  return (CFG.CALL.BUSY_CALENDARS || []).map(function (id) { return id || me; });
+}
+
+/* Busy blocks from the call calendars, padded by the buffer. */
+function callBusy_(startMs, endMs) {
+  const ids = callCalendars_();
+  const pad = CFG.CALL.BUFFER_MIN * MIN;
+  const res = freeBusy_(ids, startMs - pad, endMs + pad);
+  const out = [];
+  ids.forEach(function (id) {
+    const c = (res.calendars || {})[id] || {};
+    if (c.errors && c.errors.length) { console.error('Call free/busy unavailable for ' + id + ': ' + JSON.stringify(c.errors)); return; }
+    (c.busy || []).forEach(function (b) { out.push({ s: Date.parse(b.start), e: Date.parse(b.end), pad: pad }); });
+  });
+  return out;
+}
+
+function callAvailability_() {
+  const now = Date.now();
+  const cache = CacheService.getScriptCache();
+  const key = 'callav:' + availVersion_() + ':' + Math.floor(now / (5 * MIN));
+  const hit = cache.get(key);
+  if (hit) return JSON.parse(hit);
+
+  const today = sgDayStr_(now);
+  const startMs = sgTime_(today, '00:00');
+  const endMs = sgTime_(addDays_(today, CFG.CALL.MAX_DAYS_AHEAD + 1), '00:00');
+  const busy = callBusy_(startMs, endMs);
+  const earliest = now + CFG.CALL.MIN_NOTICE_HOURS * HOUR;
+  const len = CFG.CALL.MINUTES * MIN;
+  const days = [];
+  for (let i = 0; i <= CFG.CALL.MAX_DAYS_AHEAD; i++) {
+    const d = addDays_(today, i);
+    const slots = [];
+    if (CFG.CALL.DAYS.indexOf(wdOf_(d)) >= 0) {
+      CFG.CALL.STARTS.forEach(function (t) {
+        const s = sgTime_(d, t);
+        if (s >= earliest && !conflicts_(s, s + len, busy)) slots.push({ t: t });
+      });
+    }
+    days.push({ d: d, slots: slots });
+  }
+  const res = { ok: true, type: 'call', minutes: CFG.CALL.MINUTES, days: days };
+  cache.put(key, JSON.stringify(res), 120);
+  return res;
+}
+
+function wdOf_(dayStr) { return new Date(dayStr + 'T00:00:00Z').getUTCDay(); }
+
+function call_(p) {
+  const now = Date.now();
+  const today = sgDayStr_(now);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(p.date || ''))) fail_('INVALID', 'Pick a date.');
+  if (CFG.CALL.STARTS.indexOf(String(p.time || '')) < 0) fail_('INVALID', 'Pick a time.');
+  if (CFG.CALL.DAYS.indexOf(wdOf_(p.date)) < 0) fail_('INVALID', 'We don\'t take calls on that day.');
+  if (p.date > addDays_(today, CFG.CALL.MAX_DAYS_AHEAD)) fail_('INVALID', 'That date is too far ahead.');
+  const start = sgTime_(p.date, p.time), end = start + CFG.CALL.MINUTES * MIN;
+  if (start < now + CFG.CALL.MIN_NOTICE_HOURS * HOUR) fail_('TOO_SOON', 'Calls need to be booked at least ' + CFG.CALL.MIN_NOTICE_HOURS + ' hours ahead.');
+
+  const r = {
+    name: clean_(p.name, 80), email: clean_(p.email, 120).toLowerCase(), phone: clean_(p.phone, 25),
+    whatsapp: clean_(p.whatsapp, 25), revenue: clean_(p.revenue, 60), ads: clean_(p.ads, 80), commitment: clean_(p.commitment, 80)
+  };
+  if (r.name.length < 2) fail_('INVALID', 'Add your name.');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.email)) fail_('INVALID', 'Add a valid email address.');
+  if (!/^\+?[\d\s()-]{6,20}$/.test(r.phone)) fail_('INVALID', 'Add a valid phone number.');
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(25000);
+  try {
+    if (conflicts_(start, end, callBusy_(start, end))) fail_('SLOT_TAKEN', 'That time has just been taken. Please pick another.');
+    const reach = r.whatsapp || r.phone;
+    const label = fmtRange_(start, end);
+    const guests = [r.email].concat(CFG.CALL.GUESTS || []).join(',');
+    CalendarApp.getDefaultCalendar().createEvent('Discovery call · ' + r.name, new Date(start), new Date(end), {
+      description: 'Discovery call booked on winmediastudios.com\n\n' +
+        'We call you on WhatsApp: ' + reach + '\n\n' +
+        'Name: ' + r.name + '\nEmail: ' + r.email + '\nPhone: ' + r.phone + (r.whatsapp ? '\nWhatsApp: ' + r.whatsapp : '') +
+        '\nMonthly revenue: ' + r.revenue + '\nRunning paid ads: ' + r.ads + '\nCommitment: ' + r.commitment,
+      location: 'WhatsApp call to ' + reach,
+      guests: guests, sendInvites: true
+    });
+    bumpAvail_();
+    return { ok: true, label: label };
   } finally {
     lock.releaseLock();
   }
