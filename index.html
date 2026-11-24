@@ -1108,12 +1108,16 @@
     }
 
     // Lead copy to the Lead Tracker sheet (and its WhatsApp alert), whatever happens with the calendar.
+    // Google Sheets treats text starting with = + - @ as a formula ("+65 9123 4567" shows #ERROR!),
+    // so those values get a leading apostrophe, which Sheets reads as "plain text" and doesn't display.
+    const sheetSafe = o => Object.fromEntries(Object.entries(o).map(([k, v]) =>
+      [k, (typeof v === 'string' && /^[=+\-@]/.test(v)) ? '\'' + v : v]));
     function sendLead(payload){
       if (!SHEETS_ENDPOINT || SHEETS_ENDPOINT.indexOf('PASTE_') !== -1) return;
       fetch(SHEETS_ENDPOINT, {
         method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(sheetSafe(payload))
       }).catch(function () {});
     }
     const waLink = text => 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text);
