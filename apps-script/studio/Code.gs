@@ -511,7 +511,9 @@ function call_(p) {
 
   const r = {
     name: clean_(p.name, 80), email: clean_(p.email, 120).toLowerCase(), phone: clean_(p.phone, 25),
-    whatsapp: clean_(p.whatsapp, 25), revenue: clean_(p.revenue, 60), ads: clean_(p.ads, 80), commitment: clean_(p.commitment, 80)
+    whatsapp: clean_(p.whatsapp, 25), interest: clean_(p.interest, 60), business: clean_(p.business, 120),
+    // answers from the older form (revenue, ads, pledge); empty from the current one
+    revenue: clean_(p.revenue, 60), ads: clean_(p.ads, 80), commitment: clean_(p.commitment, 80)
   };
   if (r.name.length < 2) fail_('INVALID', 'Add your name.');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.email)) fail_('INVALID', 'Add a valid email address.');
@@ -524,11 +526,18 @@ function call_(p) {
     const reach = r.whatsapp || r.phone;
     const label = fmtRange_(start, end);
     const guests = [r.email].concat(CFG.CALL.GUESTS || []).join(',');
+    const details = [
+      r.interest && 'Looking for: ' + r.interest,
+      r.business && 'Business / Instagram: ' + r.business,
+      'Name: ' + r.name, 'Email: ' + r.email, 'Phone: ' + r.phone,
+      r.whatsapp && 'WhatsApp: ' + r.whatsapp,
+      r.revenue && 'Monthly revenue: ' + r.revenue,
+      r.ads && 'Running paid ads: ' + r.ads,
+      r.commitment && 'Commitment: ' + r.commitment
+    ].filter(Boolean).join('\n');
     CalendarApp.getDefaultCalendar().createEvent('Discovery call · ' + r.name, new Date(start), new Date(end), {
       description: 'Discovery call booked on winmediastudios.com\n\n' +
-        'We call you on WhatsApp: ' + reach + '\n\n' +
-        'Name: ' + r.name + '\nEmail: ' + r.email + '\nPhone: ' + r.phone + (r.whatsapp ? '\nWhatsApp: ' + r.whatsapp : '') +
-        '\nMonthly revenue: ' + r.revenue + '\nRunning paid ads: ' + r.ads + '\nCommitment: ' + r.commitment,
+        'We call you on WhatsApp: ' + reach + '\n\n' + details,
       location: 'WhatsApp call to ' + reach,
       guests: guests, sendInvites: true
     });
