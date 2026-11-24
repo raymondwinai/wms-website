@@ -1166,7 +1166,12 @@
           name: lead.name, email: lead.email, phone: lead.phone, whatsapp: form.bkWhats.value.trim(),
           revenue: lead.revenue, ads: lead.ads, commitment: lead.commitment })
       }).then(r => r.json()).then(res => {
-        if (res && res.ok){ sendLead(lead); finish(true, summary); return; }
+        if (res && res.ok){
+          // The booking script has already created the event and sent the invites, so the
+          // Lead Tracker copy goes without a start time (with one, the old script adds a second event and invite).
+          const { startISO, durationMins, ...leadOnly } = lead;
+          sendLead(leadOnly); finish(true, summary); return;
+        }
         if (res && (res.code === 'SLOT_TAKEN' || res.code === 'TOO_SOON')){
           selectedTime = null; avail = null; load(true); showStep('1');
           selSummary.textContent = (res.message || 'That time has just been taken.') + ' Please pick another.';
