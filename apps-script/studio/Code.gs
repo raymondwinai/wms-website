@@ -46,7 +46,7 @@ const CFG = {
   TURNOVER_MIN: 60,                // studio reset between bookings
   MAX_HOURS: 4,
   FIRST_HOUR_SGD: 250,
-  EXTRA_HOUR_SGD: 200,
+  EXTRA_HOUR_SGD: 220,
 
   PAYNOW_HOLD_HOURS: 12,
   CARD_HOLD_MIN: 35,               // Stripe Checkout lasts 31 min; a little margin on top
