@@ -38,8 +38,9 @@ const CFG = {
   BLOCK_CALENDARS: ['raymondwin98@gmail.com'],
   BLOCK_BUFFER_MIN: 0,             // extra minutes kept clear around those busy times
 
-  OPEN_HOUR: 9,                    // first possible start, 24h clock (SGT)
-  CLOSE_HOUR: 21,                  // everything must end by this hour
+  // Opening hours by weekday (0 = Sunday), 24h clock, SGT: [open, close]. null = closed.
+  // Sessions and tours start and end inside these. Keep in sync with Google Business and studio.html.
+  HOURS: { 0: null, 1: [11, 20], 2: [11, 20], 3: [11, 20], 4: [11, 20], 5: [11, 20], 6: [11, 17] },
   MIN_NOTICE_HOURS: 24,            // earliest a session can be booked ahead
   MAX_DAYS_AHEAD: 60,
   TURNOVER_MIN: 60,                // studio reset between bookings
@@ -112,11 +113,18 @@ function conflicts_(s, e, busy) {
 }
 
 /* For one day: each on-the-hour start time and the longest session (1–MAX_HOURS) that fits. */
+function hoursFor_(dayStr) {
+  const h = CFG.HOURS[wdOf_(dayStr)];
+  return h ? { open: h[0], close: h[1] } : null;
+}
+
 function sessionSlotsForDay_(dayStr, busy, nowMs) {
-  const close = sgTime_(dayStr, pad2_(CFG.CLOSE_HOUR) + ':00');
+  const hrs = hoursFor_(dayStr);
+  if (!hrs) return [];
+  const close = sgTime_(dayStr, pad2_(hrs.close) + ':00');
   const earliest = nowMs + CFG.MIN_NOTICE_HOURS * HOUR;
   const out = [];
-  for (let h = CFG.OPEN_HOUR; h < CFG.CLOSE_HOUR; h++) {
+  for (let h = hrs.open; h < hrs.close; h++) {
     const s = sgTime_(dayStr, pad2_(h) + ':00');
     if (s < earliest) continue;
     let max = 0;
@@ -133,9 +141,11 @@ function sessionSlotsForDay_(dayStr, busy, nowMs) {
 /* Tours are 15 minutes, every 30 minutes, and only need the room to be free. */
 function tourSlotsForDay_(dayStr, busy, nowMs) {
   const earliest = nowMs + CFG.TOUR_MIN_NOTICE_HOURS * HOUR;
+  const hrs = hoursFor_(dayStr);
+  if (!hrs) return [];
   const noPad = busy.map(function (b) { return { s: b.s, e: b.e, pad: 0 }; });
   const out = [];
-  for (let m = CFG.OPEN_HOUR * 60; m + CFG.TOUR_MIN <= CFG.CLOSE_HOUR * 60; m += CFG.TOUR_STEP_MIN) {
+  for (let m = hrs.open * 60; m + CFG.TOUR_MIN <= hrs.close * 60; m += CFG.TOUR_STEP_MIN) {
     const s = sgTime_(dayStr, minsToHhmm_(m));
     if (s < earliest) continue;
     if (!conflicts_(s, s + CFG.TOUR_MIN * MIN, noPad)) out.push({ t: minsToHhmm_(m) });
@@ -162,9 +172,11 @@ function validateRequest_(p, type, nowMs) {
 
   const mins = Number(p.time.slice(0, 2)) * 60 + Number(p.time.slice(3, 5));
   out.start = sgTime_(p.date, p.time);
+  const hrs = hoursFor_(p.date);
+  if (!hrs) fail_('INVALID', 'The studio is closed that day.');
 
   if (type === 'tour') {
-    if (mins < CFG.OPEN_HOUR * 60 || mins + CFG.TOUR_MIN > CFG.CLOSE_HOUR * 60 || mins % CFG.TOUR_STEP_MIN) fail_('INVALID', 'That tour time is outside studio hours.');
+    if (mins < hrs.open * 60 || mins + CFG.TOUR_MIN > hrs.close * 60 || mins % CFG.TOUR_STEP_MIN) fail_('INVALID', 'That tour time is outside studio hours.');
     if (out.start < nowMs + CFG.TOUR_MIN_NOTICE_HOURS * HOUR) fail_('TOO_SOON', 'Tours need to be booked at least ' + CFG.TOUR_MIN_NOTICE_HOURS + ' hours ahead.');
     out.end = out.start + CFG.TOUR_MIN * MIN;
     return out;
@@ -173,7 +185,7 @@ function validateRequest_(p, type, nowMs) {
   out.hours = Number(p.hours);
   if (!(out.hours >= 1 && out.hours <= CFG.MAX_HOURS && Math.floor(out.hours) === out.hours)) fail_('INVALID', 'Pick a session length.');
   out.set = CFG.SETS.indexOf(p.set) >= 0 ? p.set : 'Not sure yet';
-  if (mins % 60 || mins < CFG.OPEN_HOUR * 60 || mins + out.hours * 60 > CFG.CLOSE_HOUR * 60) fail_('INVALID', 'That time is outside studio hours.');
+  if (mins % 60 || mins < hrs.open * 60 || mins + out.hours * 60 > hrs.close * 60) fail_('INVALID', 'That time is outside studio hours.');
   if (out.start < nowMs + CFG.MIN_NOTICE_HOURS * HOUR) fail_('TOO_SOON', 'Sessions need to be booked at least ' + CFG.MIN_NOTICE_HOURS + ' hours ahead.');
   if (p.payment !== 'paynow' && p.payment !== 'card') fail_('INVALID', 'Choose how you would like to pay.');
   if (p.agree !== true) fail_('INVALID', 'Please agree to the booking terms.');

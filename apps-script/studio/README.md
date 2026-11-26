@@ -62,6 +62,6 @@ covers roughly 30 bookings a day.
 
 ## Rules it enforces
 
-Bookable 9am–9pm, 7 days, from 24 hours to 60 days ahead. Sessions of 1–4 hours start on the hour,
+Bookable Monday to Friday 11am–8pm and Saturday 11am–5pm (closed Sundays; set in `CFG.HOURS`), from 24 hours to 60 days ahead. Sessions of 1–4 hours start on the hour,
 with a 1-hour reset between bookings. Prices are always calculated on the server. Unpaid PayNow holds
 last 12 hours; card checkouts 35 minutes. One person can hold at most 2 unpaid slots at a time.
