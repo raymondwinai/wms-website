@@ -71,8 +71,8 @@ const CFG = {
     BUFFER_MIN: 15,                                  // kept clear around anything already in the calendars
     // Busy times in these calendars hide call slots. '' = the account running this script.
     BUSY_CALENDARS: ['', 'raymondwin98@gmail.com'],
-    // Also invited to every call, so it shows in that calendar too.
-    GUESTS: ['raymondwin98@gmail.com']
+    // Also invited to every call, so it shows in their calendars too.
+    GUESTS: ['raymondwin98@gmail.com', 'reina@winmediastudios.com']
   }
 };
 
